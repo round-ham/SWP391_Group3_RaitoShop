@@ -1,0 +1,42 @@
+public class EmailHandler {
+
+    public static void sendEMail(String toEmail, String subject, String text) {
+        try {
+            String fromEmail = (String) new InitialContext().lookup("java:comp/env/email");
+            String password = (String) new InitialContext().lookup("java:comp/env/password");
+            Properties prop = System.getProperties();
+            prop.put("mail.smtp.host", "smtp.gmail.com");
+            prop.put("mail.smtp.port", "587");
+            prop.put("mail.smtp.auth", "true");
+            prop.put("mail.smtp.starttls.enable", "true");
+            Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(fromEmail, password);
+                }
+            });
+            try {
+//            transport = session.getTransport("smtp");
+//            transport.connect();
+                Message mess = new MimeMessage(session);
+                mess.setFrom(new InternetAddress(fromEmail));
+                mess.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+                mess.setSubject(subject);
+                mess.setText(text);
+                mess.setContent(text, "text/html;charset=UTF-8");
+                Transport.send(mess);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        } catch (NamingException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static String generateCodeVerify() {
+        Random rd = new Random();
+        int codeVerify = rd.nextInt(899999) + 100000;
+    
+        return  String.valueOf(codeVerify);
+    }
+}
