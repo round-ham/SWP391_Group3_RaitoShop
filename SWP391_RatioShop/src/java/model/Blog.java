@@ -24,6 +24,7 @@ import java.util.logging.Logger;
  * @author Duc Hung Computer
  */
 public class Blog extends DBContext {
+
     private int blogID;
     private String title;
     private String blogContent;
@@ -45,6 +46,11 @@ public class Blog extends DBContext {
         this.lastUpdate = lastUpdate;
         this.employeeID = employeeID;
         connect();
+    }
+
+    public Blog(int blogId, String title) {
+        this.blogID = blogID;
+        this.title = title;
     }
 
     public int getBlogID() {
@@ -103,11 +109,6 @@ public class Blog extends DBContext {
         this.title = title;
     }
 
-
- 
-    
-
-    
     Connection cnn; // ket noi database
 
     private void connect() {
@@ -119,6 +120,4 @@ public class Blog extends DBContext {
         }
     }
 
-    
-    
 }

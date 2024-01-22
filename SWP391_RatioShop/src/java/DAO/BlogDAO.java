@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+
 import dal.DBContext;
 import static java.lang.System.out;
 import java.sql.Connection;
@@ -15,14 +16,17 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Blog;
+
 /**
  *
  * @author Duc Hung Computer
  */
 public class BlogDAO extends DBContext {
+
     public ArrayList<Blog> getListBlog() {
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -48,6 +52,57 @@ public class BlogDAO extends DBContext {
         }
         return data;
     }
-    
-    
+
+    public Blog getBlogByID(int id) {
+        Blog b = new Blog();
+        try {
+            String strSQL = "SELECT [blogId]\n"
+                    + "      ,[title]\n"
+                    + "      ,[blogContent]\n"
+                    + "      ,[blogImage]\n"
+                    + "      ,[createDate]\n"
+                    + "      ,[lastUpdate]\n"
+                    + "      ,[employeeId]\n"
+                    + "  FROM [dbo].[Blogs]\n"
+                    + "  where [blogId] =?";
+            PreparedStatement stm = connection.prepareStatement(strSQL);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                b.setTitle(rs.getNString("title"));
+                b.setBlogContent(rs.getNString("blogContent"));
+                b.setBlogImage(rs.getString("blogImage"));
+                b.setCreateDate(rs.getDate("createDate"));
+                b.setLastUpdate(rs.getDate("lastUpdate"));
+                b.setEmployeeID(rs.getInt("employeeId"));
+            }
+        } catch (SQLException e) {
+            System.out.println("getBlogByID:" + e.getMessage());
+        }
+        return b;
+    }
+
+    public ArrayList<Blog> getTwoNearestBlog(int id) {
+        ArrayList<Blog> blogDataList = new ArrayList<>();
+        try {
+            String strSQL = "SELECT TOP 2 blogId, title\n"
+                    + "FROM Blogs\n"
+                    + "Where blogId <> ?\n"
+                    + "ORDER BY ABS(blogId - ?)";
+            PreparedStatement stm = connection.prepareStatement(strSQL);
+            stm.setInt(1, id);
+            stm.setInt(2, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                int blogId = rs.getInt("blogId");
+                String title = rs.getNString("title");
+                Blog b = new Blog(blogId, title);
+                blogDataList.add(b);
+            }
+        } catch (SQLException e) {
+            System.out.println("getTwoNearestBlog:" + e.getMessage());
+        }
+        return blogDataList;
+    }
+
 }
