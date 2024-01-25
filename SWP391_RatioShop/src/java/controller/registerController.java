@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Accounts;
+import model.Customers;
 import model.EmailHandler;
 import util.encodePassword;
 import jakarta.servlet.http.HttpServlet;

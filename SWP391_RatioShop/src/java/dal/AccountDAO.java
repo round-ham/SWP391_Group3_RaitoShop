@@ -128,7 +128,7 @@ public class AccountDAO extends DBContext {
 
         String sql = "select * from Accounts where [email] = ?";
         try {
-            connection = new DBContext().getConnection();
+            connection = new DBContext().getConnection;
             stm = connection.prepareStatement(sql);
             stm.setString(1, email);
             rs = stm.executeQuery();

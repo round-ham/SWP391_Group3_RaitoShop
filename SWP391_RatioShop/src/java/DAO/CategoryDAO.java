@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dal;
+package DAO;
 
-import Model.Blog;
-import Model.Category;
+import dal.DBContext;
+import model.Blog;
+import model.Category;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -54,12 +55,12 @@ public class CategoryDAO extends DBContext {
         }
         return list;
     }
-    
-    public static void main(String[] args) {
-        BlogDAO bDAO = new BlogDAO();
-        List<Blog> list = bDAO.getBlogs();
-        for (Blog i : list) {
-            System.out.println(i.getBlogId() + " " + i.getBlogImage());
-        }
-    }
+//    
+//    public static void main(String[] args) {
+//        BlogDAO bDAO = new BlogDAO();
+//        List<Blog> list = bDAO.getBlogs();
+//        for (Blog i : list) {
+//            System.out.println(i.getBlogId() + " " + i.getBlogImage());
+//        }
+//    }
 }

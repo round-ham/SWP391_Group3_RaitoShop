@@ -4,12 +4,12 @@
  */
 package Controller;
 
-import Model.Brand;
-import Model.Category;
-import Model.Product;
-import dal.BrandDAO;
-import dal.CategoryDAO;
-import dal.ProductDAO;
+import model.Brand;
+import model.Category;
+import model.Product;
+import DAO.BrandDAO;
+import DAO.CategoryDAO;
+import DAO.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
