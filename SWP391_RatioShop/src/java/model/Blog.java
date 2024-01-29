@@ -4,7 +4,7 @@
  */
 package model;
 
-import dal.DBContext;
+import dbcontext.DBContext;
 import java.sql.Connection;
 import java.sql.Date;
 

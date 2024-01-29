@@ -5,7 +5,7 @@
 package DAO;
 
 import model.Brand;
-import dal.DBContext;
+import dbcontext.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

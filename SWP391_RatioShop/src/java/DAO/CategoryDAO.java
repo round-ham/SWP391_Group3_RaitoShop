@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import dal.DBContext;
+import dbcontext.DBContext;
 import model.Blog;
 import model.Category;
 import java.sql.PreparedStatement;

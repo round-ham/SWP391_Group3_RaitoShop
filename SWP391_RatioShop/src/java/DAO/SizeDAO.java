@@ -7,7 +7,7 @@ package DAO;
 import model.Size;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import dal.DBContext;
+import dbcontext.DBContext;
 
 /**
  *

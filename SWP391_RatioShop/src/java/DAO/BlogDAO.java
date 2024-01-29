@@ -5,7 +5,7 @@
 package DAO;
 
 import model.Blog;
-import dal.DBContext;
+import dbcontext.DBContext;
 import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.Date;
