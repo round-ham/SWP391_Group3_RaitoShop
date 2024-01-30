@@ -17,7 +17,7 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Male-Fashion | Template</title>
+    <title>Raito Shop</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
@@ -103,7 +103,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.html"><img style="max-height:60%;max-width:70%  " src="img/logo-raitoshop.jfif" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -120,7 +120,7 @@
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
                             </li>
-                            <li class="active"><a href="/blog">Blog</a></li>
+                            <li class="active"><a href="blog">Blog</a></li>
                             <li><a href="./contact.html">Contacts</a></li>
                         </ul>
                     </nav>
@@ -147,7 +147,7 @@
                     <div class="blog__hero__text">
                         <h2>${b.getTitle()}</h2>
                         <ul>
-                            <li>By Deercreative</li>
+                            <li>By ${b.getEmployees().getEmployeeName()}</li>
                             <li>${b.getLastUpdate()}</li>
                         </ul>
                     </div>
@@ -206,18 +206,18 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <a href="blogdetail?id=${blogData1.blogId}" class="blog__details__btns__item">
                                         <p><span class="arrow_left"></span> Previous Pod</p>
-                                        <h5>${title1}</h5>
+                                        <h5>${blogData1.title}</h5>
                                     </a>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <a href="blogdetail?id=${blogData2.blogId}" class="blog__details__btns__item blog__details__btns__item--next">
                                         <p>Next Pod <span class="arrow_right"></span></p>
-                                        <h5>${title2}</h5>
+                                        <h5>${blogData2.title}</h5>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="blog__details__comment">
+<!--                        <div class="blog__details__comment">
                             <h4>Leave A Comment</h4>
                             <form action="#">
                                 <div class="row">
@@ -236,7 +236,7 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@
  */
 package dal;
 
-import Model.Blog;
+import model.Blog;
 import Model.Category;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,11 +55,11 @@ public class CategoryDAO extends DBContext {
         return list;
     }
     
-    public static void main(String[] args) {
-        BlogDAO bDAO = new BlogDAO();
-        List<Blog> list = bDAO.getBlogs();
-        for (Blog i : list) {
-            System.out.println(i.getBlogId() + " " + i.getBlogImage());
-        }
-    }
+//    public static void main(String[] args) {
+//        BlogDAO bDAO = new BlogDAO();
+//        List<Blog> list = bDAO.getBlogs();
+//        for (Blog i : list) {
+//            System.out.println(i.getBlogId() + " " + i.getBlogImage());
+//        }
+//    }
 }

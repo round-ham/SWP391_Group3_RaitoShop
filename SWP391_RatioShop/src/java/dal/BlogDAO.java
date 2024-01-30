@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package dal;
 
-import dal.DBContext;
 import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.Date;
@@ -20,6 +19,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Blog;
+import model.Blog.BlogData;
+import model.Employees;
 
 /**
  *
@@ -32,7 +33,7 @@ public class BlogDAO extends DBContext {
         ResultSet rs = null;
         ArrayList<Blog> data = new ArrayList<Blog>();
         try {
-            String strSQL = "select top 10 * from Blogs ";
+            String strSQL = "select top 10 * from Blogs order by lastUpdate desc ";
             stm = connection.prepareStatement(strSQL);
             rs = stm.executeQuery();
             while (rs.next()) //vao duoc day tuc la rs.next tra ve true
@@ -53,18 +54,13 @@ public class BlogDAO extends DBContext {
         return data;
     }
 
-    public Blog getBlogByID(int id) {
+    public Blog getBlogDetailByID(int id) {
         Blog b = new Blog();
         try {
-            String strSQL = "SELECT [blogId]\n"
-                    + "      ,[title]\n"
-                    + "      ,[blogContent]\n"
-                    + "      ,[blogImage]\n"
-                    + "      ,[createDate]\n"
-                    + "      ,[lastUpdate]\n"
-                    + "      ,[employeeId]\n"
-                    + "  FROM [dbo].[Blogs]\n"
-                    + "  where [blogId] =?";
+            String strSQL = "SELECT b.*,e.employeeName\n"
+                    + "  FROM Blogs b ,Employees e \n"
+                    + "  where b.employeeId = e.employeeId\n"
+                    + "AND b.blogId = ?";
             PreparedStatement stm = connection.prepareStatement(strSQL);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
@@ -74,21 +70,23 @@ public class BlogDAO extends DBContext {
                 b.setBlogImage(rs.getString("blogImage"));
                 b.setCreateDate(rs.getDate("createDate"));
                 b.setLastUpdate(rs.getDate("lastUpdate"));
-                b.setEmployeeID(rs.getInt("employeeId"));
+                Employees e = new Employees();
+               e.setEmployeeName(rs.getString("employeeName"));
+               b.setEmployee(e);
             }
         } catch (SQLException e) {
-            System.out.println("getBlogByID:" + e.getMessage());
+            System.out.println("getBlogDetailByID:" + e.getMessage());
         }
         return b;
     }
 
-    public ArrayList<Blog> getTwoNearestBlog(int id) {
-        ArrayList<Blog> blogDataList = new ArrayList<>();
+    public List<BlogData> getTwoDifferentTitlesAndIds(int id) {
+        List<BlogData> blogDataList = new ArrayList<>();
         try {
             String strSQL = "SELECT TOP 2 blogId, title\n"
                     + "FROM Blogs\n"
-                    + "Where blogId <> ?\n"
-                    + "ORDER BY ABS(blogId - ?)";
+                    + "WHERE blogId <> ?\n"
+                    + "ORDER BY ABS(blogId - ?);";
             PreparedStatement stm = connection.prepareStatement(strSQL);
             stm.setInt(1, id);
             stm.setInt(2, id);
@@ -96,11 +94,12 @@ public class BlogDAO extends DBContext {
             while (rs.next()) {
                 int blogId = rs.getInt("blogId");
                 String title = rs.getNString("title");
-                Blog b = new Blog(blogId, title);
-                blogDataList.add(b);
+                Blog blog = new Blog(); // hoặc sử dụng đối tượng Blog từ nguồn khác
+                BlogData blogData = blog.new BlogData(blogId, title);
+                blogDataList.add(blogData);
             }
         } catch (SQLException e) {
-            System.out.println("getTwoNearestBlog:" + e.getMessage());
+            e.printStackTrace(); // Xử lý ngoại lệ theo nhu cầu của bạn
         }
         return blogDataList;
     }

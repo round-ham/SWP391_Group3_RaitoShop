@@ -4,7 +4,7 @@
  */
 package dal;
 
-import Model.Blog;
+import model.Blog;
 import Model.Employee;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

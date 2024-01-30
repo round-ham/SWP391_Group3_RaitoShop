@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Duc%20Hung%20Computer/Desktop/SWP391_Group3_RaitoShop/SWP391_RatioShop/src/java/DAO/BlogDAO.java</file>
             <file>file:/C:/Users/Duc%20Hung%20Computer/Desktop/SWP391_Group3_RaitoShop/SWP391_RatioShop/src/java/model/Blog.java</file>
-            <file>file:/C:/Users/Duc%20Hung%20Computer/Desktop/SWP391_Group3_RaitoShop/SWP391_RatioShop/src/java/controller/BlogController.java</file>
+            <file>file:/C:/Users/Duc%20Hung%20Computer/Desktop/SWP391_Group3_RaitoShop/SWP391_RatioShop/web/homepage.jsp</file>
             <file>file:/C:/Users/Duc%20Hung%20Computer/Desktop/SWP391_Group3_RaitoShop/SWP391_RatioShop/src/java/controller/BlogDetailController.java</file>
+            <file>file:/C:/Users/Duc%20Hung%20Computer/Desktop/SWP391_Group3_RaitoShop/SWP391_RatioShop/src/java/dal/BlogDAO.java</file>
+            <file>file:/C:/Users/Duc%20Hung%20Computer/Desktop/SWP391_Group3_RaitoShop/SWP391_RatioShop/src/java/model/EmailHandler.java</file>
+            <file>file:/C:/Users/Duc%20Hung%20Computer/Desktop/SWP391_Group3_RaitoShop/SWP391_RatioShop/src/java/model/Employees.java</file>
+            <file>file:/C:/Users/Duc%20Hung%20Computer/Desktop/SWP391_Group3_RaitoShop/SWP391_RatioShop/web/views/blogDetail.jsp</file>
+            <file>file:/C:/Users/Duc%20Hung%20Computer/Desktop/SWP391_Group3_RaitoShop/SWP391_RatioShop/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>

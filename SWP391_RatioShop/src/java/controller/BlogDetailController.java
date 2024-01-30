@@ -4,7 +4,7 @@
  */
 package controller;
 
-import DAO.BlogDAO;
+import dal.BlogDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -63,9 +63,14 @@ public class BlogDetailController extends HttpServlet {
     String idString = request.getParameter("id");
     int id = Integer.parseInt(idString);
     
-    Blog blog = blogDAO.getBlogByID(id);
+    Blog blog = blogDAO.getBlogDetailByID(id);
 
-    List<Blog> blogDataList = blogDAO.getTwoNearestBlog(id);
+    List<Blog.BlogData> blogDataList = blogDAO.getTwoDifferentTitlesAndIds(id);
+    
+       if (blogDataList.size() == 2) {
+        request.setAttribute("blogData1", blogDataList.get(0));
+        request.setAttribute("blogData2", blogDataList.get(1));
+    }
 
     
     request.setAttribute("b", blog);

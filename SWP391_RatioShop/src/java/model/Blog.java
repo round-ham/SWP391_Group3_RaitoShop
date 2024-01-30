@@ -32,6 +32,44 @@ public class Blog extends DBContext {
     private Date createDate;
     private Date lastUpdate;
     private int employeeID;
+    private Employees employees;
+
+    public Employees getEmployees() {
+        return employees;
+    }
+
+
+    public void setEmployee(Employees employees) {
+        this.employees = employees;
+    }
+    
+    public class BlogData {
+        private int blogId;
+        private String title;
+
+        public BlogData(int blogId, String title) {
+            this.blogId = blogId;
+            this.title = title;
+        }
+
+        // Các phương thức getter và setter nếu cần
+
+        public int getBlogId() {
+            return blogId;
+        }
+
+        public void setBlogId(int blogId) {
+            this.blogId = blogId;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+    }
 
     public Blog() {
         connect();
@@ -48,10 +86,7 @@ public class Blog extends DBContext {
         connect();
     }
 
-    public Blog(int blogId, String title) {
-        this.blogID = blogID;
-        this.title = title;
-    }
+
 
     public int getBlogID() {
         return blogID;

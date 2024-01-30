@@ -11,7 +11,7 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Male-Fashion | Template</title>
+    <title>Raito Shop</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
@@ -97,7 +97,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.html"><img style="max-height:60%;max-width:70%  " src="img/logo-raitoshop.jfif" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -114,7 +114,7 @@
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
                             </li>
-                            <li class="active"><a href="./blog.html">Blog</a></li>
+                            <li class="active"><a href="blog">Blog</a></li>
                             <li><a href="./contact.html">Contacts</a></li>
                         </ul>
                     </nav>
@@ -156,7 +156,7 @@
                         <div class="blog__item__text">
                             <span><img src="img/icon/calendar.png" alt=""> ${b.getLastUpdate()}</span>
                             <h5>${b.getTitle()}</h5>
-                            <a href="blogDetail?id=${b.getBlogID()}">Read More</a>
+                            <a href="blogdetail?id=${b.getBlogID()}">Read More</a>
                         </div>
                     </div>
                 </div>
