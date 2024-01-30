@@ -14,7 +14,7 @@
         <title>Register</title>
     </head>
     <body>
-        
+
         <section class="vh-100 bg-image" style="background-color: #ffffff;">
             <div class="mask d-flex align-items-center h-100 gradient-custom-3">
                 <div class="container h-100">
@@ -24,25 +24,32 @@
                                 <div class="card-body p-5">
                                     <h2 class="text-uppercase text-center mb-5">Create an account</h2>
                                     <form action="register" method="post" onsubmit="return validateForm()">
-                                        <div id="errorMessage" style="color: red;"></div>
+                                        <div id="errorMessage" style="color: red;">${msg}</div>
+
+                                        
+                                        <c:if test="${param.success ne null}">
+                                            <p class="text-center text-muted mt-5 mb-0">Register success <a href="login"
+                                                                                                        ><u>Login here</u></a></p>
+                                        </c:if>
+
                                         <div class="form-outline mb-4">
                                             <small class="form-text" style="color: red;">* Required</small>
                                             <input name="email"  type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                             <small class="form-text" style="color: red;">* Required</small>
+                                            <small class="form-text" style="color: red;">* Required</small>
                                             <input name="password"  type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                             <small class="form-text" style="color: red;">* Required</small>
+                                            <small class="form-text" style="color: red;">* Required</small>
                                             <input name="repassword"  type="password" id="inputPassword" class="form-control" placeholder="Repeat Password" required="">
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                             <small class="form-text" style="color: red;">* Required</small>
-                                            <input name="username"  type="text" id="inputPassword" class="form-control" placeholder="Username" required="">
+                                            <small class="form-text" style="color: red;">* Required</small>
+                                            <input name="fullName"  type="text" id="inputPassword" class="form-control" placeholder="Your Name" required="">
                                         </div>
 
                                         <div class="form-outline mb-4">
@@ -51,7 +58,7 @@
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                            <input name="phonenumber"  type="number" id="inputPassword" class="form-control" placeholder="PhoneNumber" >
+                                            <input name="phonenumber"  type="number" id="inputPassword" class="form-control" placeholder="Phone Number" >
                                         </div>
 
                                         <div class="form-outline mb-4">
@@ -63,7 +70,7 @@
                                                     class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                                         </div>
 
-                                        <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="login.jsp"
+                                        <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="login"
                                                                                                                 ><u>Login here</u></a></p>
 
                                     </form>
@@ -91,34 +98,34 @@
 
                 var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
                 if (!email.value.match(emailPattern)) {
-                    document.getElementById("errorMessage").innerHTML = "Vui lòng nhập đúng định dạng email";
+                    document.getElementById("errorMessage").innerHTML = "Please enter the right email format";
                     return false;
                 }
 
                 if (password.value == "" || password.value.trim().length == 0) {
-                    document.getElementById("errorMessage").innerHTML = "Mật khẩu không được để trống";
+                    document.getElementById("errorMessage").innerHTML = "Password can not be left blanked";
                     password.value = "";
                     repassword.value = "";
                     return false;
                 }
 
                 if (password.value.length < 6) {
-                    document.getElementById("errorMessage").innerHTML = "Mật khẩu phải có ít nhất 6 ký tự";
+                    document.getElementById("errorMessage").innerHTML = "Password needs to have atleast 6 digits";
                     return false;
                 }
 
                 if (password.value != repassword.value) {
-                    document.getElementById("errorMessage").innerHTML = "Mật khẩu và mật khẩu lặp lại phải giống nhau";
+                    document.getElementById("errorMessage").innerHTML = "Password and repeat password must be identical";
                     return false;
                 }
 
                 if (phonenumber.value.length != 10 && phonenumber.value.length > 0) {
-                    document.getElementById("errorMessage").innerHTML = "Số điện thoại phải có 10 số";
+                    document.getElementById("errorMessage").innerHTML = "Phone nummber needs to have atleast 10 digits";
                     return false;
                 }
-                
+
                 if ((address.value == "" && address.value.length != 0) || (address.value.trim().length == 0 && address.value.length != 0)) {
-                    document.getElementById("errorMessage").innerHTML = "Vui lòng điền đúng địa chỉ";
+                    document.getElementById("errorMessage").innerHTML = "Address can not be left blanked";
                     return false;
                 }
             }

@@ -48,7 +48,11 @@
 
                                 <hr class="my-4">
 
+<<<<<<< HEAD
                                 <p>Don't have an account? <a href="register.jsp" class="link-info">Register here</a></p>
+=======
+                                <p>Don't have an account? <a href="register" class="link-info">Register here</a></p>
+>>>>>>> 6ac18416a1b70e151d23b56ac44408157d299f8a
                             </div>
                         </div>
                     </div>

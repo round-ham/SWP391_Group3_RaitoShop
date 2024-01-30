@@ -4,6 +4,11 @@
  */
 package dal;
 
+<<<<<<< HEAD:SWP391_RatioShop/src/java/dal/BlogDAO.java
+=======
+import model.Blog;
+import dbcontext.DBContext;
+>>>>>>> 6ac18416a1b70e151d23b56ac44408157d299f8a:SWP391_RatioShop/src/java/DAO/BlogDAO.java
 import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.Date;
@@ -18,9 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+<<<<<<< HEAD:SWP391_RatioShop/src/java/dal/BlogDAO.java
 import model.Blog;
 import model.Blog.BlogData;
 import model.Employees;
+=======
+>>>>>>> 6ac18416a1b70e151d23b56ac44408157d299f8a:SWP391_RatioShop/src/java/DAO/BlogDAO.java
 
 /**
  *

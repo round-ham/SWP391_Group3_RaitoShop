@@ -48,7 +48,7 @@
 
                                 <hr class="my-4">
 
-                                <p>Don't have an account? <a href="register.jsp" class="link-info">Register here</a></p>
+                                <p>Don't have an account? <a href="register" class="link-info">Register here</a></p>
                             </div>
                         </div>
                     </div>

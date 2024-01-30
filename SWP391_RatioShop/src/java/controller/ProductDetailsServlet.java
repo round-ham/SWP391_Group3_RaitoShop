@@ -4,10 +4,10 @@
  */
 package Controller;
 
-import Model.Product;
-import Model.ProductSize;
-import dal.ProductDAO;
-import dal.ProductSizeDAO;
+import model.Product;
+import model.ProductSize;
+import DAO.ProductDAO;
+import DAO.ProductSizeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

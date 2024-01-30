@@ -4,12 +4,12 @@
  */
 package Controller;
 
-import Model.Blog;
-import Model.Category;
-import Model.Product;
-import dal.BlogDAO;
-import dal.CategoryDAO;
-import dal.ProductDAO;
+import model.Blog;
+import model.Category;
+import model.Product;
+import DAO.BlogDAO;
+import DAO.CategoryDAO;
+import DAO.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -47,13 +47,13 @@ public class HomepageServlet extends HttpServlet {
         BlogDAO bDAO = new BlogDAO();
 
         List<Category> listC = cDAO.getCategories();
-        List<Blog> listB = bDAO.getBlogs();
+//        List<Blog> listB = bDAO.getBlogs();
         List<Product> listP1 = pDAO.getPopularProducts();
         List<Product> listP2 = pDAO.getProducts();
         List<Product> listP3 = pDAO.getSaleProducts();
 
         request.setAttribute("listC", listC);
-        request.setAttribute("listB", listB);
+//        request.setAttribute("listB", listB);
         request.setAttribute("listP1", listP1); //popular
         request.setAttribute("listP2", listP2); //new 
         request.setAttribute("listP3", listP3); //hot sale

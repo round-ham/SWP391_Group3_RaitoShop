@@ -2,10 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dal;
+package DAO;
 
+<<<<<<< HEAD:SWP391_RatioShop/src/java/dal/CategoryDAO.java
 import model.Blog;
 import Model.Category;
+=======
+import dbcontext.DBContext;
+import model.Blog;
+import model.Category;
+>>>>>>> 6ac18416a1b70e151d23b56ac44408157d299f8a:SWP391_RatioShop/src/java/DAO/CategoryDAO.java
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -54,7 +60,11 @@ public class CategoryDAO extends DBContext {
         }
         return list;
     }
+<<<<<<< HEAD:SWP391_RatioShop/src/java/dal/CategoryDAO.java
     
+=======
+//    
+>>>>>>> 6ac18416a1b70e151d23b56ac44408157d299f8a:SWP391_RatioShop/src/java/DAO/CategoryDAO.java
 //    public static void main(String[] args) {
 //        BlogDAO bDAO = new BlogDAO();
 //        List<Blog> list = bDAO.getBlogs();

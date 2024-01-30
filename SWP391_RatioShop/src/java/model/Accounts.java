@@ -11,40 +11,34 @@ import java.sql.Date;
  * @author Owwl
  */
 public class Accounts {
+    
     private int accountId;
-    private int role;
-    private String username;
+    private String fullName;
     private String email;
     private String password;
+    private Boolean gender;
+    private String address;
+    private String phone;
     private String userImage;
     private Date lastLogin;
     private Date createDate;
-    private int status;
-    private int customerId;
-    private int employeeId;
-    
-    public Accounts(){
+    private Integer status;
+
+    public Accounts() {
     }
 
-    public Accounts(int accountId, int role, String username, String email, String password, String userImage, Date lastLogin, Date createDate, int status, int customerId, int employeeId) {
+    public Accounts(int accountId, String fullName, String email, String password, Boolean gender, String address, String phone, String userImage, Date lastLogin, Date createDate, Integer status) {
         this.accountId = accountId;
-        this.role = role;
-        this.username = username;
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
         this.userImage = userImage;
         this.lastLogin = lastLogin;
         this.createDate = createDate;
         this.status = status;
-        this.customerId = customerId;
-        this.employeeId = employeeId;
-    }
-
-    public Accounts(String email, String password, String username) {
-        this.email = email;
-        this.password = password;
-        this.username = username;
-        
     }
 
     public int getAccountId() {
@@ -53,6 +47,14 @@ public class Accounts {
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -71,20 +73,28 @@ public class Accounts {
         this.password = password;
     }
 
-    public int getRole() {
-        return role;
+    public Boolean getGender() {
+        return gender;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setGender(Boolean gender) {
+        this.gender = gender;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAddress() {
+        return address;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getUserImage() {
@@ -111,34 +121,14 @@ public class Accounts {
         this.createDate = createDate;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    @Override
-    public String toString() {
-        return "Accounts{" + "accountId=" + accountId + ", role=" + role + ", username=" + username + ", email=" + email + ", password=" + password + ", userImage=" + userImage + ", lastLogin=" + lastLogin + ", createDate=" + createDate + ", status=" + status + ", customerId=" + customerId + ", employeeId=" + employeeId + '}';
-    }
+    
     
     
 }
