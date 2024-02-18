@@ -58,9 +58,9 @@ SET IDENTITY_INSERT [dbo].[Products] ON
 INSERT [dbo].[Products] (productId,brandId,categoryId,productName,productDescription,unitPrice,productImage,totalQuantity,quantitySold,[status],createDate,lastUpdate) 
 values (1,1,1, N'GIÀY HIKING TERREX FREE HIKER 2.0 LOW GORE-TEX',N'Thân giày bằng vải lưới chống mài mòn với các chi tiết phủ ngoài không đường may và lớp màng GORE-TEX cùng với ẹp gót bên ngoài và khung ổn định bằng chất liệu EVA', 4400000, N'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/d63aa4322cbe43b1a02a306d618c4087_9366/Giay_Hiking_TERREX_Free_Hiker_2.0_Low_GORE-TEX_Xam_IF6658_01_standard.jpg',99,1,1, CAST (N'2024-01-14' as date), CAST (N'2024-01-14' as date))
 INSERT [dbo].[Products] (productId,brandId,categoryId,productName,productDescription,unitPrice,productImage,totalQuantity,quantitySold,[status],createDate,lastUpdate) 
-values (2,1,2, N'GIÀY PUREBOOST 23',N'Làm từ một loạt chất liệu tái chế, thân giày có chứa tối thiểu 50% thành phần tái chế. Sản phẩm này đại diện cho một trong số rất nhiều các giải pháp của chúng tôi hướng tới chấm dứt rác thải nhựa.', 3650000, N'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/b21a897034754050ac76376f9b113405_9366/Giay_Pureboost_23_Be_IF1547_01_standard.jpg,99,1,1,',99,1,1, CAST (N'2024-01-14' as date), CAST (N'2024-01-14' as date))
+values (2,1,2, N'GIÀY PUREBOOST 23',N'Làm từ một loạt chất liệu tái chế, thân giày có chứa tối thiểu 50% thành phần tái chế. Sản phẩm này đại diện cho một trong số rất nhiều các giải pháp của chúng tôi hướng tới chấm dứt rác thải nhựa.', 3650000, N'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/b21a897034754050ac76376f9b113405_9366/Giay_Pureboost_23_Be_IF1547_01_standard.jpg',99,1,1, CAST (N'2024-01-14' as date), CAST (N'2024-01-14' as date))
 INSERT [dbo].[Products] (productId,brandId,categoryId,productName,productDescription,unitPrice,productImage,totalQuantity,quantitySold,[status],createDate,lastUpdate) 
-values (3,1,3, N'GIÀY HYPERTURF',N'Làm từ một loạt chất liệu tái chế, thân giày có chứa tối thiểu 50% thành phần tái chế. Sản phẩm này đại diện cho một trong số rất nhiều các giải pháp của chúng tôi hướng tới chấm dứt rác thải nhựa.', 3650000, N'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/b21a897034754050ac76376f9b113405_9366/Giay_Pureboost_23_Be_IF1547_01_standard.jpg,99,1,1,',99,1,1, CAST (N'2024-01-14' as date), CAST (N'2024-01-14' as date))
+values (3,1,3, N'GIÀY HYPERTURF',N'Làm từ một loạt chất liệu tái chế, thân giày có chứa tối thiểu 50% thành phần tái chế. Sản phẩm này đại diện cho một trong số rất nhiều các giải pháp của chúng tôi hướng tới chấm dứt rác thải nhựa.', 3650000, N'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/b21a897034754050ac76376f9b113405_9366/Giay_Pureboost_23_Be_IF1547_01_standard.jpg',99,1,1, CAST (N'2024-01-14' as date), CAST (N'2024-01-14' as date))
 INSERT [dbo].[Products] (productId,brandId,categoryId,productName,productDescription,unitPrice,productImage,totalQuantity,quantitySold,[status],createDate,lastUpdate) 
 values (4,1,4,N'GIÀY SUPERSTAR XLG',N'Tỷ lệ thiết kế oversize và cá tính mạnh mẽ không kém thể hiện rõ ràng qua 3 Sọc răng cưa biểu tượng. Thân giày hoàn toàn bằng da trung thành với chất vintage, đồng thời biến hóa kiểu dáng cho phong cách mới mẻ',3000000,N'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/81c4e7e639bc46858f26b7291d9ec5b0_9366/Giay_Superstar_XLG_DJen_IG9777.jpg',99,1,1, CAST (N'2024-01-14' as date), CAST (N'2024-01-14' as date))
 INSERT [dbo].[Products] (productId,brandId,categoryId,productName,productDescription,unitPrice,productImage,totalQuantity,quantitySold,[status],createDate,lastUpdate) 
@@ -70,8 +70,11 @@ values (6,2,4,N'GIÀY CHUCK 70',N'Giày cổ thấp có thân trên bằng vải
 
 
 
-
 SET IDENTITY_INSERT [dbo].[Products] OFF
+update Products set productImage =  N'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/b21a897034754050ac76376f9b113405_9366/Giay_Pureboost_23_Be_IF1547_01_standard.jpg'
+where productId = 2
+update Products set productImage =  N'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/7629590df3db4b229362ae9701289a0e_9366/Giay_Hyperturf_DJen_GX2022_01_standard.jpg'
+where productId = 3
 
 
 INSERT into ProductDetails values (1,1,1,11)
