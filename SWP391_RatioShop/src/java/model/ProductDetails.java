@@ -1,51 +1,57 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package model;
 
-/**
- *
- * @author admin
- */
-public class ProductDetails {
-    private int productId;
-    private int sizeId;
-    private int colorId;
+package Model;
+
+
+public class ProductDetail {
+    private int id;
+    private Product product;
+    private Size size;
+    private Color color;
     private int quantity;
+    private String productImage;
 
-    public ProductDetails() {
+    public ProductDetail() {
     }
 
-    public ProductDetails(int productId, int sizeId, int colorId, int quantity) {
-        this.productId = productId;
-        this.sizeId = sizeId;
-        this.colorId = colorId;
+    public ProductDetail(int id, Product product, Size size, Color color, int quantity, String productImage) {
+        this.id = id;
+        this.product = product;
+        this.size = size;
+        this.color = color;
         this.quantity = quantity;
+        this.productImage = productImage;
     }
 
-    public int getProductId() {
-        return productId;
+    public int getId() {
+        return id;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getSizeId() {
-        return sizeId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setSizeId(int sizeId) {
-        this.sizeId = sizeId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public int getColorId() {
-        return colorId;
+    public Size getSize() {
+        return size;
     }
 
-    public void setColorId(int colorId) {
-        this.colorId = colorId;
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public int getQuantity() {
@@ -55,5 +61,15 @@ public class ProductDetails {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
+    }
+    
+    
     
 }
