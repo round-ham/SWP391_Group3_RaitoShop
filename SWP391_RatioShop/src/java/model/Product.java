@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package model;
+package Model;
 
-/**
- *
- * @author 84338
- */
+import java.util.List;
+
 public class Product {
     private int productId;
     private Category category;
@@ -18,15 +12,15 @@ public class Product {
     private String productImage;
     private int totalQuantity;
     private int quantitySold;
-    private int discountPercentage;
     private int status;
     private String createDate;
     private String lastUpdate;
-
+    private List<ProductDetail> productDetails;
+    
     public Product() {
     }
 
-    public Product(int productId, Category category, Brand brand, String productName, String productDescription, int unitPrice, String productImage, int totalQuantity, int quantitySold, int discountPercentage, int status, String createDate, String lastUpdate) {
+    public Product(int productId, Category category, Brand brand, String productName, String productDescription, int unitPrice, String productImage, int totalQuantity, int quantitySold, int status, String createDate, String lastUpdate, List<ProductDetail> productDetails) {
         this.productId = productId;
         this.category = category;
         this.brand = brand;
@@ -36,10 +30,10 @@ public class Product {
         this.productImage = productImage;
         this.totalQuantity = totalQuantity;
         this.quantitySold = quantitySold;
-        this.discountPercentage = discountPercentage;
         this.status = status;
         this.createDate = createDate;
         this.lastUpdate = lastUpdate;
+        this.productDetails = productDetails;
     }
 
     public int getProductId() {
@@ -114,14 +108,6 @@ public class Product {
         this.quantitySold = quantitySold;
     }
 
-    public int getDiscountPercentage() {
-        return discountPercentage;
-    }
-
-    public void setDiscountPercentage(int discountPercentage) {
-        this.discountPercentage = discountPercentage;
-    }
-
     public int getStatus() {
         return status;
     }
@@ -145,7 +131,14 @@ public class Product {
     public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-    
-    
+
+    public List<ProductDetail> getProductDetails() {
+        return productDetails;
+    }
+
+    public void setProductDetails(List<ProductDetail> productDetails) {
+        this.productDetails = productDetails;
+    }
+
     
 }
