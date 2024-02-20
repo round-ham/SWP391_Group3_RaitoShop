@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package dal;
 
-import model.Size;
+import Model.Size;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import dbcontext.DBContext;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -30,6 +31,23 @@ public class SizeDAO extends DBContext {
         } catch (Exception e) {
         }
         return null;
+    }
+
+    public List<Size> getSizes() {
+        String sql = "select * from Size";
+        List<Size> list = new ArrayList();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Size s = new Size();
+                s.setSizeId(rs.getInt("sizeId"));
+                s.setSize(rs.getInt("size"));
+                list.add(s);
+            }
+        } catch (Exception e) {
+        }
+        return list;
     }
 
 }
