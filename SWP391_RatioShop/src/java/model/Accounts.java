@@ -20,6 +20,7 @@ public class Accounts {
     private String address;
     private String phone;
     private String userImage;
+    private int loginWith;
     private Date lastLogin;
     private Date createDate;
     private Integer status;
@@ -27,7 +28,7 @@ public class Accounts {
     public Accounts() {
     }
 
-    public Accounts(int accountId, String fullName, String email, String password, Boolean gender, String address, String phone, String userImage, Date lastLogin, Date createDate, Integer status) {
+    public Accounts(int accountId, String fullName, String email, String password, Boolean gender, String address, String phone, String userImage, int loginWith, Date lastLogin, Date createDate, Integer status) {
         this.accountId = accountId;
         this.fullName = fullName;
         this.email = email;
@@ -36,10 +37,21 @@ public class Accounts {
         this.address = address;
         this.phone = phone;
         this.userImage = userImage;
+        this.loginWith = loginWith;
         this.lastLogin = lastLogin;
         this.createDate = createDate;
         this.status = status;
     }
+
+    public int getLoginWith() {
+        return loginWith;
+    }
+
+    public void setLoginWith(int loginWith) {
+        this.loginWith = loginWith;
+    }
+
+   
 
     public int getAccountId() {
         return accountId;

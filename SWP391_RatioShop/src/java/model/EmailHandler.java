@@ -6,8 +6,6 @@ package model;
 
 import java.util.Properties;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -20,10 +18,9 @@ import javax.naming.NamingException;
 
 /**
  *
- * @author admin
+ * @author Steam
  */
 public class EmailHandler {
-
     public static void sendEMail(String toEmail, String subject, String text) {
         try {
             String fromEmail = (String) new InitialContext().lookup("java:comp/env/email");

@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,6 +150,27 @@ public class AccountDAO {
             e.printStackTrace();
         } finally {
             closeResources();
+        }
+    }
+
+    public void changePassword(String email, String passwword) {
+        LocalDate curDate = LocalDate.now();
+        String date = curDate.toString();
+
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "SET [Password] = ?,\n"
+                + "    [UpdateDate] = ?,\n"
+                + "    [LoginWith] = ?\n"
+                + "WHERE [Email] = ?;";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, passwword);
+            ps.setString(2, date);
+            ps.setInt(3, 1);
+            ps.setString(4, email);
+            ps.executeUpdate();
+        } catch (Exception e) {
         }
     }
 
