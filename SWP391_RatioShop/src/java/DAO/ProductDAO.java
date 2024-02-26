@@ -1,17 +1,15 @@
-package DAO;
+package dal;
 
-import model.Product;
-import dbcontext.DBContext;
+import Model.Color;
+import Model.Product;
+import Model.ProductDetail;
+import Model.Size;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author 84338
- */
 public class ProductDAO extends DBContext {
 
     public List<Product> getProducts() {
@@ -34,7 +32,6 @@ public class ProductDAO extends DBContext {
                 p.setProductImage(rs.getString("productImage"));
                 p.setTotalQuantity(rs.getInt("totalQuantity"));
                 p.setQuantitySold(rs.getInt("quantitySold"));
-                p.setDiscountPercentage(rs.getInt("discountPercentage"));
                 p.setStatus(rs.getInt("status"));
                 p.setCreateDate(rs.getString("createDate"));
                 p.setLastUpdate(rs.getString("lastUpdate"));
@@ -48,7 +45,8 @@ public class ProductDAO extends DBContext {
     public Product getProductById(int productId) {
         CategoryDAO cateDAO = new CategoryDAO();
         BrandDAO brDAO = new BrandDAO();
-
+        SizeDAO daoS = new SizeDAO();
+        ColorDAO daoCo = new ColorDAO();
         String sql = "select * from Products where productId = " + productId;
 
         try {
@@ -65,22 +63,23 @@ public class ProductDAO extends DBContext {
                 p.setProductImage(rs.getString("productImage"));
                 p.setTotalQuantity(rs.getInt("totalQuantity"));
                 p.setQuantitySold(rs.getInt("quantitySold"));
-                p.setDiscountPercentage(rs.getInt("discountPercentage"));
                 p.setStatus(rs.getInt("status"));
                 p.setCreateDate(rs.getString("createDate"));
                 p.setLastUpdate(rs.getString("lastUpdate"));
+                
                 return p;
             }
         } catch (SQLException e) {
         }
         return null;
     }
-
+    
     public static void main(String[] args) {
-        List<Product> list = new ProductDAO().getProductsByKeyword("a");
-        for (Product p : list) {
-            System.out.println(p.getProductId() + " " + p.getProductName());
-        }
+        
+//        List<Product> list = new ProductDAO().getProducts();
+//        for (Product x : list) {
+//            System.out.println(x.getProductName());
+//        }
 
     }
 
@@ -101,14 +100,14 @@ public class ProductDAO extends DBContext {
         if (sort == 0) {
             sql += " order by createDate desc";
         } else if (sort == 1) {
-            sql += " order by (unitPrice - discountPercentage * 0.01 * unitPrice) desc";
+            sql += " order by unitPrice desc";
         } else if (sort == 2) {
-            sql += " order by (unitPrice - discountPercentage * 0.01 * unitPrice) asc";
+            sql += " order by unitPrice asc";
         }
 
         if (sort == 3 && categoryId == 0) {
             sql = "select p.productId, p.categoryId, p.brandId, p.productName, p.productDescription,\n"
-                    + "p.unitPrice, p.productImage, p.totalQuantity, p.quantitySold, p.discountPercentage, p.[status],\n"
+                    + "p.unitPrice, p.productImage, p.totalQuantity, p.quantitySold, p.[status],\n"
                     + "p.createDate, p.lastUpdate\n"
                     + "from Products p left join (\n"
                     + "select productId,sum(quantity) as [number] from OrdersDetails\n"
@@ -141,7 +140,6 @@ public class ProductDAO extends DBContext {
                 p.setProductImage(rs.getString("productImage"));
                 p.setTotalQuantity(rs.getInt("totalQuantity"));
                 p.setQuantitySold(rs.getInt("quantitySold"));
-                p.setDiscountPercentage(rs.getInt("discountPercentage"));
                 p.setStatus(rs.getInt("status"));
                 p.setCreateDate(rs.getString("createDate"));
                 p.setLastUpdate(rs.getString("lastUpdate"));
@@ -169,14 +167,14 @@ public class ProductDAO extends DBContext {
         if (sort == 0) {
             sql += " order by createDate desc";
         } else if (sort == 1) {
-            sql += " order by (unitPrice - discountPercentage * 0.01 * unitPrice) desc";
+            sql += " order by unitPrice desc";
         } else if (sort == 2) {
-            sql += " order by (unitPrice - discountPercentage * 0.01 * unitPrice) asc";
+            sql += " order by unitPrice asc";
         }
 
         if (sort == 3 && brandId == 0) {
             sql = "select p.productId, p.categoryId, p.brandId, p.productName, p.productDescription,\n"
-                    + "p.unitPrice, p.productImage, p.totalQuantity, p.quantitySold, p.discountPercentage, p.[status],\n"
+                    + "p.unitPrice, p.productImage, p.totalQuantity, p.quantitySold, p.[status],\n"
                     + "p.createDate, p.lastUpdate\n"
                     + "from Products p left join (\n"
                     + "select productId,sum(quantity) as [number] from OrdersDetails\n"
@@ -185,7 +183,7 @@ public class ProductDAO extends DBContext {
                     + "order by n.number desc";
         } else if (sort == 3 && brandId != 0) {
             sql = "select p.productId, p.categoryId, p.brandId, p.productName, p.productDescription,\n"
-                    + "p.unitPrice, p.productImage, p.totalQuantity, p.quantitySold, p.discountPercentage, p.[status],\n"
+                    + "p.unitPrice, p.productImage, p.totalQuantity, p.quantitySold, p.[status],\n"
                     + "p.createDate, p.lastUpdate\n"
                     + "from Products p left join (\n"
                     + "select productId,sum(quantity) as [number] from OrdersDetails\n"
@@ -209,7 +207,6 @@ public class ProductDAO extends DBContext {
                 p.setProductImage(rs.getString("productImage"));
                 p.setTotalQuantity(rs.getInt("totalQuantity"));
                 p.setQuantitySold(rs.getInt("quantitySold"));
-                p.setDiscountPercentage(rs.getInt("discountPercentage"));
                 p.setStatus(rs.getInt("status"));
                 p.setCreateDate(rs.getString("createDate"));
                 p.setLastUpdate(rs.getString("lastUpdate"));
@@ -244,7 +241,6 @@ public class ProductDAO extends DBContext {
                 p.setProductImage(rs.getString("productImage"));
                 p.setTotalQuantity(rs.getInt("totalQuantity"));
                 p.setQuantitySold(rs.getInt("quantitySold"));
-                p.setDiscountPercentage(rs.getInt("discountPercentage"));
                 p.setStatus(rs.getInt("status"));
                 p.setCreateDate(rs.getString("createDate"));
                 p.setLastUpdate(rs.getString("lastUpdate"));
@@ -260,7 +256,7 @@ public class ProductDAO extends DBContext {
         BrandDAO brDAO = new BrandDAO();
         List<Product> list = new ArrayList();
         String sql = "select p.productId, p.categoryId, p.brandId, p.productName, p.productDescription,\n"
-                + "p.unitPrice, p.productImage, p.totalQuantity, p.quantitySold, p.discountPercentage, p.[status],\n"
+                + "p.unitPrice, p.productImage, p.totalQuantity, p.quantitySold,  p.[status],\n"
                 + "p.createDate, p.lastUpdate\n"
                 + "from Products p left join (\n"
                 + "select productId,sum(quantity) as [number] from OrdersDetails\n"
@@ -282,38 +278,6 @@ public class ProductDAO extends DBContext {
                 p.setProductImage(rs.getString("productImage"));
                 p.setTotalQuantity(rs.getInt("totalQuantity"));
                 p.setQuantitySold(rs.getInt("quantitySold"));
-                p.setDiscountPercentage(rs.getInt("discountPercentage"));
-                p.setStatus(rs.getInt("status"));
-                p.setCreateDate(rs.getString("createDate"));
-                p.setLastUpdate(rs.getString("lastUpdate"));
-                list.add(p);
-            }
-        } catch (SQLException e) {
-        }
-        return list;
-    }
-
-    public List<Product> getSaleProducts() {
-        CategoryDAO cateDAO = new CategoryDAO();
-        BrandDAO brDAO = new BrandDAO();
-        List<Product> list = new ArrayList();
-        String sql = "select * from Products order by discountPercentage desc";
-
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Product p = new Product();
-                p.setProductId(rs.getInt("productId"));
-                p.setCategory(cateDAO.getCategoryById(rs.getInt("categoryId")));
-                p.setBrand(brDAO.getBrandById(rs.getInt("brandId")));
-                p.setProductName(rs.getString("productName"));
-                p.setProductDescription(rs.getString("productDescription"));
-                p.setUnitPrice(rs.getInt("unitPrice"));
-                p.setProductImage(rs.getString("productImage"));
-                p.setTotalQuantity(rs.getInt("totalQuantity"));
-                p.setQuantitySold(rs.getInt("quantitySold"));
-                p.setDiscountPercentage(rs.getInt("discountPercentage"));
                 p.setStatus(rs.getInt("status"));
                 p.setCreateDate(rs.getString("createDate"));
                 p.setLastUpdate(rs.getString("lastUpdate"));
@@ -328,7 +292,8 @@ public class ProductDAO extends DBContext {
         CategoryDAO cateDAO = new CategoryDAO();
         BrandDAO brDAO = new BrandDAO();
         List<Product> list = new ArrayList();
-        String sql = "select * from Products where productId != " + productId + " order by newId()";
+        String sql = "select * from Products where productId != " + productId
+                + " order by Newid()";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -344,7 +309,6 @@ public class ProductDAO extends DBContext {
                 p.setProductImage(rs.getString("productImage"));
                 p.setTotalQuantity(rs.getInt("totalQuantity"));
                 p.setQuantitySold(rs.getInt("quantitySold"));
-                p.setDiscountPercentage(rs.getInt("discountPercentage"));
                 p.setStatus(rs.getInt("status"));
                 p.setCreateDate(rs.getString("createDate"));
                 p.setLastUpdate(rs.getString("lastUpdate"));
@@ -355,4 +319,145 @@ public class ProductDAO extends DBContext {
         return list;
     }
 
+    public List<Product> getRandomProducts() {
+        CategoryDAO cateDAO = new CategoryDAO();
+        BrandDAO brDAO = new BrandDAO();
+        List<Product> list = new ArrayList();
+        String sql = "select * from Products order by NewId()";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setProductId(rs.getInt("productId"));
+                p.setCategory(cateDAO.getCategoryById(rs.getInt("categoryId")));
+                p.setBrand(brDAO.getBrandById(rs.getInt("brandId")));
+                p.setProductName(rs.getString("productName"));
+                p.setProductDescription(rs.getString("productDescription"));
+                p.setUnitPrice(rs.getInt("unitPrice"));
+                p.setProductImage(rs.getString("productImage"));
+                p.setTotalQuantity(rs.getInt("totalQuantity"));
+                p.setQuantitySold(rs.getInt("quantitySold"));
+                p.setStatus(rs.getInt("status"));
+                p.setCreateDate(rs.getString("createDate"));
+                p.setLastUpdate(rs.getString("lastUpdate"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public void insertNewProduct(int cateId, int brId, String proName, String proDes, int unitPrice, String proImg, int status) {
+        String sql = "INSERT INTO [dbo].[Products]\n"
+                + "           ([categoryId]\n"
+                + "           ,[brandId]\n"
+                + "           ,[productName]\n"
+                + "           ,[productDescription]\n"
+                + "           ,[unitPrice]\n"
+                + "           ,[productImage]\n"
+                + "           ,[totalQuantity]\n"
+                + "           ,[quantitySold]\n"
+                + "           ,[status]\n"
+                + "           ,[createDate]\n"
+                + "           ,[lastUpdate])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,0\n"
+                + "           ,0\n"
+                + "           ,?\n"
+                + "           ,GETDATE()\n"
+                + "           ,GETDATE())";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, cateId);
+            st.setInt(2, brId);
+            st.setString(3, proName);
+            st.setString(4, proDes);
+            st.setInt(5, unitPrice);
+            st.setString(6, proImg);
+            st.setInt(7, status);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public void updateProduct(int productId, int cateId, int brId, String proName, String proDes, int unitPrice, String proImg, int status) {
+        String sql = "UPDATE [dbo].[Products]\n"
+                + "   SET [categoryId] = ?\n"
+                + "      ,[brandId] = ?\n"
+                + "      ,[productName] = ?\n"
+                + "      ,[productDescription] = ?\n"
+                + "      ,[unitPrice] = ?\n"
+                + "      ,[productImage] = ?\n"
+                + "      ,[status] = ?\n"
+                + "      ,[lastUpdate] = getdate()\n"
+                + " WHERE productId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, cateId);
+            st.setInt(2, brId);
+            st.setString(3, proName);
+            st.setString(4, proDes);
+            st.setInt(5, unitPrice);
+            st.setString(6, proImg);
+            st.setInt(7, status);
+            st.setInt(8, productId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+
+    public List<Product> getProductsOrderbyAlphabet() {
+        CategoryDAO cateDAO = new CategoryDAO();
+        BrandDAO brDAO = new BrandDAO();
+        List<Product> list = new ArrayList();
+        String sql = "select * from Products order by productName asc";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setProductId(rs.getInt("productId"));
+                p.setCategory(cateDAO.getCategoryById(rs.getInt("categoryId")));
+                p.setBrand(brDAO.getBrandById(rs.getInt("brandId")));
+                p.setProductName(rs.getString("productName"));
+                p.setProductDescription(rs.getString("productDescription"));
+                p.setUnitPrice(rs.getInt("unitPrice"));
+                p.setProductImage(rs.getString("productImage"));
+                p.setTotalQuantity(rs.getInt("totalQuantity"));
+                p.setQuantitySold(rs.getInt("quantitySold"));
+                p.setStatus(rs.getInt("status"));
+                p.setCreateDate(rs.getString("createDate"));
+                p.setLastUpdate(rs.getString("lastUpdate"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public void updateQuantityOfProductById(int productId, int quantityAdd) {
+        int currentQuantity = new ProductDetailDAO().getQuantityOfProductById(productId);
+        String sql = "update Products\n"
+                + "set totalQuantity = ?\n"
+                + "where productId = ?";
+
+        try {
+            PreparedStatement st = connection.prepareCall(sql);
+            st.setInt(1, currentQuantity);
+            st.setInt(2, productId);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 }
