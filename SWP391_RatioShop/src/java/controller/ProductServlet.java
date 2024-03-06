@@ -4,12 +4,12 @@
  */
 package Controller;
 
-import model.Brand;
-import model.Category;
-import model.Product;
-import DAO.BrandDAO;
-import DAO.CategoryDAO;
-import DAO.ProductDAO;
+import Model.Brand;
+import Model.Category;
+import Model.Product;
+import dal.BrandDAO;
+import dal.CategoryDAO;
+import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -54,22 +54,23 @@ public class ProductServlet extends HttpServlet {
 
             if (sort == null) {
                 listP = pDAO.getProducts();
+                request.setAttribute("isLoad", true);
             } else {
                 //format categoryId/brandId - kieu sort
                 if (sort.contains("categoryId")) {
                     int sortParse = Integer.parseInt(sort.substring(sort.length() - 1));
-                    choice = sortParse; 
+                    choice = sortParse;
 
-                    int firstIndex = 10; // categoryID dài 10 ký tự gửi sang cateID có - 0 1 2 3 (kiểu sort)
-                    int secondIndex = sort.indexOf("-"); // vị trí kiểu sort
-                    int categoryIdParse = Integer.parseInt(sort.substring(firstIndex, secondIndex)); // lấy ra vị trí 
+                    int firstIndex = 10;
+                    int secondIndex = sort.indexOf("-");
+                    int categoryIdParse = Integer.parseInt(sort.substring(firstIndex, secondIndex));
                     listP = pDAO.getProductsByCategoryIdAndSort(categoryIdParse, sortParse);
 
                     Category c = cDAO.getCategoryById(categoryIdParse);
                     request.setAttribute("cate", c);
 
                 } else {
-                    int sortParse = Integer.parseInt(sort.substring(sort.length() - 1)); // cho brand tt cate
+                    int sortParse = Integer.parseInt(sort.substring(sort.length() - 1));
                     choice = sortParse;
                     int firstIndex = 7;
                     int secondIndex = sort.indexOf("-");
