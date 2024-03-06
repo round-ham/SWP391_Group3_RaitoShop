@@ -4,10 +4,12 @@
  */
 package Controller;
 
-import model.Product;
-import model.ProductSize;
-import DAO.ProductDAO;
-import DAO.ProductSizeDAO;
+import Model.Color;
+import Model.Product;
+import Model.ProductDetail;
+import dal.ColorDAO;
+import dal.ProductDAO;
+import dal.ProductDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,6 +18,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "ProductDetailsServlet", urlPatterns = {"/productdetails"})
 public class ProductDetailsServlet extends HttpServlet {
@@ -43,15 +46,19 @@ public class ProductDetailsServlet extends HttpServlet {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             ProductDAO pDAO = new ProductDAO();
-            ProductSizeDAO psDAO = new ProductSizeDAO();
-            
+            ProductDetailDAO psDAO = new ProductDetailDAO();
+            ColorDAO cDAO = new ColorDAO();
             Product p = pDAO.getProductById(id);
             if (p != null) {
-                List<ProductSize> listPS = psDAO.getProductSizeByProductId(id);
+                List<ProductDetail> listPS = psDAO.getProductDetailsByProductId(id);
                 List<Product> listP = pDAO.getRandomProductsExceptProductId(id);
+                List<Color> listC = cDAO.getListColorsByProductId(id);
+                Map<Integer,String> listI = psDAO.getProductImagesOfProductById(id);
                 request.setAttribute("p", p);
                 request.setAttribute("listPS", listPS);
                 request.setAttribute("listP", listP);
+                request.setAttribute("listC", listC);
+                request.setAttribute("listI", listI);
                 request.getRequestDispatcher("productdetails.jsp").forward(request, response);
             } else {
                 response.sendRedirect("homepage");
