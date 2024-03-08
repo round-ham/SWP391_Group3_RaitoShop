@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <servlet>
-        <servlet-name>BlogController</servlet-name>
-        <servlet-class>controller.BlogController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>BlogDetailController</servlet-name>
-        <servlet-class>controller.BlogDetailController</servlet-class>
-    </servlet>
+    <welcome-file-list>
+        <welcome-file>homepage</welcome-file>
+    </welcome-file-list>
     <servlet>
         <servlet-name>AddProductServlet</servlet-name>
         <servlet-class>Controller.AddProductServlet</servlet-class>
@@ -21,31 +16,60 @@
         <servlet-class>Controller.ProductServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddProductDetailsServlet</servlet-name>
-        <servlet-class>Controller.AddProductDetailsServlet</servlet-class>
+        <servlet-name>HomepageServlet</servlet-name>
+        <servlet-class>Controller.HomepageServlet</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
+        <servlet-name>ManageProductServlet</servlet-name>
+        <servlet-class>Controller.ManageProductServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UpdateProductServlet</servlet-name>
         <servlet-class>Controller.UpdateProductServlet</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
+        <servlet-name>ManageProductsDetailServlet</servlet-name>
+        <servlet-class>Controller.ManageProductsDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UpdateProductDetail</servlet-name>
         <servlet-class>Controller.UpdateProductDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageBrandServlet</servlet-name>
+        <servlet-class>Controller.ManageBrandServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddBrandServlet</servlet-name>
+        <servlet-class>Controller.AddBrandServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageCategoryServlet</servlet-name>
+        <servlet-class>Controller.ManageCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCategoryServlet</servlet-name>
+        <servlet-class>Controller.AddCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateBrandServlet</servlet-name>
+        <servlet-class>Controller.UpdateBrandServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <servlet-class>Controller.UpdateCategoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>BlogController</servlet-name>
-        <url-pattern>/blog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BlogDetailController</servlet-name>
-        <url-pattern>/blogdetail</url-pattern>
-    </servlet-mapping>
-          <servlet-name>AddProductServlet</servlet-name>
+        <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/addproduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddProductDetailsServlet</servlet-name>
         <url-pattern>/addproductdetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBrandServlet</servlet-name>
+        <url-pattern>/addbrand</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductServlet</servlet-name>
@@ -56,16 +80,52 @@
         <url-pattern>/productdetails</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>HomepageServlet</servlet-name>
+        <url-pattern>/homepage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageProductServlet</servlet-name>
+        <url-pattern>/manage-products</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UpdateProductServlet</servlet-name>
         <url-pattern>/update-product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageProductsDetailServlet</servlet-name>
-            <url-pattern>/manage-products-detail</url-pattern>
+        <url-pattern>/manage-products-detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateProductDetail</servlet-name>
         <url-pattern>/update-product-detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageBrandServlet</servlet-name>
+        <url-pattern>/manage-brand</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageCategoryServlet</servlet-name>
+        <url-pattern>/manage-category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCategoryServlet</servlet-name>
+        <url-pattern>/addcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateBrandServlet</servlet-name>
+        <url-pattern>/update-brand</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <url-pattern>/update-category</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>BlogController</servlet-name>
+        <servlet-class>Controller.BlogController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BlogController</servlet-name>
+        <url-pattern>/blog</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
