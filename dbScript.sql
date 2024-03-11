@@ -248,10 +248,11 @@ CREATE TABLE [dbo].[Orders](
 	[customerId] [int] NOT NULL,
 	[employeeId] [int] NOT NULL,
 	[status] [int] NOT NULL,
-	[orderDate] [date] NOT NULL,
-	[acceptedDate] [date] NULL,
-	[shippedDate] [date] NULL,
-	[address] [nchar](10) NOT NULL,
+	[orderDate] [datetime] NOT NULL,
+	[acceptedDate] [datetime] NULL,
+	[shippedDate] [datetime] NULL,
+	[address] [nchar](1000) NOT NULL,
+	[totalMoney] money not null
  CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED 
 (
 	[orderId] ASC
