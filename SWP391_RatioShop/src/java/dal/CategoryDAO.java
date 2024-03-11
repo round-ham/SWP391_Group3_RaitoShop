@@ -54,12 +54,61 @@ public class CategoryDAO extends DBContext {
         }
         return list;
     }
-    
-    public static void main(String[] args) {
-        BlogDAO bDAO = new BlogDAO();
-        List<Blog> list = bDAO.getBlogs();
-        for (Blog i : list) {
-            System.out.println(i.getBlogId() + " " + i.getBlogImage());
+    public void insertCategory(String categoryName, String categoryDescription, String createDate, String lastUpdate) {
+        String sql ="INSERT INTO [dbo].[Categories]\n" +
+"           ([categoryName]\n" +
+"           ,[categoryDescription]\n" +
+"           ,[createDate]\n" +
+"           ,[lastUpdate])\n" +
+"     VALUES\n" +
+"           (?, ?, getdate(), getdate())";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, categoryName);
+            st.setString(2, categoryDescription);
+//            st.setString(3, createDate);
+//            st.setString(4, lastUpdate);
+           
+            st.executeUpdate();
+        } catch(SQLException e) {
+            
         }
+            
+        
+    }
+    public void updateCategory(int categoryId, String categoryName, String categoryDescription, String lastUpdate) {
+        String sql = "UPDATE [dbo].[Categories]\n" +
+"   SET [categoryName] = ?\n" +
+"      ,[categoryDescription] = ?\n" +
+"      ,[lastUpdate] = GETDATE()\n" +
+" WHERE categoryId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, categoryName);
+            st.setString(2, categoryDescription);
+            st.setInt(3, categoryId);
+            st.executeUpdate();
+        } catch(SQLException e) {
+            
+        }
+        
+    }
+    public boolean isExist(String categoryDescription) {
+        String sql = "SELECT COUNT(*) AS count FROM Categories WHERE categoryDescription = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, categoryDescription);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            
+        }
+        return false;
+    }
+    public static void main(String[] args) {
+        
     }
 }

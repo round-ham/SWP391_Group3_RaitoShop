@@ -7,6 +7,7 @@ package dal;
 import Model.Color;
 import Model.Product;
 import Model.ProductDetail;
+import Model.Size;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,42 @@ import java.util.List;
 import java.util.Map;
 
 public class ProductDetailDAO extends DBContext {
+    
+    public ProductDetail getProductDetailByIds(int productId, int sizeId, int colorId){
+        ProductDetailDAO daoPD = new ProductDetailDAO();
+        List<ProductDetail> list = daoPD.getAllProductDetails();
+        
+        for(ProductDetail pd : list){
+            if(pd.getProduct().getProductId() == productId && pd.getColor().getColorId() == colorId && pd.getSize().getSizeId() == sizeId){
+                return pd;
+            }
+        }
+        
+        return null;
+    }
+    
+    public List<ProductDetail> getAllProductDetails() {
+        String sql = "select * from ProductDetails as pd, Colors as c, Size as s\n"
+                + "where pd.sizeId = s.sizeId and pd.colorId = c.colorId";
+        List<ProductDetail> list = new ArrayList<>();
+        ProductDAO daoP = new ProductDAO();
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                ProductDetail pd  = new ProductDetail();
+                pd.setId(rs.getInt("id"));
+                pd.setProduct(daoP.getProductById(rs.getInt("productId")));
+                pd.setColor(new Color(rs.getInt("colorId"), rs.getString("color")));
+                pd.setSize(new Size(rs.getInt("sizeId"), rs.getInt("size")));
+                pd.setQuantity(rs.getInt("quantity"));
+                pd.setProductImage(rs.getString("productImage"));
+                list.add(pd);
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
 
     public ProductDetail getProductDetailById(int detailId) {
         String sql = "select * from ProductDetails where id =  " + detailId;

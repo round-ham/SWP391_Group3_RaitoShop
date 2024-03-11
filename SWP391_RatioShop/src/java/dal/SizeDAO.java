@@ -33,25 +33,6 @@ public class SizeDAO extends DBContext {
         return null;
     }
 
-    public List<Size> getSizesByProductId(int productId) {
-        String sql = "select * from Size as s, ProductDetails as pd\n"
-                + "where s.sizeId = pd.sizeId and pd.productId = ?";
-        List<Size> list = new ArrayList();
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, productId);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Size s = new Size();
-                s.setSizeId(rs.getInt("sizeId"));
-                s.setSize(rs.getInt("size"));
-                list.add(s);
-            }
-        } catch (Exception e) {
-        }
-        return list;
-    }
-
     public List<Size> getSizes() {
         String sql = "select * from Size";
         List<Size> list = new ArrayList();

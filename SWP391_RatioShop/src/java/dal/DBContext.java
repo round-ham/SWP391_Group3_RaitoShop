@@ -8,7 +8,7 @@ public class DBContext {
 
     protected Connection connection;
 
-    private final String dbName = "SWP391_Project_SQLShoes2";
+    private final String dbName = "SWP391_Project_SQLShoes3";
     private final String svName = "localhost";
     private final String portNumber = "1433";
     private final String username = "sa";
@@ -24,5 +24,9 @@ public class DBContext {
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
         }
+    }
+
+    public Connection getConnection() {
+        return this.connection;
     }
 }

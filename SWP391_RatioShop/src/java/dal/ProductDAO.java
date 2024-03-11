@@ -460,4 +460,40 @@ public class ProductDAO extends DBContext {
         } catch (Exception e) {
         }
     }
+
+    public List<Color> getListProductColorByProductId(int productId) {
+        String sql = "select [colorId] from [ProductDetails] where [productId] = ?";
+        List<Color> listColor = new ArrayList<>();
+        ColorDAO colorDAO = new ColorDAO();
+        try {
+            PreparedStatement st = connection.prepareCall(sql);
+            st.setInt(1, productId);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                Color color = colorDAO.getColorById(rs.getInt(1));
+                listColor.add(color);
+            }
+        } catch (Exception e) {
+            System.out.println("updateQuantityOfProductById: " + e.getMessage());
+        }
+        return listColor;
+    }
+    
+    public List<Size> getListProductSizeByProductId(int productId) {
+        String sql = "select [sizeId] from [ProductDetails] where [productId] = ?";
+        List<Size> listSize = new ArrayList<>();
+        SizeDAO sizeDAO = new SizeDAO();
+        try {
+            PreparedStatement st = connection.prepareCall(sql);
+            st.setInt(1, productId);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                Size sz = sizeDAO.getSizeById(rs.getInt(1));
+                listSize.add(sz);
+            }
+        } catch (Exception e) {
+            System.out.println("updateQuantityOfProductById: " + e.getMessage());
+        }
+        return listSize;
+    }
 }

@@ -9,22 +9,10 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="icon" type="image/x-icon" href="pic/logo.png">
         <title>Raito Product</title>
-
         <!-- Google Font -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-              rel="stylesheet">
-
         <!-- Css Styles -->
-        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-        <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
+        <%@include file="head.jsp" %>
         <link rel="stylesheet" href="css/productdetails.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
         <style>
             .button {
                 float: left;
@@ -63,13 +51,51 @@
             }
 
         </style>
+        <style>
+            /* CSS Styles */
+            .container-co {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: flex-start;
+                margin-top: 30px;
+            }
+
+            .color-options {
+                display: flex;
+
+            }
+
+            .color, .size {
+                padding: 10px 20px;
+                margin-right: 10px;
+                cursor: pointer;
+                color: black;
+                background-color: white;
+                border: 1px solid black;
+                border-radius: 8px;
+            }
+
+            .color.selected, .size.selected {
+                color: white;
+                background-color: black;
+                border-radius: 8px;
+            }
+
+            .size-options {
+                margin-left: 50px;
+            }
+
+            .size-options h3 {
+                margin-bottom: 10px;
+            }
+        </style>
     </head>
     <body>
-
         <div id="preloder">
             <div class="loader"></div>
         </div>
-        <header class="header" style="max-height: 150px;" >
+        <header class="header">
             <%@include file="header.jsp" %>
         </header>
         <section class="breadcrumb-option" style="margin-bottom: 10%;">
@@ -82,27 +108,26 @@
                                 <div class = "img-display">
                                     <div class = "img-showcase">
                                         <img  src = "${p.productImage}" alt = "shoe image">
-                                        <img src = "pic/shoes_images/return.jpg" alt = "shoe image">
-                                        <img src = "pic/shoes_images/freeship.webp" alt = "shoe image">
-
+                                        <c:forEach items="${listI}" var="im">
+                                            <img src = "${im.value}" alt = "shoe image">
+                                        </c:forEach>
                                     </div>
                                 </div>
                                 <div class = "img-select">
                                     <div class = "img-item">
                                         <a href = "#" data-id = "1">
-                                            <img style="width: 350px; height: 160px" src = "${p.productImage}" alt = "shoe image">
+                                            <img style="height: 30%" src = "${p.productImage}" alt = "shoe image">
                                         </a>
                                     </div>
-                                    <div class = "img-item">
-                                        <a href = "#" data-id = "2">
-                                            <img style="width: 350px; height: 160px" src = "pic/shoes_images/return.jpg" alt = "shoe image">
-                                        </a>
-                                    </div>
-                                    <div class = "img-item">
-                                        <a href = "#" data-id = "3">
-                                            <img  style="width: 350px; height: 160px" src = "pic/shoes_images/freeship.webp" alt = "shoe image">
-                                        </a>
-                                    </div>
+                                    <c:set var="count" value="${2}"/>
+                                    <c:forEach items="${listI}" var="im">
+                                        <div class = "img-item">
+                                            <a href = "#" data-id = "${count}">
+                                                <img style="height: 30%" src = "${im.value}" alt = "shoe image">
+                                            </a>
+                                            <c:set var="count" value="${count + 1}"/>
+                                        </div>
+                                    </c:forEach>
 
                                 </div>
                             </div>
@@ -110,6 +135,7 @@
                             <div class = "product-content">
                                 <h2 class = "product-title">${requestScope.p.productName}</h2>
                                 <a href = "product?sort=brandId${requestScope.p.brand.brandId}-0" class = "product-link">${requestScope.p.brand.brandName}</a>
+                                <!--
                                 <div class = "product-rating">
                                     <i class = "fas fa-star"></i>
                                     <i class = "fas fa-star"></i>
@@ -118,15 +144,11 @@
                                     <i class = "fas fa-star-half-alt"></i>
                                     <span>4.7(21)</span>
                                 </div>
-
+                                -->
                                 <div class = "product-price">
-                                    <c:if test="${p.discountPercentage > 0}">
-                                        <p class = "last-price">Old Price: <span>${p.unitPrice} VND</span></p>
-                                        <p class = "new-price">New Price: <span>${p.unitPrice - p.unitPrice * p.discountPercentage * 0.01} VND(-${p.discountPercentage}%)</span></p>
-                                    </c:if>
-                                    <c:if test="${p.discountPercentage == 0}">
-                                        <p class = "new-price">Price: <span>${p.unitPrice} VND</span></p>
-                                    </c:if>
+
+                                    <p class = "new-price">Price: <span style="color: black; font-size: larger; font-style: italic">${p.unitPrice} VND</span></p>
+
                                 </div>
 
                                 <div class = "product-detail">
@@ -134,33 +156,33 @@
                                     <p>${requestScope.p.productDescription}</p>
 
                                     <ul>
-                                        <li>Category: <a href="product?sort=categoryId${p.category.categoryId}-0">${p.category.categoryName}</a></li>
+                                        <li>Category: <a href="product?sort=categoryId${p.category.categoryId}-0">${p.category.categoryDescription}</a></li>
                                         <li>Available: <span>${p.totalQuantity>0?'Instock':'Outstock'}</span></li>
 
                                         <li>Shipping Area: <span>All over the world</span></li>
                                         <li>Shipping Fee: <span>Free</span></li>
-                                        <li>Size: </li>
-                                            <c:forEach items="${listPS}" var="ps">
-                                            <li>
+                                        <li>Color (Click to see Size available):
+                                            <div class="container-co">
+                                                <div class="color-options">
+                                                    <c:forEach items="${listC}" var="co">
+                                                        <button class="color"  data-color="${co.color}">${co.color}</button>
+                                                    </c:forEach>
+                                                </div>
+                                                <div class="size-options" style="margin-top: 5%; margin-left: 0">
 
-                                                <c:if test="${ps.quantity > 0}">
-                                                    <div class="button">
-                                                        <input type="radio" name="size"/> <label class="btn btn-default" for="a25" style="font-weight: 500">Size: ${ps.size.size}</label>
-                                                    </div>
-                                                </c:if>
-                                                <c:if test="${ps.quantity == 0}">
-                                                    <div class="button">
-                                                        <input disabled type="radio" name="size"/> <label class="btn btn-default" for="a25" style="color: #999999">Size: ${ps.size.size}</label>
-                                                    </div>
-                                                </c:if>
-                                            </li>
+                                                    <div id="sizeList">
 
-                                        </c:forEach>
+                                                        <h5>Size Available</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </li>
                                     </ul>
                                 </div>
 
                                 <div class = "purchase-info">
-                                    <input style="min-width: 150px" type = "number" min = "0" value = "1">
+
                                     <button type = "button" class = "btn" style="margin-top: 15px">
                                         Add to Cart <i class = "fas fa-shopping-cart"></i>
                                     </button>
@@ -209,19 +231,9 @@
                         <div class="product__item__text">
                             <h6>${p.productName}</h6>
                             <a href="#" class="add-cart">+ Add To Cart</a>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-full"></i>
-                            </div>
-                            <c:if test="${p.discountPercentage == 0}">
-                                <h5>${p.unitPrice} VND</h5>
-                            </c:if>
-                            <c:if test="${p.discountPercentage > 0}">
-                                <h5>${p.unitPrice - p.discountPercentage * 0.01 * p.unitPrice} VND (<span style="color: red"> -${p.discountPercentage}%</span>)</h5>
-                            </c:if>
+
+                            <h5>${p.unitPrice} VND</h5>
+
 
                         </div>
                     </div>
@@ -233,15 +245,62 @@
         </footer>
 
         <script src="js/productdetails.js"></script>
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-        <script src="js/jquery.nicescroll.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/jquery.countdown.min.js"></script>
-        <script src="js/jquery.slicknav.js"></script>
-        <script src="js/mixitup.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/main.js"></script>
+        <script>
+            // JavaScript
+            // Sample data representing available sizes for each color
+            const sizesData = {
+
+            <c:forEach items="${listC}" var="co">
+                ${co.color}:[
+                <c:forEach items="${listPS}" var="i">
+                    <c:if test="${co.colorId == i.color.colorId}">
+            'VN ${i.size.size}',
+                    </c:if>
+                </c:forEach>
+            ],
+            </c:forEach>
+            };
+            // Function to update size list based on selected color
+            function updateSizes(color) {
+            const sizeList = document.getElementById('sizeList');
+            sizeList.innerHTML = ''; // Clear existing list
+
+            const sizes = sizesData[color];
+            sizes.forEach(size => {
+            const button = document.createElement('button');
+            button.textContent = size;
+            button.classList.add('size');
+            sizeList.appendChild(button);
+            });
+            // Attach event listener to size buttons
+            document.querySelectorAll('.size').forEach(button => {
+            button.addEventListener('click', function () {
+            // Implement your logic here for when a size button is clicked
+            const selectedSize = this.textContent;
+            console.log(`Selected size: ${selectedSize}`);
+            // Deselect all sizes
+            document.querySelectorAll('.size').forEach(button => {
+            button.classList.remove('selected');
+            });
+            // Select the clicked size
+            this.classList.add('selected');
+            });
+            });
+            }
+
+            // Event listener for color buttons
+            document.querySelectorAll('.color').forEach(button => {
+            button.addEventListener('click', function () {
+            const color = this.getAttribute('data-color');
+            // Deselect all colors
+            document.querySelectorAll('.color').forEach(button => {
+            button.classList.remove('selected');
+            });
+            // Select the clicked color
+            this.classList.add('selected');
+            updateSizes(color);
+            });
+            });
+        </script>
     </body>
 </html>

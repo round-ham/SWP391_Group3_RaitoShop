@@ -1,6 +1,8 @@
 
 package Model;
 
+import dal.AccountDAO;
+import dal.OrderDAO;
 import dal.ProductDetailDAO;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +54,6 @@ public class Cart {
         System.out.println(pd.getColor().getColor() + pd.getSize().getSize());
         Item i = new Item(pd, 4, pd.getProduct().getUnitPrice());
         ca.addItem(i);
-        ca.removeItem(1, 6, 9);
         for(Item it : ca.items){
             System.out.println(it.getProduct().getProduct().getProductName());
         }

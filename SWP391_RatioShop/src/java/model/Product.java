@@ -1,5 +1,6 @@
 package Model;
 
+import dal.ProductDAO;
 import java.util.List;
 
 public class Product {
@@ -140,5 +141,13 @@ public class Product {
         this.productDetails = productDetails;
     }
 
+    
+    public List<Color> getListProductColor() {
+        return new ProductDAO().getListProductColorByProductId(productId);
+    }
+    
+    public List<Size> getListProductSize() {
+        return new ProductDAO().getListProductSizeByProductId(productId);
+    }
     
 }

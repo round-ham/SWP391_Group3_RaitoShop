@@ -3,10 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package Controller;
 
-import DAO.AccountDAO;
-import model.Accounts;
+import dal.AccountDAO;
+import Model.Accounts;
+import Model.Product;
 import util.PasswordHash;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -35,13 +38,15 @@ public class LoginController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         
-        String hashedPassword = new PasswordHash().hashPassword(password);
-
         // Validate login credentials (you may want to implement stronger validation logic)
-        if (isValidLogin(email, hashedPassword)) {
+        if (isValidLogin(email, password)) {
+            List<Product> listCartProduct = new ArrayList<>();
             // If login is successful, update lastLogin and redirect to a home page
+            request.getSession().setAttribute("listCartProduct", listCartProduct);
+            Accounts account = new AccountDAO().getAccountByEmail(email);
+            request.getSession().setAttribute("account", account);
             updateLastLogin(email);
-            response.sendRedirect("home");
+            response.sendRedirect("homepage");
         } else {
             // If login fails, set an error message and forward back to the login page
             request.setAttribute("err", "Invalid email or password");
@@ -50,9 +55,12 @@ public class LoginController extends HttpServlet {
     }
 
     private boolean isValidLogin(String email, String password) {
-        // You need to implement your own logic to validate the login credentials
+        
+        Accounts account = new AccountDAO().getAccountByEmail(email);
+        boolean checkLogin = account!=null && account.getPassword().equals(new PasswordHash().hashPassword(password));
+        
         // For simplicity, let's assume a valid login if email and password are not empty
-        return email != null && !email.isEmpty() && password != null && !password.isEmpty();
+        return email != null && !email.isEmpty() && password != null && !password.isEmpty() && checkLogin;
     }
 
     private void updateLastLogin(String email) {

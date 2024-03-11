@@ -5,6 +5,8 @@
 package dal;
 
 import Model.Accounts;
+import Model.Role;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -164,6 +166,7 @@ public class AccountDAO {
         account.setLastLogin(resultSet.getDate("lastLogin"));
         account.setCreateDate(resultSet.getDate("createDate"));
         account.setStatus(resultSet.getInt("status"));
+        account.setRole(new Role(resultSet.getInt("roleId"), resultSet.getString("roleName")));
         return account;
     }
 

@@ -9,20 +9,37 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <link rel="icon" type="image/x-icon" href="pic/logo.png">
+        <meta name="viewport" content="width=device-width, initial-scale=0.7">
+        <%@include file="head.jsp" %>
         <title>Register</title>
+        <style>
+        .register-section {
+            /* Set background image */
+            background-image: url('https://wallpapercave.com/wp/wp5625962.jpg');
+            /* Adjust background image size and positioning */
+            background-size: cover; /* Adjust as needed */
+            background-position: center center; /* Adjust as needed */
+            /* Set background color as fallback */
+            background-color: #f0f0f0; /* Fallback color */
+        }
+    </style>
     </head>
     <body>
+        <!-- Header Section Begin -->
+        <header class="header">
+            <%@include file="header.jsp" %>
+        </header>
+        <!-- Header Section End -->
 
-        <section class="vh-100 bg-image" style="background-color: #ffffff;">
+        <section class="bg-image register-section">
             <div class="mask d-flex align-items-center h-100 gradient-custom-3">
                 <div class="container h-100">
-                    <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100 p-2">
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div class="card" style= "box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;"">
                                 <div class="card-body p-5">
-                                    <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+                                    <h2 class="text-uppercase text-center mb-5">Register</h2>
                                     <form action="register" method="post" onsubmit="return validateForm()">
                                         <div id="errorMessage" style="color: red;">${msg}</div>
 
@@ -58,7 +75,7 @@
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                            <input name="phonenumber"  type="number" id="inputPassword" class="form-control" placeholder="Phone Number" >
+                                            <input name="phonenumber"  type="text" id="inputPassword" class="form-control" placeholder="Phone Number" >
                                         </div>
 
                                         <div class="form-outline mb-4">
@@ -82,6 +99,12 @@
                 </div>
             </div>
         </section>
+
+         <!-- Footer Section Begin -->
+         <footer class="footer">
+            <%@include file="footer.jsp" %>
+        </footer>
+        <!-- Footer Section End -->
         <script>
             window.onload = function () {
                 var msg = "${msg}";

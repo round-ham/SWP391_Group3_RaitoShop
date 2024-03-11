@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package Model;
 
 import java.sql.Date;
 
@@ -11,7 +11,7 @@ import java.sql.Date;
  * @author Owwl
  */
 public class Accounts {
-    
+
     private int accountId;
     private String fullName;
     private String email;
@@ -20,15 +20,16 @@ public class Accounts {
     private String address;
     private String phone;
     private String userImage;
-    private int loginWith;
     private Date lastLogin;
     private Date createDate;
     private Integer status;
+    private Role role;
 
     public Accounts() {
     }
 
-    public Accounts(int accountId, String fullName, String email, String password, Boolean gender, String address, String phone, String userImage, int loginWith, Date lastLogin, Date createDate, Integer status) {
+    public Accounts(int accountId, String fullName, String email, String password, Boolean gender, String address,
+            String phone, String userImage, Date lastLogin, Date createDate, Integer status) {
         this.accountId = accountId;
         this.fullName = fullName;
         this.email = email;
@@ -37,21 +38,10 @@ public class Accounts {
         this.address = address;
         this.phone = phone;
         this.userImage = userImage;
-        this.loginWith = loginWith;
         this.lastLogin = lastLogin;
         this.createDate = createDate;
         this.status = status;
     }
-
-    public int getLoginWith() {
-        return loginWith;
-    }
-
-    public void setLoginWith(int loginWith) {
-        this.loginWith = loginWith;
-    }
-
-   
 
     public int getAccountId() {
         return accountId;
@@ -140,7 +130,16 @@ public class Accounts {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
     
-    
-    
+    public String getRoleName() {
+        return this.role.getRoleName().toLowerCase();
+    }
 }
