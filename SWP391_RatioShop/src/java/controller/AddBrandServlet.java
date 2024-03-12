@@ -4,19 +4,19 @@
  */
 package Controller;
 
-import dal.ProductDetailDAO;
+import dal.BrandDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import Model.Brand;
 /**
  *
- * @author ADMIN
+ * @author Hung
  */
-public class ManageProductsDetailServlet extends HttpServlet {
+public class AddBrandServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,14 +30,18 @@ public class ManageProductsDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ProductDetailDAO daoP = new ProductDetailDAO();
-        try {
-            int productId = Integer.parseInt(request.getParameter("pId"));
-            request.setAttribute("listPD", daoP.getProductDetailsByProductId(productId));
-            request.getRequestDispatcher("manageProductsDetail.jsp").forward(request, response);
-        } catch (Exception e) {
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AddBrands</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AddBrands at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,7 +56,9 @@ public class ManageProductsDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("addbrand.jsp").forward(request, response);
+
+       
     }
 
     /**
@@ -66,8 +72,30 @@ public class ManageProductsDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+          try {
+            BrandDAO bDAO = new BrandDAO();
+            String brandName = request.getParameter("brandName");
+            String brandDescription = request.getParameter("brandDescription");
+            String createDate = request.getParameter("createDate");
+            String lastUpdate = request.getParameter("lastUpdate");
+            boolean check = bDAO.isExist(brandName);
+            if(brandName.isEmpty() ) {
+               response.sendRedirect("addbrand?add=0");
+
+            }
+            else if(check==true) {
+               response.sendRedirect("addbrand?add=0");
+
+            }
+            else {
+               bDAO.insertBrand(brandName, brandDescription, createDate, lastUpdate);
+               response.sendRedirect("addbrand?add=1");
+
+            }
+        } catch(Exception e) {
+            response.sendRedirect("addbrand?add=0");
+        }
+        }    
 
     /**
      * Returns a short description of the servlet.

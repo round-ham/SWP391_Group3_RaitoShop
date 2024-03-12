@@ -3,20 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package Controller;
-
-import dal.ProductDetailDAO;
+import dal.BrandDAO;
+import Model.Brand;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ADMIN
+ * @author Hung
  */
-public class ManageProductsDetailServlet extends HttpServlet {
+public class UpdateBrandServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,14 +31,17 @@ public class ManageProductsDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ProductDetailDAO daoP = new ProductDetailDAO();
+        String brandIdRaw = request.getParameter("bId");
         try {
-            int productId = Integer.parseInt(request.getParameter("pId"));
-            request.setAttribute("listPD", daoP.getProductDetailsByProductId(productId));
-            request.getRequestDispatcher("manageProductsDetail.jsp").forward(request, response);
-        } catch (Exception e) {
-        }
+            int brandId = Integer.parseInt(brandIdRaw);
+            BrandDAO bDAO = new BrandDAO();
+            Brand b = bDAO.getBrandById(brandId);
+            request.setAttribute("b", b);
+            request.getRequestDispatcher("updatebrand.jsp").forward(request, response);
 
+        } catch(Exception e) {
+            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,7 +70,30 @@ public class ManageProductsDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int brandId = Integer.parseInt(request.getParameter("brandId"));
+        try {
+            BrandDAO bDAO = new BrandDAO();
+            String brandName = request.getParameter("brandName");
+            String brandDescription = request.getParameter("brandDescription");
+            String lastUpdate = request.getParameter("lastUpdate");
+            boolean check = bDAO.isExist(brandName);
+            if(brandName.isEmpty() ) {
+                response.sendRedirect("update-brand?add=0&bId="+brandId);
+
+            }
+            else if(check==true) {
+                response.sendRedirect("update-brand?add=0&bId="+brandId);
+
+            }
+            else {
+                bDAO.updateBrand(brandId, brandName, brandDescription, lastUpdate);
+                response.sendRedirect("update-brand?add=1&bId="+brandId);
+
+            }
+        } catch(Exception e) {
+            response.sendRedirect("update-brand?add=0&bId="+brandId);
+
+        }
     }
 
     /**

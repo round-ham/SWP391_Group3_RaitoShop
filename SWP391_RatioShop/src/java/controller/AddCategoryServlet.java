@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package Controller;
-
-import dal.ProductDetailDAO;
+import dal.CategoryDAO;
+import Model.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,9 +14,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ADMIN
+ * @author Hung
  */
-public class ManageProductsDetailServlet extends HttpServlet {
+public class AddCategoryServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,14 +30,18 @@ public class ManageProductsDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ProductDetailDAO daoP = new ProductDetailDAO();
-        try {
-            int productId = Integer.parseInt(request.getParameter("pId"));
-            request.setAttribute("listPD", daoP.getProductDetailsByProductId(productId));
-            request.getRequestDispatcher("manageProductsDetail.jsp").forward(request, response);
-        } catch (Exception e) {
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AddCategoryServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AddCategoryServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,7 +56,7 @@ public class ManageProductsDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("addcategory.jsp").forward(request, response);
     }
 
     /**
@@ -65,10 +69,28 @@ public class ManageProductsDetailServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+           throws ServletException, IOException {
+        try{
+        CategoryDAO cDAO = new CategoryDAO();
+        String categoryName = request.getParameter("categoryName");
+        String categoryDescription = request.getParameter("categoryDescription");
+        String createDate = request.getParameter("createDate");
+        String lastUpdate = request.getParameter("lastUpdate");
+        if(categoryDescription.isEmpty() ) {
+            response.sendRedirect("addcategory?add=0");
+        }
+        else if(cDAO.isExist(categoryDescription)==true) {
+            response.sendRedirect("addcategory?add=0");
+        }
+        else {
+            cDAO.insertCategory(categoryName,categoryDescription, createDate, lastUpdate);
+            response.sendRedirect("addcategory?add=1");
+        }
+        } catch(Exception e) {
+            response.sendRedirect("addcategory?add=0");
 
+    }
+    }
     /**
      * Returns a short description of the servlet.
      *

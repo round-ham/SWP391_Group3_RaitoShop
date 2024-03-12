@@ -3,9 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package Controller;
 
-import DAO.AccountDAO;
+import Model.Accounts;
+import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,16 +14,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.Accounts;
-import util.encodepassword;
+import java.util.Random;
+import util.Mail;
 
 /**
  *
- * @author Steam
+ * @author Owwl
  */
-@WebServlet(name="ChangePasswordServlet", urlPatterns={"/changepassword"})
-public class ChangePasswordServlet extends HttpServlet {
+@WebServlet(name="VerifyController", urlPatterns={"/verify"})
+public class VerifyController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,10 +39,10 @@ public class ChangePasswordServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangePasswordServlet</title>");  
+            out.println("<title>Servlet VerifyController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ChangePasswordServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet VerifyController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,10 +59,26 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
- HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("account");
-        request.setAttribute("loginWith", a.getLoginWith());
-        request.getRequestDispatcher("changePassword.jsp").forward(request, response);    } 
+        
+        String email = request.getParameter("email");
+        
+        String otp = generateOTP();
+        String link = "http://" + request.getServerName() + ":" + request.getServerPort()
+                    + request.getContextPath() + "/verify?otp=" + otp + "&email=" + email;
+        new Mail().sendEmail(email, "EMAIL VERTIFICATION", "Your verification code: " + otp);
+        
+        request.getSession().setAttribute("register_otp_" + email, otp);
+        
+        request.setAttribute("email", email);
+        request.setAttribute("err", "An email was sent");
+        request.getRequestDispatcher("verify.jsp").forward(request, response);
+        
+    } 
+    
+    public String generateOTP() {
+        Random random = new Random();
+        return 100000 + random.nextInt(900000) + "";
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -74,33 +90,30 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-                String currentpass = request.getParameter("currentpass");
-        String newpass = request.getParameter("newpass");
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("account");
-        if (a.getLoginWith() == 1) {
+        
+        String email = (String) request.getParameter("email");
+        String otp = (String) request.getParameter("otp");
 
-            String cpass = encodepassword.getMd5(currentpass);
-            if (!cpass.equals(a.getPassword())) {
-                request.setAttribute("msg", "Mật khẩu hiện tại không đúng");
-                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-            } else {
-                AccountDAO adao = new AccountDAO();
-                String pass = encodepassword.getMd5(newpass);
-                adao.changePassword(a.getEmail(), pass);
-                session.setAttribute("account", adao.getAccountByEmail(a.getEmail()));
-                request.setAttribute("msg", "Đổi mật khẩu thành công");
-                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-            }
+        String checkOtp = (String) request.getSession().getAttribute("register_otp_" + email);
+
+        if (otp.equals(checkOtp)) {
+
+            Accounts account = (Accounts) request.getSession().getAttribute("register_info_" + email);
+            new AccountDAO().addAccount(account);
+            
+            request.getSession().removeAttribute("register_otp_" + email);
+
+            response.sendRedirect("login?success");
+
         } else {
 
-            AccountDAO adao = new AccountDAO();
-            String pass = encodepassword.getMd5(newpass);
-            adao.changePassword(a.getEmail(), pass);
-            session.setAttribute("account", adao.getAccountByEmail(a.getEmail()));
-            request.setAttribute("msg", "Đổi mật khẩu thành công");
-            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            // Wrong otp
+            request.setAttribute("err", "Wrong OTP");
+            request.setAttribute("email", email);
+            request.getRequestDispatcher("verify.jsp").forward(request, response);
+
         }
+        
     }
 
     /** 

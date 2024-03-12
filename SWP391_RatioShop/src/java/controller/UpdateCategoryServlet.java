@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package Controller;
-
-import dal.ProductDetailDAO;
+import dal.CategoryDAO;
+import Model.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,9 +14,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ADMIN
+ * @author Hung
  */
-public class ManageProductsDetailServlet extends HttpServlet {
+public class UpdateCategoryServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,14 +30,16 @@ public class ManageProductsDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ProductDetailDAO daoP = new ProductDetailDAO();
+        String categoryIdRaw = request.getParameter("cId");
         try {
-            int productId = Integer.parseInt(request.getParameter("pId"));
-            request.setAttribute("listPD", daoP.getProductDetailsByProductId(productId));
-            request.getRequestDispatcher("manageProductsDetail.jsp").forward(request, response);
-        } catch (Exception e) {
+            int categoryId = Integer.parseInt(categoryIdRaw);
+            CategoryDAO cDAO = new CategoryDAO();
+            Category c = cDAO.getCategoryById(categoryId);
+            request.setAttribute("c", c);
+            request.getRequestDispatcher("updatecategory.jsp").forward(request, response);
+        } catch(Exception e) {
+            
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,7 +68,26 @@ public class ManageProductsDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        try {
+            CategoryDAO cDAO = new CategoryDAO();
+            String categoryName = request.getParameter("categoryName");
+            String categoryDescription = request.getParameter("categoryDescription");
+            String lastUpdate = request.getParameter("lastUpdate");
+            if(categoryDescription.isEmpty() ) {
+                response.sendRedirect("update-category?add=0&cId="+categoryId);               
+            }
+            else if(cDAO.isExist(categoryDescription) == true) {
+                response.sendRedirect("update-category?add=0&cId="+categoryId);
+            }
+            else {                      
+                cDAO.updateCategory(categoryId, categoryName, categoryDescription, lastUpdate);
+                response.sendRedirect("update-category?add=1&cId="+categoryId);
+            }
+        } catch(Exception e) {
+            response.sendRedirect("update-category?add=0&cId="+categoryId);
+
+        }        
     }
 
     /**

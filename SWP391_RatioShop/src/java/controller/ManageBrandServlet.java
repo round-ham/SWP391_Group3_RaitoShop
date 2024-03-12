@@ -1,22 +1,25 @@
+package Controller;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
 
-import dal.ProductDetailDAO;
+import Model.Brand;
+import dal.BrandDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
- * @author ADMIN
+ * @author Hung
  */
-public class ManageProductsDetailServlet extends HttpServlet {
+public class ManageBrandServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,14 +32,10 @@ public class ManageProductsDetailServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        ProductDetailDAO daoP = new ProductDetailDAO();
-        try {
-            int productId = Integer.parseInt(request.getParameter("pId"));
-            request.setAttribute("listPD", daoP.getProductDetailsByProductId(productId));
-            request.getRequestDispatcher("manageProductsDetail.jsp").forward(request, response);
-        } catch (Exception e) {
-        }
+            BrandDAO daoB = new BrandDAO();
+            List<Brand> listB = daoB.getBrands();
+            request.setAttribute("listB", listB);
+            request.getRequestDispatcher("managebrand.jsp").forward(request, response);
 
     }
 
