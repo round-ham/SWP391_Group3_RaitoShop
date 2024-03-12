@@ -9,10 +9,22 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="icon" type="image/x-icon" href="pic/logo.png">
         <title>Raito Product</title>
+
         <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+              rel="stylesheet">
+
         <!-- Css Styles -->
-        <%@include file="head.jsp" %>
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+        <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+        <link rel="stylesheet" href="css/style.css" type="text/css">
         <link rel="stylesheet" href="css/productdetails.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
         <style>
             .button {
                 float: left;
@@ -58,7 +70,8 @@
                 flex-direction: column;
                 justify-content: space-around;
                 align-items: flex-start;
-                margin-top: 30px;
+                margin-top: 1%;
+
             }
 
             .color-options {
@@ -90,12 +103,14 @@
                 margin-bottom: 10px;
             }
         </style>
+
     </head>
     <body>
+
         <div id="preloder">
             <div class="loader"></div>
         </div>
-        <header class="header">
+        <header class="header" style="max-height: 150px;" >
             <%@include file="header.jsp" %>
         </header>
         <section class="breadcrumb-option" style="margin-bottom: 10%;">
@@ -111,6 +126,8 @@
                                         <c:forEach items="${listI}" var="im">
                                             <img src = "${im.value}" alt = "shoe image">
                                         </c:forEach>
+
+
                                     </div>
                                 </div>
                                 <div class = "img-select">
@@ -183,7 +200,7 @@
 
                                 <div class = "purchase-info">
 
-                                    <button type = "button" class = "btn" style="margin-top: 15px">
+                                    <button onclick="addToCart2()" type = "button" class = "btn" style="margin-top: 15px">
                                         Add to Cart <i class = "fas fa-shopping-cart"></i>
                                     </button>
 
@@ -230,7 +247,7 @@
 
                         <div class="product__item__text">
                             <h6>${p.productName}</h6>
-                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            <a href="#" class="add-cart" >+ Add To Cart</a>
 
                             <h5>${p.unitPrice} VND</h5>
 
@@ -245,62 +262,135 @@
         </footer>
 
         <script src="js/productdetails.js"></script>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.nice-select.min.js"></script>
+        <script src="js/jquery.nicescroll.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/jquery.countdown.min.js"></script>
+        <script src="js/jquery.slicknav.js"></script>
+        <script src="js/mixitup.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/main.js"></script>
         <script>
-            // JavaScript
-            // Sample data representing available sizes for each color
-            const sizesData = {
+
+                                        // JavaScript
+                                        function addToCart2(){
+                                        var sizeButton = document.querySelector('.size.selected');
+                                        var colorButton = document.querySelector('.color.selected');
+                                        var sizeContent = sizeButton.textContent.split(' ');
+                                        var colorValue = colorButton.textContent;
+            <c:forEach items="${listC}" var="o">
+                                        if (colorValue == '${o.color}'){
+                                        colorValue = ${o.colorId}
+                                        }
+            </c:forEach>
+            <c:forEach items="${listSize}" var="o">
+                                        if (sizeContent[1] == ${o.size}){
+                                        sizeContent[1] = ${o.sizeId}
+                                        }
+            </c:forEach>
+                                        console.log(sizeContent[1]);
+                                        console.log(colorValue);
+                                        addToCart(${p.productId}, sizeContent[1], colorValue, 1);
+                                        }
+                                        function addToCart(pId, sId, mId, quantity) {
+
+                                        txtCart = getCookie('cart');
+                                        console.log(txtCart);
+                                        eraseCookie('cart');
+                                        if (txtCart == null || txtCart == '') {
+                                        txtCart = pId + ":" + sId + ":" + mId + ":" + quantity;
+                                        } else {
+                                        txtCart = txtCart + "/" + pId + ":" + sId + ":" + mId + ":" + quantity;
+                                        }
+                                        console.log(txtCart);
+                                        setCookie("cart", txtCart, 2);
+                                        num = parseInt(document.getElementById('numberCart').innerHTML);
+                                        console.log(num);
+                                        document.getElementById('numberCart').innerHTML = num + 1;
+                                        alert('Add to cart success!!');
+                                        }
+                                        function setCookie(name, value, days) {
+                                        var expires = "";
+                                        if (days) {
+                                        var date = new Date();
+                                        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                                        expires = "; expires=" + date.toUTCString();
+                                        }
+                                        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+                                        }
+                                        function getCookie(name) {
+                                        var nameEQ = name + "=";
+                                        var ca = document.cookie.split(';');
+                                        for (var i = 0; i < ca.length; i++) {
+                                        var c = ca[i];
+                                        while (c.charAt(0) == ' ')
+                                                c = c.substring(1, c.length);
+                                        if (c.indexOf(nameEQ) == 0)
+                                                return c.substring(nameEQ.length, c.length);
+                                        }
+                                        return null;
+                                        }
+                                        function eraseCookie(name) {
+                                        document.cookie = name + '=; Max-Age=-99999999;';
+                                        }
+                                        // Sample data representing available sizes for each color
+
+
+                                        const sizesData = {
 
             <c:forEach items="${listC}" var="co">
                 ${co.color}:[
                 <c:forEach items="${listPS}" var="i">
                     <c:if test="${co.colorId == i.color.colorId}">
-            'VN ${i.size.size}',
+                                        'VN ${i.size.size}',
                     </c:if>
                 </c:forEach>
-            ],
+                                        ],
             </c:forEach>
-            };
-            // Function to update size list based on selected color
-            function updateSizes(color) {
-            const sizeList = document.getElementById('sizeList');
-            sizeList.innerHTML = ''; // Clear existing list
+                                        };
+                                        // Function to update size list based on selected color
+                                        function updateSizes(color) {
+                                        const sizeList = document.getElementById('sizeList');
+                                        sizeList.innerHTML = ''; // Clear existing list
 
-            const sizes = sizesData[color];
-            sizes.forEach(size => {
-            const button = document.createElement('button');
-            button.textContent = size;
-            button.classList.add('size');
-            sizeList.appendChild(button);
-            });
-            // Attach event listener to size buttons
-            document.querySelectorAll('.size').forEach(button => {
-            button.addEventListener('click', function () {
-            // Implement your logic here for when a size button is clicked
-            const selectedSize = this.textContent;
-            console.log(`Selected size: ${selectedSize}`);
-            // Deselect all sizes
-            document.querySelectorAll('.size').forEach(button => {
-            button.classList.remove('selected');
-            });
-            // Select the clicked size
-            this.classList.add('selected');
-            });
-            });
-            }
+                                        const sizes = sizesData[color];
+                                        sizes.forEach(size => {
+                                        const button = document.createElement('button');
+                                        button.textContent = size;
+                                        button.classList.add('size');
+                                        sizeList.appendChild(button);
+                                        });
+                                        // Attach event listener to size buttons
+                                        document.querySelectorAll('.size').forEach(button => {
+                                        button.addEventListener('click', function () {
+                                        // Implement your logic here for when a size button is clicked
+                                        const selectedSize = this.textContent;
+                                        console.log(`Selected size: ${selectedSize}`);
+                                        // Deselect all sizes
+                                        document.querySelectorAll('.size').forEach(button => {
+                                        button.classList.remove('selected');
+                                        });
+                                        // Select the clicked size
+                                        this.classList.add('selected');
+                                        });
+                                        });
+                                        }
 
-            // Event listener for color buttons
-            document.querySelectorAll('.color').forEach(button => {
-            button.addEventListener('click', function () {
-            const color = this.getAttribute('data-color');
-            // Deselect all colors
-            document.querySelectorAll('.color').forEach(button => {
-            button.classList.remove('selected');
-            });
-            // Select the clicked color
-            this.classList.add('selected');
-            updateSizes(color);
-            });
-            });
+                                        // Event listener for color buttons
+                                        document.querySelectorAll('.color').forEach(button => {
+                                        button.addEventListener('click', function () {
+                                        const color = this.getAttribute('data-color');
+                                        // Deselect all colors
+                                        document.querySelectorAll('.color').forEach(button => {
+                                        button.classList.remove('selected');
+                                        });
+                                        // Select the clicked color
+                                        this.classList.add('selected');
+                                        updateSizes(color);
+                                        });
+                                        });
         </script>
     </body>
 </html>
