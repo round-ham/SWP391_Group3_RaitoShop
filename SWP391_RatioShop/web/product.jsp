@@ -16,15 +16,8 @@
               rel="stylesheet">
 
         <!-- Css Styles -->
-        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-        <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-        <link rel="stylesheet" href="css/sweetalert2.min.css" type="text/css">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
+        <%@include file="head.jsp" %>
+
     </head>
 
     <body>
@@ -238,31 +231,20 @@
                                             </div> 
                                               --> 
                                                 <h5>${p.unitPrice} VND</h5>
+                                                
                                                 <script>
+                                                    
                                                     function addToCart(id) {
                                                         if(${sessionScope.account == null}) {
                                                             window.location.href = './login';
                                                         }
                                                         else {
-                                                            fetch(`./addcart?pid=` + id)
-                                                            .then(data => {
-                                                                if (data.status == 401){
-                                                                    Swal.fire({
-                                                                        icon: 'error',
-                                                                        title: 'Oops...',
-                                                                        text: 'Only customer can add to cart!',
-                                                                    });
-                                                                    return;
-                                                                }
-                                                                let number = document.getElementById('numberCart').innerHTML;
-                                                                document.getElementById('numberCart').innerHTML = parseInt(number, 10) + 1;
-                                                            })
-                                                            .catch(err => {
-                                                                debugger
-                                                                console.log(err);
-                                                            });
+                                                            fetch(`./addcart?pid=` + id);
+                                                            let number = document.getElementById('numberCart').innerHTML;
+                                                            document.getElementById('numberCart').innerHTML = parseInt(number, 10) + 1;
                                                         }
                                                     }
+                                                    
                                                 </script>
 
                                         </div>
@@ -276,6 +258,7 @@
                                 <div class="product__pagination">
                                     <ul class="pagination">
                                         <li class="previous"><button style="background: #990099; color: white; padding: 8px; border-radius: 7px; width: 80px;" onclick="previousPage()"><i class="ti-arrow-left"></i> Prev</button></li>
+
                                         <li class="next"><button style="background: #990099; color: white; padding: 8px; border-radius: 7px; width: 80px; margin-left: 2px" onclick="nextPage()">Next <i class="ti-arrow-right"></i></button></li>
                                     </ul>
                                 </div>
@@ -361,7 +344,6 @@
         <script src="js/jquery.slicknav.js"></script>
         <script src="js/mixitup.min.js"></script>
         <script src="js/owl.carousel.min.js"></script>
-        <script src="js/sweetalert2.min.js"></script>
         <script src="js/main.js"></script>
     </body>
 

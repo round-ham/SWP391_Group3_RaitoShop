@@ -16,14 +16,8 @@
               rel="stylesheet">
 
         <!-- Css Styles -->
-        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-        <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
+             <%@include file="head.jsp" %>
+
     </head>
 
     <body>
@@ -124,7 +118,7 @@
                                 <img style="width: 400px" src="pic/pic2.jpg" alt="">
                             </div>
                             <div class="banner__item__text">
-                                <h2>${requestScope.listC.get(1).categoryName}</h2>
+                                <h2>${requestScope.listC.get(1).categoryDescription}</h2>
                                 <a href="product?sort=categoryId${requestScope.listC.get(1).categoryId}-0">Shop now</a>
                             </div>
                         </div>
@@ -135,7 +129,7 @@
                                 <img src="pic/pic4.jpeg" alt="">
                             </div>
                             <div class="banner__item__text">
-                                <h2>${requestScope.listC.get(2).categoryName}</h2>
+                                <h2>${requestScope.listC.get(2).categoryDescription}</h2>
                                 <a href="product?sort=categoryId${requestScope.listC.get(2).categoryId}-0">Shop now</a>
                             </div>
                         </div>
@@ -146,7 +140,7 @@
                                 <img src="pic/pic5.jpg" alt="">
                             </div>
                             <div class="banner__item__text" style="margin-top: 200px; margin-left: 10px">
-                                <h2 style="color: white">${requestScope.listC.get(3).categoryName}</h2>
+                                <h2 style="color: white">${requestScope.listC.get(3).categoryDescription}</h2>
                                 <a href="product?sort=categoryId${requestScope.listC.get(3).categoryId}-0" style="color: whitesmoke">Shop now</a>
                             </div>
                         </div>
@@ -164,88 +158,103 @@
                         <ul class="filter__controls">
                             <li class="active" data-filter=".popular">Best Sellers</li>
                             <li data-filter=".new-arrivals">New Arrivals</li>
-                            <li data-filter=".hot-sales">Hot Sales</li>
+                            <li data-filter=".hot-sales">Randoms</li>
+                            <li data-filter=".sales">Ongoing Sales</li>
                         </ul>
                     </div>
                 </div>
                 <div class="row product__filter">
                     <c:forEach items="${requestScope.listP1}" begin="${0}" end="${7}" var="p1">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix popular" >
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="${p1.productImage}">
+                        <c:if test="${p1.status == 1}">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix popular" >
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="${p1.productImage}">
 
-                                    <ul class="product__hover">
-                                        <li><a href="productdetails?id=${p1.productId}"><p style="background: white; color: black; padding: 10px;font-weight: bolder">View Details</p> </a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6>${p1.productName}</h6>
-                                    <a href="#" class="add-cart">+ Add To Cart</a>
-                                    <div class="rating">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
+                                        <ul class="product__hover">
+                                            <li><a href="productdetails?id=${p1.productId}"><p style="background: white; color: black; padding: 10px;font-weight: bolder">View Details</p> </a></li>
+                                        </ul>
                                     </div>
-                                    <h5>${p1.unitPrice - p1.unitPrice * 0.01 * discountPercentage} VND</h5>
+                                    <div class="product__item__text">
+                                        <h6>${p1.productName}</h6>
+                                        <a href="#" class="add-cart">+ Add To Cart</a>
+                                        <div class="rating">
 
+                                        </div>
+                                        <h5>${p1.unitPrice} VND</h5>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </c:if>
                     </c:forEach>
                     <c:forEach items="${requestScope.listP2}" begin="${0}" end="${7}" var="p2">
+                        <c:if test="${p2.status == 1}">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" style="display: none">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="${p2.productImage}">
+                                        <ul class="product__hover">
+                                            <li><a href="productdetails?id=${p2.productId}"><p style="background: white; color: black; padding: 10px;font-weight: bolder">View Details</p> </a></li>
 
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" style="display: none">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="${p2.productImage}">
-                                    <ul class="product__hover">
-                                        <li><a href="productdetails?id=${p2.productId}"><p style="background: white; color: black; padding: 10px;font-weight: bolder">View Details</p> </a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6>${p2.productName}</h6>
-                                    <a href="#" class="add-cart">+ Add To Cart</a>
-                                    <div class="rating">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
+                                        </ul>
                                     </div>
-                                    <h5>${p2.unitPrice - p2.unitPrice * 0.01 * p2.discountPercentage} VND</h5>
+                                    <div class="product__item__text">
+                                        <h6>${p2.productName}</h6>
+                                        <a href="#" class="add-cart">+ Add To Cart</a>
+                                        <div class="rating">
 
+                                        </div>
+                                        <h5>${p2.unitPrice} VND</h5>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </c:if>
                     </c:forEach>
                     <c:forEach items="${requestScope.listP3}" begin="${0}" end="${7}" var="p3">
+                        <c:if test="${p3.status == 1}">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales" style="display: none">
+                                <div class="product__item sale">
+                                    <div class="product__item__pic set-bg" data-setbg="${p3.productImage}">
 
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales" style="display: none">
+                                        <ul class="product__hover">
+                                            <li><a href="productdetails?id=${p3.productId}"><p style="background: white; color: black; padding: 10px;font-weight: bolder">View Details</p> </a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <h6>${p3.productName}</h6>
+                                        <a href="#" class="add-cart">+ Add To Cart</a>
+                                        <div class="rating">
+
+                                        </div>
+                                        <h5>${p3.unitPrice} VND </h5>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                    <c:forEach items="${saleList}" var="p3">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix sales" style="display: none">
                             <div class="product__item sale">
-                                <div class="product__item__pic set-bg" data-setbg="${p3.productImage}">
-                                    <span class="label">Sale</span>
+                                <div class="product__item__pic set-bg" data-setbg="${p3.product.productImage}">
                                     <ul class="product__hover">
-                                        <li><a href="productdetails?id=${p3.productId}"><p style="background: white; color: black; padding: 10px;font-weight: bolder">View Details</p> </a></li>
+                                        <li><a href="productdetails?id=${p3.product.productId}"><p style="background: white; color: black; padding: 10px;font-weight: bolder">View Details</p> </a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6>${p3.productName}</h6>
+                                    
+                                    <h6>${p3.product.productName}</h6>
                                     <a href="#" class="add-cart">+ Add To Cart</a>
-                                    <div class="rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-                                    <h5>${p3.unitPrice - p3.unitPrice * 0.01 * p3.discountPercentage} VND (<span style="color: red">-${p3.discountPercentage}%</span>)</h5>
-
+                                    <div class="rating"></div>
+                                    <h5 style="text-decoration: line-through;">${p3.product.unitPrice} VND</h5>
+                                    <p>Sale Percent: ${p3.salePrcnt}%</p>
+                                    <h7 class="text-danger mb-4">${p3.saleProgram.title}</h7>
+                                    <p>New Price: ${p3.newPrice} VND</p>
                                 </div>
                             </div>
                         </div>
                     </c:forEach>
+
 
                 </div>
             </div>
@@ -273,7 +282,7 @@
                                 <div class="blog__item__text" style="border: 1px solid black">
                                     <span><img src="" alt="">Date: ${b.createDate}</span>
                                     <h5>${b.title}</h5>
-                                    <p>Author: ${b.employee.employeeName}</p>
+                                    <p>Author: Creator name</p>
                                     <a href="#">Read More</a>
                                 </div>
                             </div>

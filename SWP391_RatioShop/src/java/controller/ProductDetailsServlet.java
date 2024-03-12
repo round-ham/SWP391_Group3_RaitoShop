@@ -10,6 +10,7 @@ import Model.ProductDetail;
 import dal.ColorDAO;
 import dal.ProductDAO;
 import dal.ProductDetailDAO;
+import dal.SizeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -48,6 +49,7 @@ public class ProductDetailsServlet extends HttpServlet {
             ProductDAO pDAO = new ProductDAO();
             ProductDetailDAO psDAO = new ProductDetailDAO();
             ColorDAO cDAO = new ColorDAO();
+            SizeDAO sDAO = new SizeDAO();
             Product p = pDAO.getProductById(id);
             if (p != null) {
                 List<ProductDetail> listPS = psDAO.getProductDetailsByProductId(id);
@@ -59,6 +61,7 @@ public class ProductDetailsServlet extends HttpServlet {
                 request.setAttribute("listP", listP);
                 request.setAttribute("listC", listC);
                 request.setAttribute("listI", listI);
+                request.setAttribute("listSize", sDAO.getSizes());
                 request.getRequestDispatcher("productdetails.jsp").forward(request, response);
             } else {
                 response.sendRedirect("homepage");

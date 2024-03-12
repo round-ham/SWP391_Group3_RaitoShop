@@ -16,21 +16,17 @@
               rel="stylesheet">
 
         <!-- Css Styles -->
-        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-        <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
+        <%@include file="head.jsp" %>
+
     </head>
 
     <body>
         <!-- Page Preloder -->
-        <div id="preloder">
+        <c:if test="${requestScope.isLoad == true}">
+            <div id="preloder">
             <div class="loader"></div>
         </div>
+        </c:if>
 
         <!-- Offcanvas Menu Begin -->
         <div class="offcanvas-menu-overlay"></div>
@@ -110,7 +106,7 @@
                                                     <ul class="nice-scroll">
                                                         <li><a href="product?sort=categoryId0-0">All</a></li>
                                                             <c:forEach items="${requestScope.listC}" var="c">
-                                                            <li><a href="product?sort=categoryId${c.categoryId}-0">${c.categoryName}</a></li>
+                                                            <li><a href="product?sort=categoryId${c.categoryId}-0">${c.categoryDescription}</a></li>
                                                             </c:forEach>
                                                     </ul>
                                                 </div>
@@ -146,7 +142,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="shop__product__option__left">
                                         <c:if test="${requestScope.cate != null}">
-                                            <h5 style="font-style: italic">Category: ${requestScope.cate.categoryName}</h5>
+                                            <h5 style="font-style: italic">Category: ${requestScope.cate.categoryDescription}</h5>
                                         </c:if>
                                         <c:if test="${requestScope.br != null}">
                                             <h5 style="font-style: italic">Brand: ${requestScope.br.brandName}</h5>
@@ -212,6 +208,7 @@
                         </div>
                         <div class="row">
                             <c:forEach items="${requestScope.listP}" var="p">
+                                <c:if test="${p.status == 1}">
                                 <div class="col-lg-4 col-md-6 col-sm-6 ">
                                     <div class="product__item item-of-listblog">
 
@@ -224,24 +221,36 @@
 
                                         <div class="product__item__text">
                                             <h6>${p.productName}</h6>
-                                            <a href="#" class="add-cart">+ Add To Cart</a>
-                                            <div class="rating">
+                                            <a onclick="addToCart(${p.productId})" style="cursor: pointer"class="add-cart">+ Add To Cart</a>
+                                            <!--<div class="rating">
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star-half-full"></i>
-                                            </div>
-                                            <c:if test="${p.discountPercentage == 0}">
+                                            </div> 
+                                              --> 
                                                 <h5>${p.unitPrice} VND</h5>
-                                            </c:if>
-                                            <c:if test="${p.discountPercentage > 0}">
-                                                <h5>${p.unitPrice - p.discountPercentage * 0.01 * p.unitPrice} VND (<span style="color: red"> -${p.discountPercentage}%</span>)</h5>
-                                            </c:if>
+                                                
+                                                <script>
+                                                    
+                                                    function addToCart(id) {
+                                                        if(${sessionScope.account == null}) {
+                                                            window.location.href = './login';
+                                                        }
+                                                        else {
+                                                            fetch(`./addcart?pid=` + id);
+                                                            let number = document.getElementById('numberCart').innerHTML;
+                                                            document.getElementById('numberCart').innerHTML = parseInt(number, 10) + 1;
+                                                        }
+                                                    }
+                                                    
+                                                </script>
 
                                         </div>
                                     </div>
                                 </div>
+                                </c:if>
                             </c:forEach>
                         </div>
                         <div class="row">

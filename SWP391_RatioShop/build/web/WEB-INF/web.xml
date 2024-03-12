@@ -3,7 +3,7 @@
     <welcome-file-list>
         <welcome-file>homepage</welcome-file>
     </welcome-file-list>
-    <filter>
+        <filter>
         <filter-name>AuthorizationFilter</filter-name>
         <filter-class>Filter.AuthorizationFilter</filter-class>
     </filter>
@@ -75,7 +75,10 @@
         <servlet-name>UpdateCategoryServlet</servlet-name>
         <servlet-class>Controller.UpdateCategoryServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
+    <servlet>
+        <servlet-name>OrderManageServlet</servlet-name>
+        <servlet-class>Controller.Order.OrderManageServlet</servlet-class>
+          <servlet-mapping>
         <servlet-name>BlogController</servlet-name>
         <url-pattern>/blog</url-pattern>
     </servlet-mapping>
@@ -83,6 +86,7 @@
         <servlet-name>BlogDetailController</servlet-name>
         <url-pattern>/blogdetail</url-pattern>
     </servlet-mapping>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/addproduct</url-pattern>
@@ -142,6 +146,18 @@
     <servlet-mapping>
         <servlet-name>UpdateCategoryServlet</servlet-name>
         <url-pattern>/update-category</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>BlogController</servlet-name>
+        <servlet-class>Controller.BlogController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BlogController</servlet-name>
+        <url-pattern>/blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderManageServlet</servlet-name>
+        <url-pattern>/manage-orders</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

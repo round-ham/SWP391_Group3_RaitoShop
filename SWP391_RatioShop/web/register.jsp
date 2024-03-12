@@ -11,10 +11,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/x-icon" href="pic/logo.png">
         <meta name="viewport" content="width=device-width, initial-scale=0.7">
-        <%@include file="head.jsp" %>
+        <!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+        <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <title>Register</title>
         <style>
-        .register-section {
+        body {
             /* Set background image */
             background-image: url('https://wallpapercave.com/wp/wp5625962.jpg');
             /* Adjust background image size and positioning */
@@ -26,16 +35,10 @@
     </style>
     </head>
     <body>
-        <!-- Header Section Begin -->
-        <header class="header">
-            <%@include file="header.jsp" %>
-        </header>
-        <!-- Header Section End -->
-
-        <section class="bg-image register-section">
+        <section class="vh-100 bg-image">
             <div class="mask d-flex align-items-center h-100 gradient-custom-3">
                 <div class="container h-100">
-                    <div class="row d-flex justify-content-center align-items-center h-100 p-2">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div class="card" style= "box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;"">
                                 <div class="card-body p-5">
@@ -99,12 +102,6 @@
                 </div>
             </div>
         </section>
-
-         <!-- Footer Section Begin -->
-         <footer class="footer">
-            <%@include file="footer.jsp" %>
-        </footer>
-        <!-- Footer Section End -->
         <script>
             window.onload = function () {
                 var msg = "${msg}";

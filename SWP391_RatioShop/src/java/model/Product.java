@@ -18,6 +18,25 @@ public class Product {
     private String lastUpdate;
     private List<ProductDetail> productDetails;
     
+    private List<Color> colors;
+    private List<Size> sizes;
+
+    public List<Color> getColors() {
+        return colors;
+    }
+
+    public void setColors(List<Color> colors) {
+        this.colors = colors;
+    }
+
+    public List<Size> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(List<Size> sizes) {
+        this.sizes = sizes;
+    }
+    
     public Product() {
     }
 

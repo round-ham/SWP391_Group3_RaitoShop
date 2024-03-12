@@ -66,6 +66,8 @@ public class ProductDAO extends DBContext {
                 p.setStatus(rs.getInt("status"));
                 p.setCreateDate(rs.getString("createDate"));
                 p.setLastUpdate(rs.getString("lastUpdate"));
+                p.setColors(daoCo.getListColorsByProductId(p.getProductId()));
+                p.setSizes(daoS.getSizesByProductId(p.getProductId()));
                 
                 return p;
             }
