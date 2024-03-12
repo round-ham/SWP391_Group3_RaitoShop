@@ -3,10 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package Controller;
+package controller;
 
-import Model.Product;
-import dal.ProductDAO;
+import DAO.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,14 +13,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
+import model.Accounts;
+import util.encodepassword;
 
 /**
  *
- * @author Admin
+ * @author Steam
  */
-@WebServlet(name="AddToCartController", urlPatterns={"/addcart"})
-public class AddToCartController extends HttpServlet {
+@WebServlet(name="ChangePasswordServlet", urlPatterns={"/changepassword"})
+public class ChangePasswordServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +39,10 @@ public class AddToCartController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddToCartController</title>");  
+            out.println("<title>Servlet ChangePasswordServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddToCartController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ChangePasswordServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,29 +59,10 @@ public class AddToCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
-        ProductDAO productDAO = new ProductDAO();
-        
-        int pid = Integer.parseInt(request.getParameter("pid"));
-        System.out.println(pid);
-        
-        List<Product> listCartProduct = (List<Product>) request.getSession().getAttribute("listCartProduct");
-        Product product = productDAO.getProductById(pid);
-        product.setTotalQuantity(1);
-        
-        //check existed
-        boolean isExisted = false;
-        for (Product p : listCartProduct) {
-            if(p.getProductId()== product.getProductId()) {
-                isExisted = true;
-            }
-        }
-        
-        if(!isExisted) listCartProduct.add(product);
-        
-        request.getSession().setAttribute("listCartProduct", listCartProduct);
-        response.sendRedirect("product");
-    } 
+ HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("account");
+        request.setAttribute("loginWith", a.getLoginWith());
+        request.getRequestDispatcher("changePassword.jsp").forward(request, response);    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -92,7 +74,33 @@ public class AddToCartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        doGet(request, response);
+                String currentpass = request.getParameter("currentpass");
+        String newpass = request.getParameter("newpass");
+        HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("account");
+        if (a.getLoginWith() == 1) {
+
+            String cpass = encodepassword.getMd5(currentpass);
+            if (!cpass.equals(a.getPassword())) {
+                request.setAttribute("msg", "Mật khẩu hiện tại không đúng");
+                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            } else {
+                AccountDAO adao = new AccountDAO();
+                String pass = encodepassword.getMd5(newpass);
+                adao.changePassword(a.getEmail(), pass);
+                session.setAttribute("account", adao.getAccountByEmail(a.getEmail()));
+                request.setAttribute("msg", "Đổi mật khẩu thành công");
+                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            }
+        } else {
+
+            AccountDAO adao = new AccountDAO();
+            String pass = encodepassword.getMd5(newpass);
+            adao.changePassword(a.getEmail(), pass);
+            session.setAttribute("account", adao.getAccountByEmail(a.getEmail()));
+            request.setAttribute("msg", "Đổi mật khẩu thành công");
+            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+        }
     }
 
     /** 
