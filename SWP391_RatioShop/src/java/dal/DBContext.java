@@ -11,8 +11,8 @@ public class DBContext {
     private final String dbName = "SWP391_Project_SQLShoes3";
     private final String svName = "localhost";
     private final String portNumber = "1433";
-    private final String username = "sa";
-    private final String password = "123";
+    private final String username = "sa1";
+    private final String password = "sa";
 
     public DBContext() {
         try {

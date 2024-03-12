@@ -84,7 +84,7 @@ class RouterAuthorization {
                     add(RoleName.SELLER);
                 }
             }));
-            sales
+            
                
         }
     };
