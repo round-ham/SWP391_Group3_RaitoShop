@@ -48,8 +48,8 @@
                                 <li><a href="manage-products">Manage Product</a></li>
                                 <li><a href="manage-category">Manage Category</a></li>
                                 <li><a href="manage-brand">Manage Brand</a></li>
-                                <li><a href="manage-sale">Manage Sale Program</a></li>
-                                <li><a href="manage-order">Manage Order</a></li>
+                                <li><a href="salePrograms">Manage Sale Program</a></li>
+                                <li><a href="manage-orders">Manage Order</a></li>
                             </ul>
                         </li>
                     </c:if>

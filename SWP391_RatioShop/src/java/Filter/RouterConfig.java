@@ -61,9 +61,20 @@ class RouterAuthorization {
         {
             add(new RouterConfig("/manage-brand", new ArrayList<String>() {
                 {
-                    add(RoleName.ADMIN);
+                    add(RoleName.SELLER);
                 }
             }));
+               add(new RouterConfig("/manage-products", new ArrayList<String>() {
+                {
+                    add(RoleName.SELLER);
+                }
+            }));
+                 add(new RouterConfig("/manage-category", new ArrayList<String>() {
+                {
+                    add(RoleName.SELLER);
+                }
+            }));
+               
         }
     };
 }
