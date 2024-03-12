@@ -3,21 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package Controller;
-import dal.BrandDAO;
-import Model.Brand;
+
+import Model.Color;
+import Model.Product;
+import Model.ProductDetail;
+import Model.Size;
+import dal.ColorDAO;
+import dal.ProductDAO;
+import dal.ProductDetailDAO;
+import dal.SizeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
- * @author Hung
+ * @author ADMIN
  */
-public class UpdateBrandServlet extends HttpServlet {
+public class UpdateProductDetail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,16 +38,25 @@ public class UpdateBrandServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String brandIdRaw = request.getParameter("bId");
         try {
-            int brandId = Integer.parseInt(brandIdRaw);
-            BrandDAO bDAO = new BrandDAO();
-            Brand b = bDAO.getBrandById(brandId);
-            request.setAttribute("b", b);
-            request.getRequestDispatcher("updatebrand.jsp").forward(request, response);
+            ProductDAO pDAO = new ProductDAO();
+            ColorDAO cDAO = new ColorDAO();
+            SizeDAO sDAO = new SizeDAO();
+            List<Product> listP = pDAO.getProductsOrderbyAlphabet();
+            List<Color> listC = cDAO.getListColors();
+            List<Size> listS = sDAO.getSizes();
+            //
+            request.setAttribute("listP", listP);
+            request.setAttribute("listC", listC);
+            request.setAttribute("listS", listS);
+            ProductDetailDAO daoPD = new ProductDetailDAO();
+            int productDetailId = Integer.parseInt(request.getParameter("pId"));
 
-        } catch(Exception e) {
-            
+            ProductDetail p = daoPD.getProductDetailById(productDetailId);
+            request.setAttribute("product", p);
+            request.getRequestDispatcher("updateproductdetail.jsp").forward(request, response);
+        } catch (Exception e) {
+            response.sendRedirect("homepage");
         }
     }
 
@@ -70,29 +86,28 @@ public class UpdateBrandServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int brandId = Integer.parseInt(request.getParameter("brandId"));
+        //processRequest(request, response);
+        int pdId = Integer.parseInt(request.getParameter("productDetailId"));
+
         try {
-            BrandDAO bDAO = new BrandDAO();
-            String brandName = request.getParameter("brandName");
-            String brandDescription = request.getParameter("brandDescription");
-            String lastUpdate = request.getParameter("lastUpdate");
-            boolean check = bDAO.isExist(brandName);
-            if(brandName.isEmpty() ) {
-                response.sendRedirect("update-brand?add=0&bId="+brandId);
+            ProductDetailDAO pdAO = new ProductDetailDAO();
+            ProductDAO pDAO = new ProductDAO();
 
-            }
-            else if(check==true) {
-                response.sendRedirect("update-brand?add=0&bId="+brandId);
+            
+            int proId = Integer.parseInt(request.getParameter("proId"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            int colorId = Integer.parseInt(request.getParameter("color"));
+            String productImage = request.getParameter("productImage");
+            int sizeId = Integer.parseInt(request.getParameter("size"));
+            pdAO.updateProductDetails(pdId, proId, sizeId, colorId, quantity, productImage);
 
-            }
-            else {
-                bDAO.updateBrand(brandId, brandName, brandDescription, lastUpdate);
-                response.sendRedirect("update-brand?add=1&bId="+brandId);
+            ProductDetail productDetail = pdAO.getProductDetailById(pdId);
+            int updateQuantity = productDetail.getQuantity() - quantity;
 
-            }
-        } catch(Exception e) {
-            response.sendRedirect("update-brand?add=0&bId="+brandId);
-
+            pDAO.updateQuantityOfProductById(proId, updateQuantity);
+            response.sendRedirect("update-product-detail?ed=1&pId=" + pdId);
+        } catch (Exception e) {
+            response.sendRedirect("update-product-detail?ed=0&pId=" + pdId);
         }
     }
 

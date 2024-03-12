@@ -3,21 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package Controller;
-import dal.CategoryDAO;
-import Model.Category;
+
+import dal.ProductDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
- * @author Hung
+ * @author ADMIN
  */
-public class ManageCategoryServlet extends HttpServlet {
+public class ManageProductsDetailServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,10 +29,15 @@ public class ManageCategoryServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            CategoryDAO daoC = new CategoryDAO();
-            List<Category> listC = daoC.getCategories();
-            request.setAttribute("listC", listC);
-            request.getRequestDispatcher("manageCategory.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        ProductDetailDAO daoP = new ProductDetailDAO();
+        try {
+            int productId = Integer.parseInt(request.getParameter("pId"));
+            request.setAttribute("listPD", daoP.getProductDetailsByProductId(productId));
+            request.getRequestDispatcher("manageProductsDetail.jsp").forward(request, response);
+        } catch (Exception e) {
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
