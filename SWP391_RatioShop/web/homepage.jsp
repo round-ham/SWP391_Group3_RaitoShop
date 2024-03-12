@@ -10,14 +10,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="icon" type="image/x-icon" href="pic/logo.png">
         <title>Raito Shop | Shoes</title>
-
-        <!-- Google Font -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-              rel="stylesheet">
-
-        <!-- Css Styles -->
-             <%@include file="head.jsp" %>
-
+        <%@include file="head.jsp" %>
     </head>
 
     <body>
@@ -308,19 +301,5 @@
                 </form>
             </div>
         </div>
-        <!-- Search End -->
-
-        <!-- Js Plugins -->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-        <script src="js/jquery.nicescroll.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/jquery.countdown.min.js"></script>
-        <script src="js/jquery.slicknav.js"></script>
-        <script src="js/mixitup.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/main.js"></script>
     </body>
-
 </html>

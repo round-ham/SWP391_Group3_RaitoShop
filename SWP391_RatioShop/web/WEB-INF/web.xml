@@ -4,6 +4,14 @@
         <welcome-file>homepage</welcome-file>
     </welcome-file-list>
     <servlet>
+        <servlet-name>BlogController</servlet-name>
+        <servlet-class>controller.BlogController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BlogDetailController</servlet-name>
+        <servlet-class>controller.BlogDetailController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddProductServlet</servlet-name>
         <servlet-class>Controller.AddProductServlet</servlet-class>
     </servlet>
@@ -59,10 +67,14 @@
         <servlet-name>UpdateCategoryServlet</servlet-name>
         <servlet-class>Controller.UpdateCategoryServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>OrderManageServlet</servlet-name>
-        <servlet-class>Controller.Order.OrderManageServlet</servlet-class>
-    </servlet>
+    <servlet-mapping>
+        <servlet-name>BlogController</servlet-name>
+        <url-pattern>/blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogDetailController</servlet-name>
+        <url-pattern>/blogdetail</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/addproduct</url-pattern>
@@ -122,18 +134,6 @@
     <servlet-mapping>
         <servlet-name>UpdateCategoryServlet</servlet-name>
         <url-pattern>/update-category</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>BlogController</servlet-name>
-        <servlet-class>Controller.BlogController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>BlogController</servlet-name>
-        <url-pattern>/blog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>OrderManageServlet</servlet-name>
-        <url-pattern>/manage-orders</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

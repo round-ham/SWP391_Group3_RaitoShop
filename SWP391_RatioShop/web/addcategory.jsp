@@ -5,8 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Add Category</title>
-           <%@include file="head.jsp" %>
-
+        <%@include file="head.jsp" %>
         <style>
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -19,7 +18,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
+                margin-top: 30px;
             }
 
             .form-container {
@@ -64,7 +63,7 @@
         </style>
     </head>
     <body>
-        <header style="margin-bottom: 15%; background: white">
+        <header>
             <%@include file="header.jsp" %>
         </header>
         <div class="container-co">
