@@ -83,6 +83,14 @@
         <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/addproduct</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>CartControl</servlet-name>
+        <servlet-class>Controller.Cart.CartControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CartControl</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddProductDetailsServlet</servlet-name>
         <url-pattern>/addproductdetails</url-pattern>
