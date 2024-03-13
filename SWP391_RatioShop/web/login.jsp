@@ -45,7 +45,7 @@
                                 <c:if test="${param.success ne null}">
                                     <p class="text-center text-muted mt-5 mb-4">Register successful! Login now</p>
                                 </c:if>
-                                <form action="login" method="post">
+                                <form method="post">
                                     <div class="form-outline mb-4">
                                         <input name="email"  type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="" value="${email}">
                                     </div>
