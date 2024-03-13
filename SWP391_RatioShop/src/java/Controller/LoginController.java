@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controller;
 
 import dal.AccountDAO;
@@ -24,20 +23,19 @@ import java.util.List;
  *
  * @author Owwl
  */
-@WebServlet(name="LoginController", urlPatterns={"/login"})
+@WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         request.getRequestDispatcher("login.jsp").forward(request, response);
-    } 
-
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        
+
         // Validate login credentials (you may want to implement stronger validation logic)
         if (isValidLogin(email, password)) {
             List<Product> listCartProduct = new ArrayList<>();
@@ -46,7 +44,12 @@ public class LoginController extends HttpServlet {
             Accounts account = new AccountDAO().getAccountByEmail(email);
             request.getSession().setAttribute("account", account);
             updateLastLogin(email);
-            response.sendRedirect("homepage");
+            String returnUrl = request.getParameter("returnUrl");
+            if (returnUrl != null) {
+                response.sendRedirect(returnUrl);
+            } else {
+                response.sendRedirect("homepage");
+            }
         } else {
             // If login fails, set an error message and forward back to the login page
             request.setAttribute("err", "Invalid email or password");
@@ -55,10 +58,10 @@ public class LoginController extends HttpServlet {
     }
 
     private boolean isValidLogin(String email, String password) {
-        
+
         Accounts account = new AccountDAO().getAccountByEmail(email);
-        boolean checkLogin = account!=null && account.getPassword().equals(new PasswordHash().hashPassword(password));
-        
+        boolean checkLogin = account != null && account.getPassword().equals(new PasswordHash().hashPassword(password));
+
         // For simplicity, let's assume a valid login if email and password are not empty
         return email != null && !email.isEmpty() && password != null && !password.isEmpty() && checkLogin;
     }
