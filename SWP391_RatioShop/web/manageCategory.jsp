@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Manage Brand</title>
+        <title>Manage Category</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -68,7 +68,6 @@
             .btn-primary:hover {
                 background-color: #0056b3;
             }
-
             .alert-container {
                 margin-bottom: 15px;
             }
@@ -78,18 +77,18 @@
         <header style="margin-bottom: 15%; background: white">
             <%@include file="header.jsp" %>
         </header>
-
         <div class="container-co">
+
             <div class="form-container">
                 <div class="form-heading">
-                    <h3 style="color: white">Manage Brand</h3>
+
+                    <h3 style="color: white">Manage Category</h3>
                 </div>
                 <div class="col-lg-12 text-center text-lg-right mb-3">
                     <div class="d-inline-flex align-items-center">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBrandModal">
-                            Add Brand
-                        </button>
+                        <button type="button" data-toggle="modal" data-target="#addCategoryModal" class="btn btn-sm btn-primary">Add New Category</button>
                     </div>
+
                 </div>
                 <div class="alert-container">
                     <c:if test="${param.success ne null}">
@@ -103,29 +102,23 @@
                         </div>
                     </c:if>
                 </div>
-                <table id="brandTable" class="table table-bordered text-center mb-0 list">
+
+                <table id="categoryTable" class="table table-bordered text-center mb-0 list">
                     <thead class="bg-secondary text-white list">
                         <tr>
-                            <th>Brand Name</th>
-                            <th>Description</th>                           
+                            <th>Category Description</th>                           
                             <th>Create Date</th>
                             <th>Last Update</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
-                    <tbody class="align-middle" >
-                        <c:forEach items="${listB}" var="o">
+                    <tbody class="align-middle " >
+                        <c:forEach items="${listC}" var="o">
                             <tr class="item">
-                                <td class="align-middle">${o.brandName}</td>
-                                <td class="align-middle">${o.brandDescription}</td>
+                                <td class="align-middle">${o.categoryDescription}</td>
                                 <td class="align-middle">${o.createDate}</td>
                                 <td class="align-middle">${o.lastUpdate}</td>
-                                <td class="align-middle">
-                                    <button type="button" data-toggle="modal" data-target="#updateBrandModal${o.brandId}" class="btn btn-sm btn-primary">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                </td>
-
+                                <td class="align-middle"><button type="button" data-toggle="modal" data-target="#updateCategoryModal${o.categoryId}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button></td>
 
                             </tr>
                         </c:forEach>
@@ -133,32 +126,25 @@
                 </table>
             </div>
         </div>
-
-        <footer style="margin-top: 25%; background: black; padding-top: 30px">
-            <%@include file="footer.jsp" %>
-        </footer>
-        <c:forEach items="${listB}" var="o">
+        <c:forEach items="${listC}" var="o">
             <!-- Update Modal -->
-            <div class="modal fade" id="updateBrandModal${o.brandId}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel${o.brandId}" aria-hidden="true">
+            <div class="modal fade" id="updateCategoryModal${o.categoryId}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel${o.categoryId}" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-primary text-white">
-                            <h5 class="modal-title" id="updateModalLabel${o.brandId}">Update Brand</h5>
+                            <h5 class="modal-title" id="updateModalLabel${o.categoryId}">Update Category</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="manage-brand" method="post" class="update-brand-form">
+                            <form action="manage-category" method="post" class="update-category-form">
                                 <input type="hidden" name="action" value="update">
-                                <input type="hidden" name="brandId" value="${o.brandId}">
+                                <input type="hidden" name="categoryId" value="${o.categoryId}">
+
                                 <div class="form-group">
-                                    <label for="brandName">Brand Name</label>
-                                    <input type="text" class="form-control" id="brname" name="brandName" value="${o.brandName}" placeholder="Type Brand Name here.... ">
-                                </div>
-                                <div class="form-group">
-                                    <label for="brandDescription">Brand Description</label>
-                                    <input type="text" class="form-control" id="brDescription" name="brandDescription" value="${o.brandDescription}"placeholder="Type Brand Description here.... ">
+                                    <label for="categoryDescription">Category Description</label>
+                                    <input type="text" class="form-control" id="brdescription" name="categoryDescription" value="${o.categoryDescription}" placeholder="Type Category Description here.... " >
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </form>
@@ -168,26 +154,26 @@
             </div>
         </c:forEach>
 
-        <!-- Add Brand Modal -->
-        <div class="modal fade" id="addBrandModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <footer style="margin-top: 25%;background: black; padding-top: 30px">
+            <%@include file="footer.jsp" %>
+        </footer>
+        <!-- Add Category Modal -->
+        <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="addModalLabel">Add Brand</h5>
+                        <h5 class="modal-title" id="addModalLabel">Add Category</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="manage-brand" method="post">
+                        <form action="manage-category" method="post">
                             <input type="hidden" name="action" value="add">
+
                             <div class="form-group">
-                                <label for="brandName">Brand Name</label>
-                                <input type="text" class="form-control" id="brname" name="brandName" placeholder="Type Brand Name here.... ">
-                            </div>
-                            <div class="form-group">
-                                <label for="brandDescription">Brand Description</label>
-                                <input type="text" class="form-control" id="brdescription" name="brandDescription" placeholder="Type Brand Description here.... ">
+                                <label for="categoryDescription">Category Description</label>
+                                <input type="text" class="form-control" id="brdescription" name="categoryDescription" placeholder="Type Category Description here.... ">
                             </div>
                             <button type="submit" class="btn btn-primary">Add</button>
 
@@ -208,54 +194,57 @@
         <script>
             $(document).ready(function () {
                 // Function to check if the brand name field is empty or already exists before form submission
-                $('#addBrandModal form').submit(function (event) {
-                    var brandName = $('#addBrandModal input[name="brandName"]').val().trim();
-                    if (brandName === "") {
+                $('#addCategoryModal form').submit(function (event) {
+                    var categoryDescription = $('#addCategoryModal input[name="categoryDescription"]').val().trim();
+                    if (categoryDescription === "") {
                         // Prevent form submission
                         event.preventDefault();
                         // Show an alert to the user
-                        alert("Please enter the brand name.");
+                        alert("Please enter the category descrption.");
                     } else {
                         // Check if the brand name already exists in the table
-                        var existingBrands = [];
-                        $('#brandTable tbody tr').each(function () {
-                            existingBrands.push($(this).find('td:first').text().trim());
+                        var existingCategories = [];
+                        $('#categoryTable tbody tr').each(function () {
+                            existingCategories.push($(this).find('td:first').text().trim());
                         });
-                        if (existingBrands.includes(brandName)) {
+                        if (existingCategories.includes(categoryDescription)) {
                             // Prevent form submission
                             event.preventDefault();
                             // Show an alert to the user
-                            alert("Brand name already exists. Please enter a different brand name.");
+                            alert("Category name already exists. Please enter a different brand name.");
                         }
                     }
                 });
-                $('.update-brand-form').submit(function (event) {
-                    var brandName = $(this).find('input[name="brandName"]').val().trim();
-                    if (brandName === "") {
+                $('.update-category-form').submit(function (event) {
+                    var categoryDescription = $(this).find('input[name="categoryDescription"]').val().trim();
+                    if (categoryDescription === "") {
                         // Prevent form submission
                         event.preventDefault();
                         // Show an alert to the user
-                        alert("Please enter the brand name.");
+                        alert("Please enter the category description.");
                     } else {
                         // Check if the brand name already exists in the table
-                        var existingBrands = [];
-                        $('#brandTable tbody tr').each(function () {
-                            existingBrands.push($(this).find('td:first').text().trim());
+                        var existingCategories = [];
+                        $('#categoryTable tbody tr').each(function () {
+                            existingCategories.push($(this).find('td:first').text().trim());
                         });
-                        if (existingBrands.includes(brandName)) {
+                        if (existingCategories.includes(categoryDescription)) {
                             // Prevent form submission
                             event.preventDefault();
                             // Show an alert to the user
-                            alert("Brand name already exists. Please enter a different brand name.");
+                            alert("Category description already exists. Please enter a different category description.");
                         }
                     }
-                });
 
-                $('#brandTable').DataTable({
+                });
+              
+                // Paging
+                $('#categoryTable').DataTable({
                     "pageLength": 10, // Set the number of entries per page to 5
                     "lengthChange": false // Hide the "Show [number] entries" dropdown
                 });
-            });
+            }
+            );
 
 
         </script>
