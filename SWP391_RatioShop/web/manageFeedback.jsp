@@ -79,38 +79,36 @@
             <div class="form-container">
                 <div class="form-heading">
 
-                    <h3 style="color: white">Manage Products</h3>
+                    <h3 style="color: white">Manage Feedbacks</h3>
                 </div>
                 <div class="col-lg-12 text-center text-lg-right mb-3">
-                    <div class="d-inline-flex align-items-center">
-                        <a href="addproductdetails">
-                            <button class="btn btn-sm btn-primary">Add a Product Detail</button>
-                        </a>
-                    </div>
+                    
                 </div>
                 <table class="table table-bordered text-center mb-0 list">
                     <thead class="bg-secondary text-white list">
                         <tr>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Color</th>
-                            <th>Image</th>
-                            <th>Size</th>
-                            <th>Edit</th>
+                            <th>Customer Name</th>
+                            <th>Feedback Description</th>
+                            <th>Rating</th>
+                            <th>Created Date</th>
+                            <th>Product's Feedback</th>
+                            <th>Action</th>
+                            
                         </tr>
                     </thead>
                     <tbody class="align-middle " >
-                        <c:forEach items="${listPD}" var="o">
+                        <c:forEach items="${listF}" var="o">
                             <tr class="item">
-                                <td class="align-middle"> ${o.product.productName}</td>
-                                <td class="align-middle">${o.quantity}</td>
-                                <td class="align-middle">${o.color.color}</td>
-                                <td class="align-middle">
-                                    <img src="${o.productImage}" alt="" style="width: 50px;">
-                                </td>
-                                <td class="align-middle">${o.size.size}</td>
+                                <td class="align-middle"> ${o.customer.fullName}</td>
+                                <td class="align-middle">${o.feedbackDescription}</td>
                                 
-                                <td class="align-middle"><a href="update-product-detail?pId=${o.id}" ><button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button></a></td>
+                                <td class="align-middle">
+                                    ${o.rating}
+                                </td>
+                                    <td class="align-middle">${o.createdDate}</td>
+                                <td class="align-middle">${o.product.productName}</td>
+                                
+                                <td class="align-middle"><a href="feedback-manage?feedbackId=${o.feedbackId}&status=-1" ><button class="btn btn-sm btn-primary"><i class="fa fa-remove"></i></button></a></td>
                             </tr>
                         </c:forEach>
                     </tbody>

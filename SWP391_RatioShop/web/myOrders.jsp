@@ -81,7 +81,7 @@
             <%@include file="header.jsp" %>
         </header>
         <div class="form-heading">
-            <h3 style="color: white">Manage Orders</h3>
+            <h3 style="color: white">My Orders Purchased</h3>
         </div>
         <div class="container-co flex-column">
             <div class="d-flex align-items-center">
@@ -92,7 +92,7 @@
                         <option value="1"> Wait for approving</option>
                         <option value="2"> Preparing</option>
                         <option value="3"> Delivering</option>
-                        <option value="4"> Received</option>
+                        <option value="4"> Successful Delivered</option>
                         <option value="5"> Success</option>
                         <option value="0"> Declined</option>
                     </select>
@@ -123,7 +123,7 @@
                             <th>Shipped Date</th>
                             <th>Address</th>
                             <th>Total Money</th>
-                            <th colspan="2">Action</th>
+                            <th colspan="3">Action</th>
 
                         </tr>
                     </thead>
@@ -148,12 +148,28 @@
                                 <td class="align-middle">${o.address}</td>
                                 <fmt:formatNumber value="${o.totalMoney}" pattern="#.#############" var="formattedValue" />
                                 <td class="align-middle">${formattedValue} VND</td>
-                                <c:if test="${o.status < 4 }">
-                                    <c:if test="${o.status != 0}">
-                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=${o.status +1}" ><button class="btn btn-sm btn-primary" style="background-color: green"><i class="fa fa-check"></i></button></a></td>
-                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=0" ><button class="btn btn-sm btn-primary" style="background-color: red"><i class="fa fa-remove"></i></button></a></td>
-                                                </c:if>
-                                            </c:if>
+                                <c:if test="${o.status ne 5}">
+                                    <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=${o.status +1}" >
+                                            <button class="btn btn-sm btn-primary"
+                                                    <c:if test="${o.status ne 4}">disabled="" style="background-color: greenyellow"</c:if>
+                                                    <c:if test="${o.status eq 4}">
+                                                        style="background-color: green"
+                                                    </c:if>>
+                                                    <i class="fa fa-check"></i>
+                                                </button></a></td>
+                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=0" >
+                                            <button class="btn btn-sm btn-primary" style="background-color: red"
+                                                    <c:if test="${o.status > 2}"> disabled="" </c:if>    ><i class="fa fa-remove"></i>
+                                                    </button></a></td> 
+                                </c:if>
+                                
+                                    <td class="align-middle"><a href="my-order-detail?orderId=${o.id}" >
+                                            
+                                                    View detail
+                                                </a></td>
+                                    
+                                                   
+
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -169,7 +185,7 @@
                 var sort = document.getElementById('sort').value;
 
                 $.ajax({
-                    url: "/RatioShop/filter-order",
+                    url: "/RatioShop/filter-myorder",
                     type: "get",
                     data: {
                         status: status,

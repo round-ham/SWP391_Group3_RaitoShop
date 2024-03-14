@@ -227,9 +227,34 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
+
         </section>
+        <h3 style="margin-left: 10%; margin-bottom: 3%"> Feedback for product: </h3>                                
+        <div style="margin-left: 10%; margin-bottom: 3%" id="feedback-post">
+            <c:if test="${listF == null}">
+                <h4 class="mb-4" style="text-align: center">Recently, there has been no feedback.</h4>
+            </c:if>
+            <c:forEach items="${listF}" var="o">
+                <div class="media mb-4">
+
+                    <div class="media-body">
+                        <h6>${o.customer.fullName}<small> - <i>${o.createdDate}</i></small></h6>
+
+                        <p>${o.feedbackDescription}</p>
+                    </div>
+                        <c:if test="${o.customer.accountId eq sessionScope.account.accountId}">
+                            <a href="update-feedback?productId=${p.productId}&feedbackId=${o.feedbackId}">
+                                <button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button>
+                            </a>
+                        </c:if>
+                </div>
+            </c:forEach>
+
+        </div>                                
 
         <h3 style="margin-left: 10%; margin-bottom: 3%"> Suggest for you: </h3>
         <div class="row" style ="width: 60%; margin: 0 auto;">
@@ -257,9 +282,7 @@
                 </div>
             </c:forEach>
         </div>                                    
-        <footer class="footer">
-            <%@include file="footer.jsp" %>
-        </footer>
+
 
         <script src="js/productdetails.js"></script>
         <script src="js/jquery-3.3.1.min.js"></script>

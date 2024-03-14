@@ -68,42 +68,27 @@
             .btn-primary:hover {
                 background-color: #0056b3;
             }
-
-            .alert-container {
-                margin-bottom: 15px;
-            }
         </style>
     </head>
     <body>
         <header style="margin-bottom: 15%; background: white">
             <%@include file="header.jsp" %>
         </header>
-
         <div class="container-co">
+
             <div class="form-container">
                 <div class="form-heading">
+
                     <h3 style="color: white">Manage Brand</h3>
                 </div>
                 <div class="col-lg-12 text-center text-lg-right mb-3">
                     <div class="d-inline-flex align-items-center">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBrandModal">
-                            Add Brand
-                        </button>
+                        <a href="addbrand">
+                            <button class="btn btn-sm btn-primary">Add new Brand</button>
+                        </a>
                     </div>
                 </div>
-                <div class="alert-container">
-                    <c:if test="${param.success ne null}">
-                        <div class="alert alert-success" role="alert">
-                            Success!
-                        </div>
-                    </c:if>
-                    <c:if test="${param.fail ne null}">
-                        <div class="alert alert-danger" role="alert">
-                            Failed!
-                        </div>
-                    </c:if>
-                </div>
-                <table id="brandTable" class="table table-bordered text-center mb-0 list">
+                <table class="table table-bordered text-center mb-0 list">
                     <thead class="bg-secondary text-white list">
                         <tr>
                             <th>Brand Name</th>
@@ -113,19 +98,14 @@
                             <th>Edit</th>
                         </tr>
                     </thead>
-                    <tbody class="align-middle" >
+                    <tbody class="align-middle " >
                         <c:forEach items="${listB}" var="o">
                             <tr class="item">
-                                <td class="align-middle">${o.brandName}</td>
+                                <td class="align-middle"> ${o.brandName}</td>
                                 <td class="align-middle">${o.brandDescription}</td>
-                                <td class="align-middle">${o.createDate}</td>
+                                    <td class="align-middle">${o.createDate}</td>
                                 <td class="align-middle">${o.lastUpdate}</td>
-                                <td class="align-middle">
-                                    <button type="button" data-toggle="modal" data-target="#updateBrandModal${o.brandId}" class="btn btn-sm btn-primary">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                </td>
-
+                                <td class="align-middle"><a href="update-brand?bId=${o.brandId}" ><button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button></a></td>
 
                             </tr>
                         </c:forEach>
@@ -133,133 +113,9 @@
                 </table>
             </div>
         </div>
-
-        <footer style="margin-top: 25%; background: black; padding-top: 30px">
+        <footer style="margin-top: 25%;background: black; padding-top: 30px">
             <%@include file="footer.jsp" %>
         </footer>
-        <c:forEach items="${listB}" var="o">
-            <!-- Update Modal -->
-            <div class="modal fade" id="updateBrandModal${o.brandId}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel${o.brandId}" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary text-white">
-                            <h5 class="modal-title" id="updateModalLabel${o.brandId}">Update Brand</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="manage-brand" method="post" class="update-brand-form">
-                                <input type="hidden" name="action" value="update">
-                                <input type="hidden" name="brandId" value="${o.brandId}">
-                                <div class="form-group">
-                                    <label for="brandName">Brand Name</label>
-                                    <input type="text" class="form-control" id="brname" name="brandName" value="${o.brandName}" placeholder="Type Brand Name here.... ">
-                                </div>
-                                <div class="form-group">
-                                    <label for="brandDescription">Brand Description</label>
-                                    <input type="text" class="form-control" id="brDescription" name="brandDescription" value="${o.brandDescription}"placeholder="Type Brand Description here.... ">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Update</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
-
-        <!-- Add Brand Modal -->
-        <div class="modal fade" id="addBrandModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="addModalLabel">Add Brand</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="manage-brand" method="post">
-                            <input type="hidden" name="action" value="add">
-                            <div class="form-group">
-                                <label for="brandName">Brand Name</label>
-                                <input type="text" class="form-control" id="brname" name="brandName" placeholder="Type Brand Name here.... ">
-                            </div>
-                            <div class="form-group">
-                                <label for="brandDescription">Brand Description</label>
-                                <input type="text" class="form-control" id="brdescription" name="brandDescription" placeholder="Type Brand Description here.... ">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Add</button>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- jQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- Bootstrap JS -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <!-- DataTables JS -->
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-
-        <script>
-            $(document).ready(function () {
-                // Function to check if the brand name field is empty or already exists before form submission
-                $('#addBrandModal form').submit(function (event) {
-                    var brandName = $('#addBrandModal input[name="brandName"]').val().trim();
-                    if (brandName === "") {
-                        // Prevent form submission
-                        event.preventDefault();
-                        // Show an alert to the user
-                        alert("Please enter the brand name.");
-                    } else {
-                        // Check if the brand name already exists in the table
-                        var existingBrands = [];
-                        $('#brandTable tbody tr').each(function () {
-                            existingBrands.push($(this).find('td:first').text().trim());
-                        });
-                        if (existingBrands.includes(brandName)) {
-                            // Prevent form submission
-                            event.preventDefault();
-                            // Show an alert to the user
-                            alert("Brand name already exists. Please enter a different brand name.");
-                        }
-                    }
-                });
-                $('.update-brand-form').submit(function (event) {
-                    var brandName = $(this).find('input[name="brandName"]').val().trim();
-                    if (brandName === "") {
-                        // Prevent form submission
-                        event.preventDefault();
-                        // Show an alert to the user
-                        alert("Please enter the brand name.");
-                    } else {
-                        // Check if the brand name already exists in the table
-                        var existingBrands = [];
-                        $('#brandTable tbody tr').each(function () {
-                            existingBrands.push($(this).find('td:first').text().trim());
-                        });
-                        if (existingBrands.includes(brandName)) {
-                            // Prevent form submission
-                            event.preventDefault();
-                            // Show an alert to the user
-                            alert("Brand name already exists. Please enter a different brand name.");
-                        }
-                    }
-                });
-
-                $('#brandTable').DataTable({
-                    "pageLength": 10, // Set the number of entries per page to 5
-                    "lengthChange": false // Hide the "Show [number] entries" dropdown
-                });
-            });
-
-
-        </script>
-
-
+        
     </body>
 </html>

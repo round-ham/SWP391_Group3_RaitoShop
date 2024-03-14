@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Manage Product</title>
+        <title>My Order Detail</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -71,7 +71,7 @@
         </style>
     </head>
     <body>
-        <header style="margin-bottom: 15%; background: white">
+        <header style=" background: white">
             <%@include file="header.jsp" %>
         </header>
         <div class="container-co">
@@ -79,15 +79,9 @@
             <div class="form-container">
                 <div class="form-heading">
 
-                    <h3 style="color: white">Manage Products</h3>
+                    <h3 style="color: white">Order Detail </h3>
                 </div>
-                <div class="col-lg-12 text-center text-lg-right mb-3">
-                    <div class="d-inline-flex align-items-center">
-                        <a href="addproductdetails">
-                            <button class="btn btn-sm btn-primary">Add a Product Detail</button>
-                        </a>
-                    </div>
-                </div>
+                
                 <table class="table table-bordered text-center mb-0 list">
                     <thead class="bg-secondary text-white list">
                         <tr>
@@ -96,21 +90,23 @@
                             <th>Color</th>
                             <th>Image</th>
                             <th>Size</th>
-                            <th>Edit</th>
+                            <th>Feedback</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle " >
-                        <c:forEach items="${listPD}" var="o">
+                        <c:forEach items="${listO}" var="o">
                             <tr class="item">
-                                <td class="align-middle"> ${o.product.productName}</td>
+                                <td class="align-middle"> ${o.product.product.productName}</td>
                                 <td class="align-middle">${o.quantity}</td>
-                                <td class="align-middle">${o.color.color}</td>
+                                <td class="align-middle">${o.product.color.color}</td>
                                 <td class="align-middle">
-                                    <img src="${o.productImage}" alt="" style="width: 50px;">
+                                    <img src="${o.product.productImage}" alt="" style="width: 50px;">
                                 </td>
-                                <td class="align-middle">${o.size.size}</td>
+                                <td class="align-middle">${o.product.size.size}</td>
                                 
-                                <td class="align-middle"><a href="update-product-detail?pId=${o.id}" ><button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button></a></td>
+                                <td class="align-middle"><a href="feedback?productId=${o.product.product.productId}" >
+                                        <button class="btn btn-sm btn-primary"
+                                                <c:if test="${o.order.status ne 5}">disabled="" style="background-color: gray"</c:if> ><i class="fa fa-edit"></i></button></a></td>
                             </tr>
                         </c:forEach>
                     </tbody>
