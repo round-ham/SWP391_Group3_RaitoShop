@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,6 +184,45 @@ public class AccountDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean checkAccountExit(String email) {
+        String sql = "select * from Account where [email] = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public void changePassword(String emailDK, String pass) {
+        LocalDate curDate = LocalDate.now();
+        String date = curDate.toString();
+
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "SET [password] = ?,\n"
+                + "WHERE [Email] = ?;";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, pass);
+            ps.setString(4, emailDK);
+            ps.executeUpdate();
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Mật khẩu của tài khoản có email " + emailDK + " đã được thay đổi thành công.");
+            } else {
+                System.out.println("Không có tài khoản nào được tìm thấy với email " + emailDK + ".");
+            }
+        } catch (Exception e) {
         }
     }
 }
