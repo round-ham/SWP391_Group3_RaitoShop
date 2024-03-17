@@ -1,8 +1,14 @@
+<%-- 
+    Document   : login
+    Created on : Jan 16, 2024, 1:53:33 PM
+    Author     : Owwl
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
+        
         <title>Sale Programs</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -10,6 +16,7 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
     </head>
     <body>
+       
 
         <div class="container mt-4">
 
@@ -134,6 +141,8 @@
                 </div>
             </div>
         </div>
+        
+       
 
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
