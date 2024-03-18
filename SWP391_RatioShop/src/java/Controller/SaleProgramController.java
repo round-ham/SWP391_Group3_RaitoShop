@@ -49,12 +49,21 @@ public class SaleProgramController extends HttpServlet {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            saleProgram.setEndDate(request.getParameter("endDate"));
+            String endDateStr = request.getParameter("endDate");
+        try {
+            saleProgram.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(endDateStr));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(saleProgram.getEndDate() == null || saleProgram.getStartDate().before(saleProgram.getEndDate()))
+        {
 
             saleProgramDAO.addSaleProgram(saleProgram);
 
             response.sendRedirect(request.getContextPath() + "/salePrograms?success");
-
+        }
+        else response.sendRedirect(request.getContextPath() + "/salePrograms?fail");
+        
         } else if (action.equals("update")) {
             doPut(request, response);
         } else {
@@ -69,17 +78,27 @@ public class SaleProgramController extends HttpServlet {
         SaleProgram saleProgram = new SaleProgram();
         saleProgram.setSalePrgmId(Integer.parseInt(request.getParameter("salePrgmId")));
         saleProgram.setTitle(request.getParameter("title"));
+        
+        
         String startDateStr = request.getParameter("startDate");
+        
+        String endDateStr = request.getParameter("endDate");
         try {
             saleProgram.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(startDateStr));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        saleProgram.setEndDate(request.getParameter("endDate"));
-
+        try {
+            saleProgram.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(endDateStr));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(saleProgram.getEndDate() == null || saleProgram.getStartDate().before(saleProgram.getEndDate()))
+        {
         saleProgramDAO.updateSaleProgram(saleProgram);
 
         response.sendRedirect(request.getContextPath() + "/salePrograms?success");
+        }else response.sendRedirect(request.getContextPath() + "/salePrograms?fail");
     }
 
     @Override
