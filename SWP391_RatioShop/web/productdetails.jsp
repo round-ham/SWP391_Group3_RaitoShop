@@ -246,11 +246,8 @@
 
                         <p>${o.feedbackDescription}</p>
                     </div>
-                        <c:if test="${o.customer.accountId eq sessionScope.account.accountId}">
-                            <a href="update-feedback?productId=${p.productId}&feedbackId=${o.feedbackId}">
-                                <button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button>
-                            </a>
-                        </c:if>
+                       
+                      
                 </div>
             </c:forEach>
 

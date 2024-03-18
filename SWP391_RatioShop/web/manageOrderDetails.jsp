@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My Order Detail</title>
+        <title>Manage Order Detail</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -79,7 +79,7 @@
             <div class="form-container">
                 <div class="form-heading">
 
-                    <h3 style="color: white">Order Detail </h3>
+                    <h3 style="color: white"> Manage Order Detail </h3>
                 </div>
                 
                 <table class="table table-bordered text-center mb-0 list">
@@ -90,7 +90,7 @@
                             <th>Color</th>
                             <th>Image</th>
                             <th>Size</th>
-                            <th>Feedback</th>
+                       
                         </tr>
                     </thead>
                     <tbody class="align-middle " >
@@ -104,11 +104,7 @@
                                 </td>
                                 <td class="align-middle">${o.product.size.size}</td>
                                 
-                                <td class="align-middle"><a href="feedback?productId=${o.product.product.productId}" >
-                                        <button class="btn btn-sm btn-primary"
-                                                <c:if test="${o.order.status ne 5}">disabled="" style="background-color: gray"</c:if> ><i class="fa fa-edit"></i></button></a></td>
-                                <td class="align-middle"><a href="update-feedback?productId=${o.product.product.productId}" >
-                                        <button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button></a></td>
+                         
                             </tr>
                         </c:forEach>
                     </tbody>

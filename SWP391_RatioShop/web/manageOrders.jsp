@@ -124,6 +124,8 @@
                             <th>Address</th>
                             <th>Total Money</th>
                             <th colspan="2">Action</th>
+                            <th>View Detail</th>
+
 
                         </tr>
                     </thead>
@@ -154,6 +156,15 @@
                                         <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=0" ><button class="btn btn-sm btn-primary" style="background-color: red"><i class="fa fa-remove"></i></button></a></td>
                                                 </c:if>
                                             </c:if>
+                                            <c:if test="${o.status >= 4 || o.status == 0 }">
+                                                
+                                            <td></td>
+                                            <td></td>
+                                            </c:if>
+                                <td class="align-middle"><a href="mange-order-details?orderId=${o.id}" >
+
+                                        View detail
+                                    </a></td>
                             </tr>
                         </c:forEach>
                     </tbody>
