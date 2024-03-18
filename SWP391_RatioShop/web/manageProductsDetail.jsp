@@ -26,7 +26,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
+                height: 70vh;
             }
 
             .form-container {
@@ -79,7 +79,7 @@
             <div class="form-container">
                 <div class="form-heading">
 
-                    <h3 style="color: white">Manage Products</h3>
+                    <h3 style="color: white">Manage Product Detail</h3>
                 </div>
                 <div class="col-lg-12 text-center text-lg-right mb-3">
                     <div class="d-inline-flex align-items-center">
