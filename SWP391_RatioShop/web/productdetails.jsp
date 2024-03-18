@@ -102,6 +102,12 @@
             .size-options h3 {
                 margin-bottom: 10px;
             }
+
+            .feedback-info{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
         </style>
 
     </head>
@@ -113,8 +119,8 @@
         <header class="header" style="max-height: 150px;" >
             <%@include file="header.jsp" %>
         </header>
-        <section class="breadcrumb-option" style="margin-bottom: 10%;">
-            <div class="container" style="margin-top: 10%">
+        <section class="breadcrumb-option" style="margin-bottom: 2%;">
+            <div class="container" >
                 <div class="row">
                     <div class = "card-wrapper">
                         <div class = "card">
@@ -206,24 +212,7 @@
 
                                 </div>
 
-                                <div class = "social-links">
-                                    <p>Share At: </p>
-                                    <a href = "#">
-                                        <i class = "fab fa-facebook-f"></i>
-                                    </a>
-                                    <a href = "#">
-                                        <i class = "fab fa-twitter"></i>
-                                    </a>
-                                    <a href = "#">
-                                        <i class = "fab fa-instagram"></i>
-                                    </a>
-                                    <a href = "#">
-                                        <i class = "fab fa-whatsapp"></i>
-                                    </a>
-                                    <a href = "#">
-                                        <i class = "fab fa-pinterest"></i>
-                                    </a>
-                                </div>
+                            
                             </div>
                         </div>
                     </div>
@@ -233,25 +222,43 @@
             </div>
 
         </section>
-        <h3 style="margin-left: 10%; margin-bottom: 3%"> Feedback for product: </h3>                                
-        <div style="margin-left: 10%; margin-bottom: 3%" id="feedback-post">
-            <c:if test="${listF == null}">
-                <h4 class="mb-4" style="text-align: center">Recently, there has been no feedback.</h4>
-            </c:if>
-            <c:forEach items="${listF}" var="o">
-                <div class="media mb-4">
-
-                    <div class="media-body">
-                        <h6>${o.customer.fullName}<small> - <i>${o.createdDate}</i></small></h6>
-
-                        <p>${o.feedbackDescription}</p>
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between">
+                <h3> Feedback (${listF.size()}): </h3>    
+                <div class="rating" style="display: flex; flex-direction: column">
+                    <div>
+                        <span style="font-size: 1.875rem; font-weight: 700">${averageRating}</span><span style="font-size: 1.125rem;"> trên 5</span>
                     </div>
-                       
-                      
+                    <div>
+                        <c:forEach begin="1" end="${averageRating}" step="1">
+                            <i style="color: #f7941d;" class="fa fa-star"></i>
+                        </c:forEach>
+                    </div>
                 </div>
-            </c:forEach>
+            </div>
 
-        </div>                                
+            <div id="feedback-post">
+                <c:if test="${listF == null}">
+                    <h4 class="mb-4" style="text-align: center">Recently, there has been no feedback.</h4>
+                </c:if>
+                <c:forEach items="${listF}" var="o">
+                    <div class="media mb-4">
+                        <div class="media-body">
+                            <h6 class="feedback-info">
+                                ${o.customer.fullName}<small> - <i>${o.createdDate}</i></small> 
+                                <div>
+                                    <c:forEach begin="1" end="${o.rating}" step="1">
+                                        <i style="color: #f7941d;" class="fa fa-star"></i>
+                                    </c:forEach>
+                                </div>
+                            </h6>
+                            <p>${o.feedbackDescription}</p>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>              
+        </div>
+
 
         <h3 style="margin-left: 10%; margin-bottom: 3%"> Suggest for you: </h3>
         <div class="row" style ="width: 60%; margin: 0 auto;">
