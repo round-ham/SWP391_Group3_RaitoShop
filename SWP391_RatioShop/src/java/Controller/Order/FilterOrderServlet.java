@@ -52,7 +52,7 @@ public class FilterOrderServlet extends HttpServlet {
                     status = "Delivering";
                     break;
                 case 4:
-                    status = "Received";
+                    status = "Successful Delivered";
                     break;
                 case 5:
                     status = "Success";
