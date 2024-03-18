@@ -5,9 +5,11 @@
 package Controller;
 
 import Model.Color;
+import Model.Feedback;
 import Model.Product;
 import Model.ProductDetail;
 import dal.ColorDAO;
+import dal.FeedbackDAO;
 import dal.ProductDAO;
 import dal.ProductDetailDAO;
 import dal.SizeDAO;
@@ -62,6 +64,16 @@ public class ProductDetailsServlet extends HttpServlet {
                 request.setAttribute("listC", listC);
                 request.setAttribute("listI", listI);
                 request.setAttribute("listSize", sDAO.getSizes());
+                
+                FeedbackDAO daoF = new FeedbackDAO();
+                List<Feedback> feedbacks = daoF.getFeedbackByProductId(id);
+                request.setAttribute("listF", feedbacks);
+                double averageRating = 0;
+                for (Feedback feedback : feedbacks) {
+                    averageRating += feedback.getRating();
+                }
+                averageRating /= feedbacks.size();
+                request.setAttribute("averageRating", averageRating);
                 request.getRequestDispatcher("productdetails.jsp").forward(request, response);
             } else {
                 response.sendRedirect("homepage");
