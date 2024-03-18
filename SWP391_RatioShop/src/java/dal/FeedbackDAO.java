@@ -29,16 +29,17 @@ public class FeedbackDAO extends DBContext {
         }
     }
 
-    public Feedback getFeedbackById(int feedbackId) {
-        String query = "select * from Feedbacks as f\n"
-                + "where f.feedbackId = ?";
+    public Feedback getFeedbackByProductIdCustomerId(int productId, int customerId) {
+        String query = "select * from [Feedbacks] as f\n"
+                + "where f.customerId = ? and f.productId = ? ";
         ProductDAO daoP = new ProductDAO();
         FeedbackDAO daoF = new FeedbackDAO();
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, feedbackId);
+            ps.setInt(1, customerId);
+            ps.setInt(2, productId);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return new Feedback(rs.getInt("feedbackId"),
                         daoP.getProductById(rs.getInt("productId")),
                         rs.getString("feedbackDescription"),
