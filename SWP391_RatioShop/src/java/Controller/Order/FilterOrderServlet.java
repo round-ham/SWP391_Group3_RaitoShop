@@ -43,18 +43,21 @@ public class FilterOrderServlet extends HttpServlet {
         for (Order o : listO) {
             switch (o.getStatus()) {
                 case 1:
-                    status = "Wait for approving";
+                    status = "Pending";
                     break;
                 case 2:
-                    status = "Preparing";
+                    status = "Accepted";
                     break;
                 case 3:
                     status = "Delivering";
                     break;
                 case 4:
-                    status = "Successful Delivered";
+                    status = "Delivered";
                     break;
                 case 5:
+                        status = "Unable to deliver";
+                    break;
+                case 6:
                     status = "Success";
                     break;
                 default:
@@ -84,11 +87,11 @@ public class FilterOrderServlet extends HttpServlet {
                     + "                                <td class=\"align-middle\">" + o.getShippedDate() + "</td>\n"
                     + "                                <td class=\"align-middle\">" + o.getAddress() + "</td>\n"
                     + "                                <td class=\"align-middle\">" + df.format(o.getTotalMoney()) + "VND</td>\n";
-            if(o.getStatus() < 4 && o.getStatus() != 0){
-                data +="                                <td class=\"align-middle\"><a href=\"update-status-order?orderId="+o.getId()+"&status="+o.getStatus()+"\" ><button class=\"btn btn-sm btn-primary\" style=\"background-color: green\"><i class=\"fa fa-check\"></i></button></a></td>\n"
-                    + "                                <td class=\"align-middle\"><a href=\"update-status-order?orderId="+o.getId()+"&status=0\" ><button class=\"btn btn-sm btn-primary\" style=\"background-color: red\"><i class=\"fa fa-remove\"></i></button></a></td>\n";
+            if (o.getStatus() < 4 && o.getStatus() != 0) {
+                data += "                                <td class=\"align-middle\"><a href=\"update-status-order?orderId=" + o.getId() + "&status=" + o.getStatus() + "\" ><button class=\"btn btn-sm btn-primary\" style=\"background-color: green\"><i class=\"fa fa-check\"></i></button></a></td>\n"
+                        + "                                <td class=\"align-middle\"><a href=\"update-status-order?orderId=" + o.getId() + "&status=0\" ><button class=\"btn btn-sm btn-primary\" style=\"background-color: red\"><i class=\"fa fa-remove\"></i></button></a></td>\n";
             }
-                data +=    "                            </tr>";
+            data += "                            </tr>";
             out.print(data);
         }
     }
