@@ -4,6 +4,7 @@
  */
 package Vnpay;
 
+import Model.PayModel;
 import Model.Accounts;
 import Model.Cart;
 import Model.ProductDetail;

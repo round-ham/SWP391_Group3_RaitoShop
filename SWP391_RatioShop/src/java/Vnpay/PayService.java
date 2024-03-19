@@ -4,6 +4,7 @@
  */
 package Vnpay;
 
+import Model.PayModel;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
