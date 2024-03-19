@@ -89,11 +89,12 @@
                     <label for="status">Status:</label>
                     <select id="status" onchange="filter()">
                         <option value="-1"> All</option>
-                        <option value="1"> Wait for approving</option>
-                        <option value="2"> Preparing</option>
+                        <option value="1"> Pending</option>
+                        <option value="2"> Accepted</option>
                         <option value="3"> Delivering</option>
-                        <option value="4"> Received</option>
-                        <option value="5"> Success</option>
+                        <option value="4"> Delivered</option>
+                        <option value="5"> Unable to deliver</option>
+                        <option value="6"> Success  </option>
                         <option value="0"> Declined</option>
                     </select>
                 </div>
@@ -137,11 +138,13 @@
                                 <td class="align-middle">${o.employee.fullName}</td>
 
                                 <td class="align-middle">
-                                    <c:if test="${o.status eq 1}">Wait for approving</c:if>
-                                    <c:if test="${o.status eq 2}">Preparing</c:if>
+                                    <c:if test="${o.status eq 1}">Pending</c:if>
+                                    <c:if test="${o.status eq 2}">Accepted</c:if>
                                     <c:if test="${o.status eq 3}">Delivering</c:if>
-                                    <c:if test="${o.status eq 4}">Successful Delivered</c:if>
-                                    <c:if test="${o.status eq 5}">Success</c:if>
+                                    <c:if test="${o.status eq 4}">Delivered</c:if>
+                                    <c:if test="${o.status eq 5}">Unable to deliver</c:if>
+                                    <c:if test="${o.status eq 6}">Success</c:if>
+
                                     <c:if test="${o.status eq 0}">Declined</c:if>
                                     </td>
                                     <td class="align-middle">${o.orderDate}</td>
@@ -150,17 +153,17 @@
                                 <td class="align-middle">${o.address}</td>
                                 <fmt:formatNumber value="${o.totalMoney}" pattern="#.#############" var="formattedValue" />
                                 <td class="align-middle">${formattedValue} VND</td>
-                                <c:if test="${o.status < 4 }">
+                                <c:if test="${o.status < 2 }">
                                     <c:if test="${o.status != 0}">
-                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=${o.status +1}" ><button class="btn btn-sm btn-primary" style="background-color: green"><i class="fa fa-check"></i></button></a></td>
+                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=2" ><button class="btn btn-sm btn-primary" style="background-color: green"><i class="fa fa-check"></i></button></a></td>
                                         <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=0" ><button class="btn btn-sm btn-primary" style="background-color: red"><i class="fa fa-remove"></i></button></a></td>
                                                 </c:if>
                                             </c:if>
-                                            <c:if test="${o.status >= 4 || o.status == 0 }">
-                                                
-                                            <td></td>
-                                            <td></td>
-                                            </c:if>
+                                            <c:if test="${o.status >= 1 || o.status == 0 }">
+
+                                    <td></td>
+                                    <td></td>
+                                </c:if>
                                 <td class="align-middle"><a href="mange-order-details?orderId=${o.id}" >
 
                                         View detail
