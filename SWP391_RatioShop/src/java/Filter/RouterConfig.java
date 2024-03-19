@@ -59,6 +59,11 @@ class RouterAuthorization {
 
     public static List<RouterConfig> routerConfigs = new ArrayList<RouterConfig>() {
         {
+               add(new RouterConfig("/manage-account", new ArrayList<String>() {
+                {
+                    add(RoleName.ADMIN);
+                }
+            }));
             add(new RouterConfig("/manage-brand", new ArrayList<String>() {
                 {
                     add(RoleName.SELLER);
