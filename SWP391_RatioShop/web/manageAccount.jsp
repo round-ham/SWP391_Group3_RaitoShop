@@ -139,6 +139,7 @@
                 <div class="table-responsive" style="max-height: 800px; overflow-y: auto;">
                     <table id="accountTable" class="table table-bordered text-center mb-0 list">
                         <thead class="bg-secondary text-white list">
+                          
                             <tr>
                                 <th>Image</th>
                                 <th>Full Name</th>
@@ -156,6 +157,8 @@
                         </thead>
                         <tbody class="align-middle">
                             <c:forEach items="${listA}" var="o">
+                                <c:if test="${o.accountId ne loggedInAccountId}">
+
                                 <tr class="item">
                                     <td class="align-middle">
                                         <img src="${o.userImage}" alt="" style="width: 50px;">
@@ -183,7 +186,8 @@
                                             </select>
                                             <button type="submit" class="btn btn-sm btn-primary">Update Role</button>
                                         </form>
-                                    </td><!--                                <td class="align-middle">
+                                    </td>
+                                    <!--                                <td class="align-middle">
                                     <c:if test="${o.status eq 1}">Active</c:if>
                                     <c:if test="${o.status eq 0}">Banned</c:if>
                                     </td>-->
@@ -216,6 +220,8 @@
                                         </form>
                                     </td>
                                 </tr>
+                                </c:if>
+
                             </c:forEach>
                         </tbody>
                     </table>
@@ -226,75 +232,7 @@
         <footer style="margin-top: 25%;background: black; padding-top: 30px">
             <%@include file="footer.jsp" %>
         </footer>
-        <c:forEach items="${listA}" var="o">
-            <!-- Add Account Modal -->
-            <div class="modal fade" id="addAccountModal" tabindex="-1" role="dialog" aria-labelledby="addAccountModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addAccountModalLabel">Add Account</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="addAccountForm" action="manage-account" method="post">
-                                <input type="hidden" name="action" value="add">
-                                <div class="form-group">
-                                    <label for="fullName">Full Name</label>
-                                    <input type="text" class="form-control" id="fullName" name="fullName">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone">Phone Number</label>
-                                    <input type="number" class="form-control" id="phone" name="phone">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="gender">Gender</label>
-                                    <select class="form-control" id="gender" name="gender">
-                                        <c:choose>
-                                            <c:when test="${o.gender}">
-                                                <option value="male" selected>Male</option>
-                                                <option value="female">Female</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="male">Male</option>
-                                                <option value="female" selected>Female</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </select>
-
-                                </div>
-                                <div class="form-group">
-                                    <label for="role">Role</label>
-                                    <select class="form-control" id="role" name="role">
-                                        <c:forEach items="${roles}" var="role">
-                                            <option value="${role.roleId}">${role.roleName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <input type="text" class="form-control" id="address" name="address" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
-
-
-
+      
         <!--        jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!--        Bootstrap JS -->
