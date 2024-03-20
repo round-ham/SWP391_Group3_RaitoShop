@@ -43,6 +43,7 @@ public class LoginController extends HttpServlet {
             request.getSession().setAttribute("listCartProduct", listCartProduct);
             Accounts account = new AccountDAO().getAccountByEmail(email);
             request.getSession().setAttribute("account", account);
+            request.getSession().setAttribute("loggedInAccountId", account.getAccountId());
             updateLastLogin(email);
             String returnUrl = request.getParameter("returnUrl");
             if (returnUrl != null) {
