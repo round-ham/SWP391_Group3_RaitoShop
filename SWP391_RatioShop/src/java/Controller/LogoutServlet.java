@@ -34,7 +34,9 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = request.getSession();
             session.removeAttribute("account");
             session.removeAttribute("listCartProduct");
+            session.removeAttribute("loggedInAccountId");
             request.getRequestDispatcher("homepage").forward(request, response);
+
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
