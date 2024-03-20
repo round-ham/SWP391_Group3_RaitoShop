@@ -17,7 +17,7 @@ public class ManageAccountServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-    
+
         AccountDAO aDAO = new AccountDAO();
         List<Accounts> listA = aDAO.getAccounts();
         List<Role> roles = aDAO.getRoles();
@@ -39,22 +39,32 @@ public class ManageAccountServlet extends HttpServlet {
         String action = request.getParameter("action");
         AccountDAO aDAO = new AccountDAO();
 
-        if ("delete".equals(action)) { 
+        int loggedInAccountId = (int) request.getSession().getAttribute("loggedInAccountId");
+
+        if ("delete".equals(action)) {
             int accountId = Integer.parseInt(request.getParameter("accountId"));
-            aDAO.deleteAccount(accountId);
+            if (accountId != loggedInAccountId) {
+                aDAO.deleteAccount(accountId);
+            }
         } else if ("update-role".equals(action)) {
             int accountId = Integer.parseInt(request.getParameter("accountId"));
             int roleId = Integer.parseInt(request.getParameter("roleId"));
-            aDAO.updateAccountRole(accountId, roleId);
+            if (accountId != loggedInAccountId) {
+                aDAO.updateAccountRole(accountId, roleId);
+            }
         } else {
             int accountId = Integer.parseInt(request.getParameter("accountId"));
             int status = Integer.parseInt(request.getParameter("status"));
 
             if (action != null) {
                 if (action.equals("ban")) {
-                    aDAO.updateAccountStatus(accountId, 0);
+                    if (accountId != loggedInAccountId) {
+                        aDAO.updateAccountStatus(accountId, 0);
+                    }
                 } else if (action.equals("unban")) {
-                    aDAO.updateAccountStatus(accountId, 1);
+                    if (accountId != loggedInAccountId) {
+                        aDAO.updateAccountStatus(accountId, 1);
+                    }
                 }
             }
         }
