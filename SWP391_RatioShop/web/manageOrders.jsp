@@ -153,10 +153,10 @@
                                 <td class="align-middle">${o.address}</td>
                                 <fmt:formatNumber value="${o.totalMoney}" pattern="#.#############" var="formattedValue" />
                                 <td class="align-middle">${formattedValue} VND</td>
-                                <c:if test="${o.status < 2 }">
+                                <c:if test="${o.status ne 2 }">
                                     <c:if test="${o.status != 0}">
-                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=2" ><button class="btn btn-sm btn-primary" style="background-color: green"><i class="fa fa-check"></i></button></a></td>
-                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=0" ><button class="btn btn-sm btn-primary" style="background-color: red"><i class="fa fa-remove"></i></button></a></td>
+                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=2&previousUrl=manage-orders" ><button class="btn btn-sm btn-primary" style="background-color: green"><i class="fa fa-check"></i></button></a></td>
+                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=0&previousUrl=manage-orders" ><button class="btn btn-sm btn-primary" style="background-color: red"><i class="fa fa-remove"></i></button></a></td>
                                                 </c:if>
                                             </c:if>
                                             <c:if test="${o.status >= 1 || o.status == 0 }">

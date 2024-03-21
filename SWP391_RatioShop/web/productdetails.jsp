@@ -182,8 +182,6 @@
                                         <li>Category: <a href="product?sort=categoryId${p.category.categoryId}-0">${p.category.categoryDescription}</a></li>
                                         <li>Available: <span>${p.totalQuantity>0?'Instock':'Outstock'}</span></li>
 
-                                        <li>Shipping Area: <span>All over the world</span></li>
-                                        <li>Shipping Fee: <span>Free</span></li>
                                         <li>Color (Click to see Size available):
                                             <div class="container-co">
                                                 <div class="color-options">
