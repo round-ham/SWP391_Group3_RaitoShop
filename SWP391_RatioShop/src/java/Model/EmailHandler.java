@@ -66,7 +66,7 @@ public class EmailHandler {
 
     public static void main(String[] args) {
         // Thông tin người nhận email
-        String toEmail = "nguyenatony13@gmail.com";
+        String toEmail = "";
         String verify = EmailHandler.generateCodeVerify();
         // Chủ đề của email
         String content = "Verifiy";

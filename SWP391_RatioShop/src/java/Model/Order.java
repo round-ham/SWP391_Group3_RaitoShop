@@ -21,7 +21,6 @@ public class Order {
     private String address;
     private double totalMoney;
     private List<OrderDetail> orderDetails;
-    private String note;
     public Order() {
     }
 
@@ -51,28 +50,6 @@ public class Order {
         this.shippedDate = shippedDate;
         this.address = address;
         this.totalMoney = totalMoney;
-    }
-
-    public Order(int id, Accounts customer, Accounts employee, int status, String orderDate, String acceptedDate, String shippedDate, String address, double totalMoney, String note) {
-        this.id = id;
-        this.customer = customer;
-        this.employee = employee;
-        this.status = status;
-        this.orderDate = orderDate;
-        this.acceptedDate = acceptedDate;
-        this.shippedDate = shippedDate;
-        this.address = address;
-        this.totalMoney = totalMoney;
-        
-        this.note = note;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
 
     public Accounts getCustomer() {

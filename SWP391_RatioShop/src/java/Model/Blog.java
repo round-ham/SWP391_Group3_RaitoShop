@@ -4,50 +4,51 @@
  */
 package Model;
 
-import dal.DBContext;
-import java.sql.Connection;
 import java.sql.Date;
 
 /**
  *
- * @author Duc Hung Computer
+ * @author 84338
  */
-public class Blog extends DBContext {
-
-    private int blogID;
+public class Blog {
+    private int blogId;
     private String title;
     private String blogContent;
     private String blogImage;
     private Date createDate;
     private Date lastUpdate;
-    private int employeeID;
+    private int employeeId;
 
     public Blog() {
-        connect();
     }
+    
+    public Blog(int blogId, String title){
+        }
 
-    public Blog(int blogID, String title, String blogContent, String blogImage, Date createDate, Date lastUpdate, int employeeID) {
-        this.blogID = blogID;
+    public Blog(int blogId, String title, String blogContent, String blogImage, Date createDate, Date lastUpdate, int employeeId) {
+        this.blogId = blogId;
         this.title = title;
         this.blogContent = blogContent;
         this.blogImage = blogImage;
         this.createDate = createDate;
         this.lastUpdate = lastUpdate;
-        this.employeeID = employeeID;
-        connect();
+        this.employeeId = employeeId;
     }
 
-    public Blog(int blogId, String title) {
-        this.blogID = blogID;
+    public int getBlogId() {
+        return blogId;
+    }
+
+    public void setBlogId(int blogId) {
+        this.blogId = blogId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getBlogID() {
-        return blogID;
-    }
-
-    public void setBlogID(int blogID) {
-        this.blogID = blogID;
     }
 
     public String getBlogContent() {
@@ -82,31 +83,15 @@ public class Blog extends DBContext {
         this.lastUpdate = lastUpdate;
     }
 
-    public int getEmployeeID() {
-        return employeeID;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployeeID(int employeeID) {
-        this.employeeID = employeeID;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    Connection cnn; // ket noi database
-
-    private void connect() {
-        cnn = super.connection;
-        if (cnn != null) {
-            System.out.println("Connect success");
-        } else {
-            System.out.println("Connect fail");
-        }
-    }
-
+    
+    
+    
 }
