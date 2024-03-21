@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Vnpay;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,14 +5,10 @@ import java.nio.charset.StandardCharsets;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-/**
- *
- * @author ADMIN-PC
- */
 public class Config {
-     public static String hmacSHA512(final String key, final String data) {
-        try {
 
+    public static String hmacSHA512(final String key, final String data) {
+        try {
             if (key == null || data == null) {
                 throw new NullPointerException();
             }
@@ -31,11 +23,11 @@ public class Config {
                 sb.append(String.format("%02x", b & 0xff));
             }
             return sb.toString();
-
         } catch (Exception ex) {
             return "";
         }
     }
+
     public static String getIpAddress(HttpServletRequest request) {
         String ipAdress;
         try {
