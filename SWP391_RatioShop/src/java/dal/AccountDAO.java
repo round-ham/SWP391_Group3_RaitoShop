@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -188,7 +190,7 @@ public class AccountDAO {
     }
 
     public boolean checkAccountExit(String email) {
-        String sql = "select * from Account where [email] = ?";
+        String sql = "select * from Accounts where [email] = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
@@ -206,16 +208,14 @@ public class AccountDAO {
     public void changePassword(String emailDK, String pass) {
         LocalDate curDate = LocalDate.now();
         String date = curDate.toString();
-
-        String sql = "UPDATE [dbo].[Account]\n"
-                + "SET [password] = ?,\n"
-                + "WHERE [Email] = ?;";
         try {
             conn = new DBContext().getConnection();
+            String sql = "UPDATE [dbo].[Accounts] "
+                    + "SET [password] = ? "
+                    + "WHERE [email] = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, pass);
-            ps.setString(4, emailDK);
-            ps.executeUpdate();
+            ps.setString(2, emailDK);
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Mật khẩu của tài khoản có email " + emailDK + " đã được thay đổi thành công.");
@@ -225,77 +225,58 @@ public class AccountDAO {
         } catch (Exception e) {
         }
     }
-     public List<Accounts> getAccounts() {
-        List<Accounts> accounts = new ArrayList<>();
-        try {
-            String query = "{CALL sp_GetAllAccountWithRole()}";
-            conn = new DBContext().getConnection();
-            cs = conn.prepareCall(query);
-            rs = cs.executeQuery();
 
-            while (rs.next()) {
-                Accounts account = mapResultSetToAccount(rs);
-                accounts.add(account);
+    public boolean checkPassword(String email, String password) {
+        try {
+            String sql = "SELECT password FROM Accounts WHERE email = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return true; // Mật khẩu chính xác
+
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeResources();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return accounts;
+        // Mật khẩu không chính xác hoặc không tìm thấy tài khoản
+        return false;
     }
+    
+    public boolean changePassword(String email, String password, String newPass) {
+        PreparedStatement stm = null;
 
-    public List<Role> getRoles() {
-        List<Role> roles = new ArrayList<>();
         try {
-            String query = "SELECT * FROM Roles";
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
+            String sql = "UPDATE Accounts SET password = ? WHERE email = ? AND password = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, newPass);
+            ps.setString(2, email);
+            ps.setString(3, password);
 
-            while (rs.next()) {
-                Role role = new Role(rs.getInt("roleId"), rs.getString("roleName"));
-                roles.add(role);
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows > 0) {
+                System.out.println("Password changed successfully");
+                return true;
+            } else {
+                System.out.println("Failed to change password");
+                return false;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            closeResources();
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        return roles;
-    }
 
-    public void updateAccountStatus(int accountId, int status) {
-        try {
-            String query = "{CALL sp_UpdateAccountStatus(?, ?)}";
-            conn = new DBContext().getConnection();
-            cs = conn.prepareCall(query);
-
-            cs.setInt(1, accountId);
-            cs.setInt(2, status);
-
-            cs.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeResources();
-        }
-    }
-
-    public void updateAccountRole(int accountId, int roleId) {
-        try {
-            String query = "{CALL sp_UpdateAccountRoles(?, ?)}";
-            conn = new DBContext().getConnection();
-            cs = conn.prepareCall(query);
-
-            cs.setInt(1, accountId);
-            cs.setInt(2, roleId);
-
-            cs.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeResources();
-        }
+        return false;
     }
 }
