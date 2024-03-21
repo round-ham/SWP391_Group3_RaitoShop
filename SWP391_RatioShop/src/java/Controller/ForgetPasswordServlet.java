@@ -89,14 +89,8 @@ public class ForgetPasswordServlet extends HttpServlet {
                         + "</head>\n"
                         + "<body style=\"background-color: #b8daff; padding: 20px;\">\n"
                         + "    <div class=\"container\">\n"
-                        + "        <h2 style=\"font-size: 30px;\">Xin Chào!!</h2>\n"
-                        + "        <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi. Mã xác thực của bạn là:</p>\n" + verify 
+                        + "        <p>Mã xác thực của bạn là:</p>\n" + verify 
                         + "        <h1 style=\"margin-left: 150px; font-size: 38px; color: red;\"></h1>\n"
-                        + "        <p>Vui lòng nhập mã này vào trang xác thực trên website của chúng tôi để hoàn tất quá trình.</p>\n"
-                        + "        <p style=\"font-size: 15px;\"><a href=\"http://localhost:9999/onlineshop/verify.jsp\">Quay lại website của chúng tôi</a></p>\n"
-                        + "        <p>Nếu bạn không yêu cầu mã này, vui lòng bỏ qua email này hoặc liên hệ với bộ phận hỗ trợ của chúng tôi.</p>\n"
-                        + "        <p>Trân trọng,</p>\n"
-                        + "        <h2>FBT Shoes Shop</h2>\n"
                         + "    </div>\n"
                         + "</body>\n"
                         + "</html>";
