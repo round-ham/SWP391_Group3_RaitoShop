@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dal;
 
 import Model.Accounts;
@@ -351,5 +348,26 @@ public class AccountDAO {
         } finally {
             closeResources();
         }
+    }
+     public boolean updateProfile(int accountId, String fullName, String email, String address, String phone) {
+        try {
+            String strSQL = "UPDATE [dbo].[Accounts]\n"
+                    + "   SET [fullName] = ?\n"
+                    + "      ,[email] = ?\n"
+                    + "      ,[address] = ?\n"
+                    + "      ,[phone] = ?\n"
+                    + " WHERE accountId = ?";
+            PreparedStatement stm = conn.prepareStatement(strSQL);
+            stm.setString(1, fullName);
+            stm.setString(2, email);
+            stm.setString(3, address);
+            stm.setString(4, phone);
+            stm.setInt(5, accountId);
+            stm.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println("updateProfile:" + e.getMessage());
+        }
+        return false;
     }
 }

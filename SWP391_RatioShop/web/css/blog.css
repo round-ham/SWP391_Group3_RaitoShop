@@ -1,0 +1,85 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Feb 18, 2024, 2:38:32 PM
+    Author     : Duc Hung Computer
+*/
+
+.container {
+    display: flex;
+}
+
+.sort {
+    flex: 1;
+}
+
+.row {
+    flex: 7;
+}
+
+.sidebar-title {
+    font-size          : 18px;
+    text-transform     : uppercase;
+    margin-bottom      : 30px;
+    font-weight        : 700;
+    padding-bottom     : 15px;
+    border-bottom      : 2px solid #dee2e6;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(222, 226, 230);
+    position           : relative;
+}
+
+.submit-button {
+    width: 50px;
+    height: 25px;
+    border-radius: 15px;
+    background-color: #111111;
+    color: #fff;
+    border: 2px solid #111111;
+    cursor: pointer;
+}
+
+.line-container::after {
+    content         : '';
+    position        : absolute;
+    top             : 40px;
+    left            : 0;
+    width           : 30%;
+    height          : 4px;
+    background-color: rgb(177, 147, 97);
+    transform       : translateY(-50%);
+    z-index         : 1;
+
+}
+
+.pagination1{
+    margin-left:auto;
+    margin-right:auto;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination1 a{
+    border: 1px #111111 solid;
+    text-decoration: none;
+    padding: 10px;
+    line-height: 40px;
+    height: 40px;
+    border: 1px solid #111111;
+    background: #fff;
+    color: #24262b;
+    border-radius: 3px;
+    font-weight: 500;
+}
+.pagination1 a:hover{
+    background-color: #111111;
+    color: white;
+}
+
+a.current-page{
+    background-color: #111111;
+    color: white;
+}

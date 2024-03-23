@@ -84,6 +84,14 @@
         <servlet-class>Controller.Order.OrderManageServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProfileController</servlet-name>
+        <servlet-class>Controller.ProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeProfileController</servlet-name>
+        <servlet-class>Controller.ChangeProfileController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ShippingProductsController</servlet-name>
         <servlet-class>Controller.ShippingProductsController</servlet-class>
     </servlet>
@@ -106,6 +114,14 @@
     <servlet-mapping>
         <servlet-name>AddProductDetailsServlet</servlet-name>
         <url-pattern>/addproductdetails</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>ProfileController</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeProfileController</servlet-name>
+        <url-pattern>/changeprofile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddBrandServlet</servlet-name>
