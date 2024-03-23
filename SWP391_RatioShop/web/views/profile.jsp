@@ -1,4 +1,6 @@
+    
 <!DOCTYPE html>
+
 <html lang="zxx">
 
     <head>
@@ -8,72 +10,69 @@
         <link rel="stylesheet" type="text/css" href="css/profile.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
         <style>
-            /*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
-            */
-            /* 
-                Created on : Feb 15, 2024, 11:15:58 PM
-                Author     : Duc Hung Computer
-            */
+            .error-message {
+    color: red;
+    font-size: 0.875rem; /* Tu? ch?nh kích th??c phù h?p */
+}
             body{
                 margin-top:20px;
-                color: #9b9ca1;
+                background-color:#f2f6fc;
+                color:#69707a;
             }
-            .bg-secondary-soft {
-                background-color: rgba(208, 212, 217, 0.1) !important;
+            .img-account-profile {
+                height: 10rem;
             }
-            .rounded {
-                border-radius: 5px !important;
+            .rounded-circle {
+                border-radius: 50% !important;
             }
-            .py-5 {
-                padding-top: 3rem !important;
-                padding-bottom: 3rem !important;
+            .card {
+                box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
             }
-            .px-4 {
-                padding-right: 1.5rem !important;
-                padding-left: 1.5rem !important;
+            .card .card-header {
+                font-weight: 500;
             }
-            .file-upload .square {
-                height: 250px;
-                width: 250px;
-                margin: auto;
-                vertical-align: middle;
-                border: 1px solid #e5dfe4;
-                background-color: #fff;
-                border-radius: 5px;
+            .card-header:first-child {
+                border-radius: 0.35rem 0.35rem 0 0;
             }
-            .text-secondary {
-                --bs-text-opacity: 1;
-                color: rgba(208, 212, 217, 0.5) !important;
+            .card-header {
+                padding: 1rem 1.35rem;
+                margin-bottom: 0;
+                background-color: rgba(33, 40, 50, 0.03);
+                border-bottom: 1px solid rgba(33, 40, 50, 0.125);
             }
-            .btn-success-soft {
-                color: #28a745;
-                background-color: rgba(40, 167, 69, 0.1);
-            }
-            .btn-danger-soft {
-                color: #ff0033;
-                background-color: rgba(220, 53, 69, 0.1);
-            }
-            .form-control {
+            .form-control, .dataTable-input {
                 display: block;
                 width: 100%;
-                padding: 0.5rem 1rem;
-                font-size: 0.9375rem;
+                padding: 0.875rem 1.125rem;
+                font-size: 0.875rem;
                 font-weight: 400;
-                line-height: 1.6;
-                color: #29292e;
+                line-height: 1;
+                color: #69707a;
                 background-color: #fff;
                 background-clip: padding-box;
-                border: 1px solid #e5dfe4;
+                border: 1px solid #c5ccd6;
                 -webkit-appearance: none;
                 -moz-appearance: none;
                 appearance: none;
-                border-radius: 5px;
-                -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-                transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                border-radius: 0.35rem;
                 transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+            }
+
+            .nav-borders .nav-link.active {
+                color: #0061f2;
+                border-bottom-color: #0061f2;
+            }
+            .nav-borders .nav-link {
+                color: #69707a;
+                border-bottom-width: 0.125rem;
+                border-bottom-style: solid;
+                border-bottom-color: transparent;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                padding-left: 0;
+                padding-right: 0;
+                margin-left: 1rem;
+                margin-right: 1rem;
             }
         </style>
 
@@ -81,108 +80,158 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     </head>
 
     <body>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <!-- Page title -->
-                    <div class="my-5">
-                        <h3><a href="homepage" style="color: black;text-decoration: none;">Home </a> > <a href="profile" style="color: black;text-decoration: none;">Profile</a></h3>
-                        <hr>
-                    </div>
-                    <!-- Form START -->
-
-                        <div class="row mb-5 gx-5">
-                            <!-- Contact detail -->
-                            <div class="col-xxl-8 mb-5 mb-xxl-0">
-                                <div class="bg-secondary-soft px-4 py-5 rounded">
-                                    <div class="row g-3">
-                                        <h4 class="mb-4 mt-0">Contact detail</h4>
-                                        <!-- First Name -->
-                                        <div class="col-md-6">
-                                            <label class="form-label">Full Name </label>
-                                            <input type="text" class="form-control" placeholder="" aria-label="First name" value="${a.getFullName()}">
-                                        </div>
-                                        <!-- Phone number -->
-                                        <div class="col-md-6">
-                                            <label class="form-label">Phone number *</label>
-                                            <input type="text" class="form-control" placeholder="" aria-label="Phone number" value="${a.getPhone()}">
-                                        </div>
-                                        <!-- Email -->
-                                        <div class="col-md-6">
-                                            <label for="inputEmail4" class="form-label">Email *</label>
-                                            <input type="email" class="form-control" id="inputEmail4" value="${a.getEmail()}" readonly>
-                                        </div>
-                                        <!-- Skype -->
-                                        <div class="col-md-6">
-                                            <label class="form-label">Address *</label>
-                                            <input type="text" class="form-control" placeholder="" aria-label="Phone number" value="${a.getAddress()}">
-                                        </div>
-                                    </div> <!-- Row END -->
-                                </div>
-                            </div>
-                            <!-- Upload profile -->
-                            <div class="col-xxl-4">
-                                <div class="bg-secondary-soft px-4 py-5 rounded">
-                                    <div class="row g-3">
-                                        <h4 class="mb-4 mt-0">Profile photo</h4>
-                                        <div class="text-center">
-                                            <!-- Image upload -->
-                                            <div class="square position-relative display-2 mb-3">
-                                                <i class="fas fa-fw fa-user position-absolute top-50 start-50 translate-middle text-secondary"></i>
-                                            </div>
-                                            <!-- Button -->
-                                            <input type="file" id="customFile" name="file" hidden="">
-                                            <label class="btn btn-success-soft btn-block" for="customFile">Upload</label>   
-                                            <button type="button" class="btn btn-danger-soft">Remove</button>
-                                            <!-- Content -->
-                                            <p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum size 300px x 300px</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- Row END -->
-
-                        <!-- Social media detail -->
-                        <div class="row mb-5 gx-5">
-
-                            <!-- change password -->
-                            <div class="col-xxl-6">
-                                <div class="bg-secondary-soft px-4 py-5 rounded">
-                                    <div class="row g-3">
-                                        <h4 class="my-4">Change Password</h4>
-                                        <!-- Old password -->
-                                        <div class="col-md-6">
-                                            <label for="exampleInputPassword1" class="form-label">Old password *</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword1">
-                                        </div>
-                                        <!-- New password -->
-                                        <div class="col-md-6">
-                                            <label for="exampleInputPassword2" class="form-label">New password *</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword2">
-                                        </div>
-                                        <!-- Confirm password -->
-                                        <div class="col-md-12">
-                                            <label for="exampleInputPassword3" class="form-label">Confirm Password *</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword3">
-                                        </div>
-                                        <div class="gap-3 d-md-flex justify-content-md-end text-center">
-                                            <button type="button" class="btn btn-danger btn-lg"  >Delete profile</button>
-                                            <button type="button" class="btn btn-primary btn-lg">Update profile</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- Row END -->
-                        <!-- button -->
-                        <div class="gap-3 d-md-flex justify-content-md-end text-center">
-                            <button type="button" class="btn btn-danger btn-lg">Delete profile</button>
-                            <button type="button" class="btn btn-primary btn-lg">Update profile</button>
+<a class="btn btn-primary mb-4" href="homepage">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+        <div class="container-xl px-4 mt-4">
+            <!-- Account page navigation-->
+            <nav class="nav nav-borders">
+                
+                <a class="nav-link active ms-0" href="profile" target="__blank">Profile</a>
+                <a class="nav-link" id="changePasswordLink" href="#"  onclick="loadChangePassword()" >Change Password</a>
+            </nav>
+            <hr class="mt-0 mb-4">
+            <div class="row" id="profileContent">
+                <div class="col-xl-4">
+                    <!-- Profile picture card-->
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header">Profile Picture</div>
+                        <div class="card-body text-center">
+                            <!-- Profile picture image-->
+                            <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                            <!-- Profile picture help block-->
+                            <div class="small font-italic text-muted mb-4"></div>
+                            <!-- Profile picture upload button-->
                         </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <!-- Account details card-->
+                    <div class="card mb-4">
+                        <div class="card-header">Account Details</div>
+                        <div class="card-body">
+                            <form action="changeprofile" method="POST">
+                                <!-- Form Group (username)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label><span class="error-message">${checkName}</span>
+                                    <input class="form-control" name="fullname" type="text" placeholder="Enter your username" value="${a.getFullName()}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                                    <input class="form-control" name="email" type="email" placeholder="Enter your email address" value="${a.getEmail()}" readonly="">
+                                </div>
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (location)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputLocation">Location</label>
+                                        <input class="form-control" name="address" type="text" placeholder="Enter your location" value="${a.getAddress()}">
+                                    </div>
+                                </div>
 
+                                <!-- Form Row-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (phone number)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputPhone">Phone number</label><span class="error-message">${checkPhone}</span>
+                                        <input class="form-control" name="phone" type="tel" placeholder="Enter your phone number" value="${a.getPhone()}">
+                                    </div>
+                                    <!-- Form Group (birthday)-->
+                                </div>
+                                <!-- Save changes button-->
+                                <button class="btn btn-primary" type="submit">Save changes</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div id="changepasswordContent">
+                <div class="card mb-4">
+                    <div class="card-header">Change Password</div>
+                    <div class="card-body">
+                        <form action="changepass" method="POST">
+                            <!-- Form Group (current password)-->
+                            <div class="mb-3">
+                                <label class="small mb-1" for="currentPassword">Current Password</label>
+                                <span class="error-message">${ms1}</span>
+                                <span class="error-message">${ms2}</span>
+                                <span class="error-message">${ms3}</span>
+                                <span class="error-message">${sc}</span>
+                                <input class="form-control" name="password" id="currentPassword" type="password" placeholder="Enter current password">
+                            </div>
+                            <!-- Form Group (new password)-->
+                            <div class="mb-3">
+                                <label class="small mb-1" for="newPassword">New Password</label>
+                                <input class="form-control" name="newPassword" id="newPassword" type="password" placeholder="Enter new password">
+                            </div>
+                            <!-- Form Group (confirm password)-->
+                            <div class="mb-3">
+                                <label class="small mb-1" for="confirmPassword">Confirm Password</label>
+                                <input class="form-control" name="con_newPassword" id="confirmPassword" type="password" placeholder="Confirm new password">
+                            </div>
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>       
         </div>
+        <script>
+            function loadChangePassword() {
+                // Lo?i b? l?p active t? t?t c? các liên k?t
+                var navLinks = document.getElementsByClassName("nav-link");
+                for (var i = 0; i < navLinks.length; i++) {
+                    navLinks[i].classList.remove("active");
+                }
+
+                // Thêm l?p active cho liên k?t "Change Password"
+                document.getElementById("changePasswordLink").classList.add("active");
+
+                // ?n ph?n profileContent
+                document.getElementById("profileContent").style.display = "none";
+
+                // Hi?n ph?n changepasswordContent
+                document.getElementById("changepasswordContent").style.display = "block";
+            }
+
+            window.onload = function () {
+                // ?n ph?n changepasswordContent khi trang ???c t?i l?n ??u tiên
+                document.getElementById("changepasswordContent").style.display = "none";
+
+                // Ki?m tra n?u URL có ch?a chu?i "/changepass" (t?c là b?n ?ang trên trang changepass)
+                if (window.location.href.indexOf("/changepass") !== -1) {
+                    // G?i hàm loadChangePassword() t? ??ng ?? hi?n th? n?i dung c?a trang changepassword
+                    loadChangePassword();
+                }
+
+                // B?t s? ki?n click vào liên k?t "Profile"
+                document.getElementById("profileLink").addEventListener("click", function () {
+                    // Lo?i b? l?p active t? t?t c? các liên k?t
+                    var navLinks = document.getElementsByClassName("nav-link");
+                    for (var i = 0; i < navLinks.length; i++) {
+                        navLinks[i].classList.remove("active");
+                    }
+
+                    // Thêm l?p active cho liên k?t "Profile"
+                    document.getElementById("profileLink").classList.add("active");
+
+                    // Hi?n ph?n profileContent
+                    document.getElementById("profileContent").style.display = "block";
+
+                    // ?n ph?n changepasswordContent
+                    document.getElementById("changepasswordContent").style.display = "none";
+                });
+            };
+        </script>
+
+        <!--<script>
+            window.onload = function() {
+                // Ki?m tra n?u URL có ch?a chu?i "/changepass" (t?c là b?n ?ang trên trang changepass)
+                if (window.location.href.indexOf("/changepass") !== -1) {
+                    // G?i hàm loadChangePassword() t? ??ng ?? hi?n th? n?i dung c?a trang changepassword
+                    loadChangePassword();
+                }
+            };
+        </script>-->
+
     </body>
 
 </html>
