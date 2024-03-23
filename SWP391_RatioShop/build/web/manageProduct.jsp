@@ -26,7 +26,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-top: 30px;
+                height: 50vh;
             }
 
             .form-container {
@@ -71,7 +71,7 @@
         </style>
     </head>
     <body>
-        <header>
+        <header style="margin-bottom: 15%; background: white">
             <%@include file="header.jsp" %>
         </header>
         <div class="container-co">

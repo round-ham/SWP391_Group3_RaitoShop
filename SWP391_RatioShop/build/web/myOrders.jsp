@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Manage Order</title>
+        <title>My Order</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -81,7 +81,7 @@
             <%@include file="header.jsp" %>
         </header>
         <div class="form-heading">
-            <h3 style="color: white">Manage Orders</h3>
+            <h3 style="color: white">My Orders Purchased</h3>
         </div>
         <div class="container-co flex-column">
             <div class="d-flex align-items-center">
@@ -124,9 +124,7 @@
                             <th>Shipped Date</th>
                             <th>Address</th>
                             <th>Total Money</th>
-                            <th colspan="2">Action</th>
-                            <th>View Detail</th>
-
+                            <th colspan="3">Action</th>
 
                         </tr>
                     </thead>
@@ -142,10 +140,12 @@
                                     <c:if test="${o.status eq 2}">Accepted</c:if>
                                     <c:if test="${o.status eq 3}">Delivering</c:if>
                                     <c:if test="${o.status eq 4}">Delivered</c:if>
-                                    <c:if test="${o.status eq 5}">Unable to deliver</c:if>
+
                                     <c:if test="${o.status eq 6}">Success</c:if>
+                                    <c:if test="${o.status eq 5}">Unable to deliver</c:if>
 
                                     <c:if test="${o.status eq 0}">Declined</c:if>
+                                    </td>
                                     </td>
                                     <td class="align-middle">${o.orderDate}</td>
                                 <td class="align-middle">${o.acceptedDate}</td>
@@ -153,21 +153,30 @@
                                 <td class="align-middle">${o.address}</td>
                                 <fmt:formatNumber value="${o.totalMoney}" pattern="#.#############" var="formattedValue" />
                                 <td class="align-middle">${formattedValue} VND</td>
-                                <c:if test="${o.status ne 2 }">
-                                    <c:if test="${o.status != 0}">
-                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=2&previousUrl=manage-orders" ><button class="btn btn-sm btn-primary" style="background-color: green"><i class="fa fa-check"></i></button></a></td>
-                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=0&previousUrl=manage-orders" ><button class="btn btn-sm btn-primary" style="background-color: red"><i class="fa fa-remove"></i></button></a></td>
-                                                </c:if>
-                                            </c:if>
-                                            <c:if test="${o.status >= 1 || o.status == 0 }">
+                                <c:if test="${o.status eq 4  }">
+                                    <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=5&previousUrl=my-order" >
+                                            <button class="btn btn-sm btn-primary"
 
-                                    <td></td>
-                                    <td></td>
+                                                    style="background-color: green"
+                                                    >
+                                                <i class="fa fa-check"></i>
+                                            </button></a></td>
+
                                 </c:if>
-                                <td class="align-middle"><a href="mange-order-details?orderId=${o.id}" >
+                                <c:if test="${o.status eq  1}">
+                                    <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=0&previousUrl=my-order" >
+                                            <button class="btn btn-sm btn-primary" style="background-color: red"
+                                                    ><i class="fa fa-remove"></i>
+                                            </button></a>
+                                    </td>
+                                </c:if>
+                                <td class="align-middle"><a href="my-order-detail?orderId=${o.id}" >
 
                                         View detail
                                     </a></td>
+
+
+
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -183,7 +192,7 @@
                 var sort = document.getElementById('sort').value;
 
                 $.ajax({
-                    url: "/RatioShop/filter-order",
+                    url: "/RatioShop/filter-myorder",
                     type: "get",
                     data: {
                         status: status,

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Manage Product</title>
+        <title>Manage Product Detail</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -26,7 +26,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-top: 30px;
+                height: 70vh;
             }
 
             .form-container {
@@ -71,7 +71,7 @@
         </style>
     </head>
     <body>
-        <header>
+        <header style="margin-bottom: 15%; background: white">
             <%@include file="header.jsp" %>
         </header>
         <div class="container-co">
@@ -79,7 +79,7 @@
             <div class="form-container">
                 <div class="form-heading">
 
-                    <h3 style="color: white">Manage Products</h3>
+                    <h3 style="color: white">Manage Product Detail</h3>
                 </div>
                 <div class="col-lg-12 text-center text-lg-right mb-3">
                     <div class="d-inline-flex align-items-center">

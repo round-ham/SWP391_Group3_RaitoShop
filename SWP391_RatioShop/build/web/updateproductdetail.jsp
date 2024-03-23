@@ -32,7 +32,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-top: 30px;
+                height: 100vh;
             }
 
             .form-container {
@@ -81,7 +81,7 @@
         </style>
     </head>
     <body>
-        <header>
+        <header style="margin-bottom: 15%; background: white">
             <%@include file="header.jsp" %>
         </header>
         <div class="container-co">
@@ -104,10 +104,15 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <br>
+
                         <label for="qty">Quantity</label>
+
                         <div>
                             <input type="number" class="form-control" name="quantity" value="${product.quantity}" min="1" style="max-width: 250px">
                         </div>
+                        <br>
+
                     </div>
                     <div class="form-group">
                         <label for="name">Color</label>
@@ -119,6 +124,8 @@
                             </select>
                         </div>
                     </div>
+                    <br>
+
                     <div class="form-group">
                         <label for="name">Image of Product(Specific Color)</label>
                         <div>

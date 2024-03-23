@@ -1,15 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sale Programs</title>
+        
+        <meta charset="UTF-8">
+        <meta name="description" content="Male_Fashion Template">
+        <meta name="keywords" content="Male_Fashion, unica, creative, html">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="icon" type="image/x-icon" href="pic/logo.png">
+        <title>Raito Shop | Sale Programs</title>
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+              rel="stylesheet">
+
+        <!-- Css Styles -->
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+        <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+        <link rel="stylesheet" href="css/style.css" type="text/css">
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <!-- DataTables CSS -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
     </head>
     <body>
+        <header class="header" style= "box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <%@include file="header.jsp" %>
+        </header>
+       
 
         <div class="container mt-4">
 
@@ -24,10 +48,10 @@
                 </div>
             </c:if>
 
-            <h2>Sale Programs</h2>
+            <h2>SALE PROGRAM</h2>
 
             <button type="button" class="btn btn-primary mb-3 mt-5" data-toggle="modal" data-target="#addModal">
-                Add Sale Program
+                CREATE A NEW SALE PROGRAM
             </button>
 
             <table id="saleProgramsTable" class="table table-striped table-bordered" style="width:100%">
@@ -47,7 +71,7 @@
                             <td>${saleProgram.salePrgmId}</td>
                             <td>${saleProgram.title}</td>
                             <td>${saleProgram.startDate}</td>
-                            <td>${saleProgram.endDate}</td>
+                            <td>${saleProgram.endDate==null?"No info":saleProgram.endDate}</td>
                             <td style="color: ${saleProgram.status == 'Ended' ? 'red' : saleProgram.status == 'Active' ? 'green' : 'black'}">
                                 ${saleProgram.status}
                             </td>
@@ -134,6 +158,12 @@
                 </div>
             </div>
         </div>
+        
+        <footer class="footer">
+            <%@include file="footer.jsp" %>
+        </footer>
+        
+       
 
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
