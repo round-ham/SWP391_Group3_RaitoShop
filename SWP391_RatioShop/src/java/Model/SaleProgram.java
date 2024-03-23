@@ -17,12 +17,12 @@ public class SaleProgram {
     private int salePrgmId;
     private String title;
     private Date startDate;
-    private String endDate;
+    private Date endDate;
 
     public SaleProgram() {
     }
 
-    public SaleProgram(int salePrgmId, String title, Date startDate, String endDate) {
+    public SaleProgram(int salePrgmId, String title, Date startDate, Date endDate) {
         this.salePrgmId = salePrgmId;
         this.title = title;
         this.startDate = startDate;
@@ -53,11 +53,11 @@ public class SaleProgram {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -65,18 +65,13 @@ public class SaleProgram {
         Date now = new Date();
         if (startDate != null && endDate != null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                Date endDateParsed = dateFormat.parse(endDate);
-                if (now.before(startDate)) {
-                    return "Waiting";
-                } else if (now.after(startDate) && now.before(endDateParsed)) {
-                    return "Active";
-                } else {
-                    return "Ended";
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-                return "Date parsing error";
+            Date endDateParsed = endDate;
+            if (now.before(startDate)) {
+                return "Waiting";
+            } else if (now.after(startDate) && now.before(endDateParsed)) {
+                return "Active";
+            } else {
+                return "Ended";
             }
         } else {
             return "Date information missing";
