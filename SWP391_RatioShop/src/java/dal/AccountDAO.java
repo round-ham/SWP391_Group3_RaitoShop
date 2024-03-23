@@ -279,4 +279,77 @@ public class AccountDAO {
 
         return false;
     }
+     public List<Accounts> getAccounts() {
+        List<Accounts> accounts = new ArrayList<>();
+        try {
+            String query = "{CALL sp_GetAllAccountWithRole()}";
+            conn = new DBContext().getConnection();
+            cs = conn.prepareCall(query);
+            rs = cs.executeQuery();
+
+            while (rs.next()) {
+                Accounts account = mapResultSetToAccount(rs);
+                accounts.add(account);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+        return accounts;
+    }
+
+    public List<Role> getRoles() {
+        List<Role> roles = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM Roles";
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Role role = new Role(rs.getInt("roleId"), rs.getString("roleName"));
+                roles.add(role);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+        return roles;
+    }
+
+    public void updateAccountStatus(int accountId, int status) {
+        try {
+            String query = "{CALL sp_UpdateAccountStatus(?, ?)}";
+            conn = new DBContext().getConnection();
+            cs = conn.prepareCall(query);
+
+            cs.setInt(1, accountId);
+            cs.setInt(2, status);
+
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+    }
+
+    public void updateAccountRole(int accountId, int roleId) {
+        try {
+            String query = "{CALL sp_UpdateAccountRoles(?, ?)}";
+            conn = new DBContext().getConnection();
+            cs = conn.prepareCall(query);
+
+            cs.setInt(1, accountId);
+            cs.setInt(2, roleId);
+
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+    }
 }
