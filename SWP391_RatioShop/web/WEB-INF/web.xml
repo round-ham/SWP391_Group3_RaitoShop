@@ -83,6 +83,14 @@
         <servlet-name>OrderManageServlet</servlet-name>
         <servlet-class>Controller.Order.OrderManageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShippingProductsController</servlet-name>
+        <servlet-class>Controller.ShippingProductsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyShippingController</servlet-name>
+        <servlet-class>Controller.MyShippingController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/addproduct</url-pattern>
@@ -166,6 +174,14 @@
      <servlet-mapping>
         <servlet-name>ManageAccountServlet</servlet-name>
         <url-pattern>/manage-account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShippingProductsController</servlet-name>
+        <url-pattern>/shiplist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyShippingController</servlet-name>
+        <url-pattern>/myship</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
