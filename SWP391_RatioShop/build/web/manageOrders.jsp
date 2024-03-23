@@ -6,8 +6,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Manage Order</title>
-        <%@include file="head.jsp" %>
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+        <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+        <link rel="stylesheet" href="css/style.css" type="text/css">
         <style>
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -62,30 +69,37 @@
             .btn-primary:hover {
                 background-color: #0056b3;
             }
+
+            .table-container{
+                max-height: 600px;
+                overflow: auto;
+            }
         </style>
     </head>
     <body>
         <header style="margin-bottom: 5%; background: white">
             <%@include file="header.jsp" %>
         </header>
-        <div class="container-co">
-
-            <div class="form-container">
-                <div class="form-heading">
-
-                    <h3 style="color: white">Manage Orders</h3>
-                </div>
-                <form>Status:
+        <div class="form-heading">
+            <h3 style="color: white">Manage Orders</h3>
+        </div>
+        <div class="container-co flex-column">
+            <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center">
+                    <label for="status">Status:</label>
                     <select id="status" onchange="filter()">
                         <option value="-1"> All</option>
-                        <option value="1"> Wait for approving</option>
-                        <option value="2"> Preparing</option>
+                        <option value="1"> Pending</option>
+                        <option value="2"> Accepted</option>
                         <option value="3"> Delivering</option>
-                        <option value="4"> Received</option>
-                        <option value="5"> Success</option>
+                        <option value="4"> Delivered</option>
+                        <option value="5"> Unable to deliver</option>
+                        <option value="6"> Success  </option>
                         <option value="0"> Declined</option>
                     </select>
-                    Sort By:
+                </div>
+                <div class="d-flex align-items-center">
+                    <label for="sort">Sort By:</label>
                     <select id="sort" onchange="filter()">
                         <option value="-1">Default</option>
                         <option value="1"> Old Order Date</option>
@@ -95,7 +109,9 @@
                         <option value="5"> Old Shipped Date</option>
                         <option value="6"> New Shipped Date</option>
                     </select>
-                </form>
+                </div>
+            </div>
+            <div class="table-container w-75 mt-3">
                 <table class="table table-bordered text-center mb-0 list">
                     <thead class="bg-secondary text-white list">
                         <tr>
@@ -109,6 +125,8 @@
                             <th>Address</th>
                             <th>Total Money</th>
                             <th colspan="2">Action</th>
+                            <th>View Detail</th>
+
 
                         </tr>
                     </thead>
@@ -120,11 +138,13 @@
                                 <td class="align-middle">${o.employee.fullName}</td>
 
                                 <td class="align-middle">
-                                    <c:if test="${o.status eq 1}">Wait for approving</c:if>
-                                    <c:if test="${o.status eq 2}">Preparing</c:if>
+                                    <c:if test="${o.status eq 1}">Pending</c:if>
+                                    <c:if test="${o.status eq 2}">Accepted</c:if>
                                     <c:if test="${o.status eq 3}">Delivering</c:if>
-                                    <c:if test="${o.status eq 4}">Successful Delivered</c:if>
-                                    <c:if test="${o.status eq 5}">Success</c:if>
+                                    <c:if test="${o.status eq 4}">Delivered</c:if>
+                                    <c:if test="${o.status eq 5}">Unable to deliver</c:if>
+                                    <c:if test="${o.status eq 6}">Success</c:if>
+
                                     <c:if test="${o.status eq 0}">Declined</c:if>
                                     </td>
                                     <td class="align-middle">${o.orderDate}</td>
@@ -133,14 +153,21 @@
                                 <td class="align-middle">${o.address}</td>
                                 <fmt:formatNumber value="${o.totalMoney}" pattern="#.#############" var="formattedValue" />
                                 <td class="align-middle">${formattedValue} VND</td>
-                                <c:if test="${o.status < 4 }">
+                                <c:if test="${o.status ne 2 }">
                                     <c:if test="${o.status != 0}">
-                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=${o.status +1}" ><button class="btn btn-sm btn-primary" style="background-color: green"><i class="fa fa-check"></i></button></a></td>
-                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=0" ><button class="btn btn-sm btn-primary" style="background-color: red"><i class="fa fa-remove"></i></button></a></td>
-                                    </c:if>
+                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=2&previousUrl=manage-orders" ><button class="btn btn-sm btn-primary" style="background-color: green"><i class="fa fa-check"></i></button></a></td>
+                                        <td class="align-middle"><a href="update-status-order?orderId=${o.id}&status=0&previousUrl=manage-orders" ><button class="btn btn-sm btn-primary" style="background-color: red"><i class="fa fa-remove"></i></button></a></td>
+                                                </c:if>
+                                            </c:if>
+                                            <c:if test="${o.status >= 1 || o.status == 0 }">
 
+                                    <td></td>
+                                    <td></td>
                                 </c:if>
+                                <td class="align-middle"><a href="mange-order-details?orderId=${o.id}" >
 
+                                        View detail
+                                    </a></td>
                             </tr>
                         </c:forEach>
                     </tbody>

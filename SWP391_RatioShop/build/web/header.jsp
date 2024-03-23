@@ -21,15 +21,6 @@
                             <li><a href="product?sort=categoryId0-2">Good Prices</a></li>                          
                         </ul>
                     </li>
-                    <!-- <li><a href="#">Pages</a>
-                        <ul class="dropdown">
-                            <li><a href="./about.html">About Us</a></li>
-                            <li><a href="./shop-details.html">Shop Details</a></li>
-                            <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                            <li><a href="./checkout.html">Check Out</a></li>
-                            <li><a href="./blog-details.html">Blog Details</a></li>
-                        </ul>
-                    </li> -->
                     <li>
                         <a href="./blog.html">Blog</a>
                         <!-- Marketing Staff Role -->
@@ -64,8 +55,12 @@
                     </c:if>
                     <!-- Shipper -->
                     <c:if test="${sessionScope.account != null && sessionScope.account.getRoleName() == 'shipper'}">
-                        <li>
+                      <li>
                             <a href="#">Delivery Management</a>
+                            <ul class="dropdown">
+                                <li><a href="shiplist">Delivery List</a></li>
+                                <li><a href="myship">My Deliveries</a></li>
+                            </ul>
                         </li>
                     </c:if>
                 </ul>
@@ -86,7 +81,7 @@
                         Logout
                     </a>
                 </c:if>
-                <a href="${sessionScope.account eq null ? 'login' : 'cart.jsp'}" class="ml-3">
+                <a href="${sessionScope.account eq null ? 'login' : 'cart'}" class="ml-3">
                     <img src="img/icon/cart.png" alt="">
                     <span id="numberCart">${sessionScope.listCartProduct.size()}
                     </span>

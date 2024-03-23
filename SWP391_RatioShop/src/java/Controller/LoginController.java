@@ -43,6 +43,7 @@ public class LoginController extends HttpServlet {
             request.getSession().setAttribute("listCartProduct", listCartProduct);
             Accounts account = new AccountDAO().getAccountByEmail(email);
             request.getSession().setAttribute("account", account);
+            request.getSession().setAttribute("loggedInAccountId", account.getAccountId());
             updateLastLogin(email);
             String returnUrl = request.getParameter("returnUrl");
             if (returnUrl != null) {
@@ -62,7 +63,7 @@ public class LoginController extends HttpServlet {
         Accounts account = new AccountDAO().getAccountByEmail(email);
         boolean checkLogin = account != null && account.getPassword().equals(new PasswordHash().hashPassword(password));
 
-        // For simplicity, let's assume a valid login if email and password are not empty
+        // Accounts valid login if email and password are not empty and checkLogin return true
         return email != null && !email.isEmpty() && password != null && !password.isEmpty() && checkLogin;
     }
 

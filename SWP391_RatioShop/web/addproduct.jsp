@@ -83,7 +83,6 @@
                 </div>
                 <form action="addproduct" method="post" class="form-horizontal" role="form">
                     <h3 style="color: red; font-style: italic">${param.add==0?'Add product failed!':''}</h3>
-                    <h3 style="color: #66ff33; font-style: italic">${param.add==1?'Add product succesful!':''}</h3>
                     <div class="form-group">
                         <label for="name">Name of Product</label>
                         <div>

@@ -65,7 +65,40 @@ public class ManageBrandServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        if (action.equals("add")) {
+            try {
+                BrandDAO bDAO = new BrandDAO();
+                String brandName = request.getParameter("brandName");
+                String brandDescription = request.getParameter("brandDescription");
+                String createDate = request.getParameter("createDate");
+                String lastUpdate = request.getParameter("lastUpdate");
+                bDAO.insertBrand(brandName, brandDescription, createDate, lastUpdate);
+                response.sendRedirect(request.getContextPath() + "/manage-brand?success");
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } if (action.equals("update")) {
+            doPut(request, response);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int brandId = Integer.parseInt(request.getParameter("brandId"));
+        try {
+            BrandDAO bDAO = new BrandDAO();
+            String brandName = request.getParameter("brandName");
+            String brandDescription = request.getParameter("brandDescription");
+            String lastUpdate = request.getParameter("lastUpdate");
+            bDAO.updateBrand(brandId, brandName, brandDescription, lastUpdate);
+            response.sendRedirect(request.getContextPath() + "/manage-brand?success");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**

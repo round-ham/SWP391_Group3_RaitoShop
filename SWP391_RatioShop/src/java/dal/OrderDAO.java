@@ -23,13 +23,123 @@ public class OrderDAO extends DBContext {
 
     public static void main(String[] args) {
         OrderDAO daoO = new OrderDAO();
-        daoO.updateStatusOrder("2", "4");
-//        AccountDAO daoA = new AccountDAO();
-//        Accounts customer = daoA.getAccountById(2);
-//        ProductDetailDAO dao = new ProductDetailDAO();
-//        List<ProductDetail> list = dao.getAllProductDetails();
-//        Cart cart = new Cart("1:6:9:1/1:8:9:1", list);
-//        daoO.checkOut(customer, cart);
+        for (OrderDetail o : daoO.getOrderDetailByOrder(1)) {
+            System.out.println(o.getProduct().getProduct().getProductName());
+        }
+    }
+
+    public Accounts getAccountById(int accountId) {
+        String query = "select * from Accounts as a\n"
+                + "where a.accountId = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, accountId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Accounts acc = new Accounts();
+                acc.setAccountId(rs.getInt("accountId"));
+                acc.setFullName(rs.getString("fullName"));
+                acc.setEmail(rs.getString("email"));
+                acc.setPassword(rs.getString("password"));
+                acc.setGender(rs.getBoolean("gender"));
+                acc.setAddress(rs.getString("address"));
+                acc.setPhone(rs.getString("phone"));
+                acc.setUserImage(rs.getString("userImage"));
+                acc.setLastLogin(rs.getDate("lastLogin"));
+                acc.setCreateDate(rs.getDate("createDate"));
+                acc.setStatus(rs.getInt("status"));
+                return acc;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public List<Order> getOrdersByCustomer(int customerId, String status, String sort) {
+        OrderDAO daoO = new OrderDAO();
+
+        if (daoO.getAccountById(customerId) != null) {
+            List<Order> listO = new ArrayList<>();
+
+            String query = "select * from Orders as o \n"
+                    + "where customerId = ? ";
+            String temp = "";
+            if (status != null) {
+                if (!status.equals("-1")) {
+                    if (status.trim().length() > 0) {
+                        temp = "and o.status = " + status + "\n";
+                        query += temp;
+                    }
+                }
+            }
+
+            if (sort != null || sort.trim().length() > 0) {
+                if (sort.equals("1")) {
+                    temp = "order by o.orderDate asc\n";
+                } else if (sort.equals("2")) {
+                    temp = "order by o.orderDate desc\n";
+                } else if (sort.equals("3")) {
+                    temp = "order by o.acceptedDate asc\n";
+                } else if (sort.equals("4")) {
+                    temp = "order by o.acceptedDate desc\n";
+                } else if (sort.equals("5")) {
+                    temp = "order by o.shippedDate asc\n";
+                } else if (sort.equals("6")) {
+                    temp = "order by o.shippedDate desc\n";
+                }
+            } else {
+                temp = "ORDER BY o.orderId desc \n";
+            }
+            query += temp;
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setInt(1, customerId);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Order o = new Order(rs.getInt("orderId"),
+                            daoO.getAccountById(rs.getInt("customerId")),
+                            daoO.getAccountById(rs.getInt("employeeId")),
+                            rs.getInt("status"),
+                            rs.getString("orderDate"),
+                            rs.getString("acceptedDate"),
+                            rs.getString("shippedDate"),
+                            rs.getString("address"),
+                            rs.getDouble("totalMoney"));
+//                o.setOrderDetails(daoO.getOrderDetailByOrder(o.getId()));
+                    listO.add(o);
+                }
+            } catch (Exception e) {
+            }
+
+            return listO;
+        } else {
+            return null;
+        }
+    }
+
+    public void addFeedBack(int productId, String feedBackDescription, int customerId, double rating) {
+        String query = "INSERT INTO [dbo].[Feedbacks]\n"
+                + "           ([productId]\n"
+                + "           ,[feedbackDescription]\n"
+                + "           ,[customerId]\n"
+                + "           ,[rating]\n"
+                + "           ,[createDate])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,getdate())";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, productId);
+            ps.setString(2, feedBackDescription);
+            ps.setInt(3, customerId);
+            ps.setDouble(4, rating);
+            ps.executeUpdate();
+            System.out.println("add feedback success");
+        } catch (Exception e) {
+        }
     }
 
     public List<Order> getAllOrder() {
@@ -67,32 +177,36 @@ public class OrderDAO extends DBContext {
                     + "      ,[acceptedDate] = getdate()\n"
                     + "\n"
                     + " WHERE [dbo].[Orders].orderId = ?";
-        } else
-        if (status.equals("3")) {
+        } else if (status.equals("3")) {
             query = "UPDATE [dbo].[Orders]\n"
                     + "   SET \n"
                     + "      [status] = ?\n"
                     + "      ,[shippedDate] = getdate()\n"
                     + "\n"
                     + " WHERE [dbo].[Orders].orderId = ?";
-        }else {
+        } else {
             query = "UPDATE [dbo].[Orders]\n"
                     + "   SET \n"
                     + "      [status] = ?\n"
                     + " WHERE [dbo].[Orders].orderId = ?";
         }
-            try {
-                PreparedStatement ps = connection.prepareStatement(query);
-                ps.setString(1, status);
-                ps.setString(2, orderId);
-                ps.executeUpdate();
-                System.out.println("update status success!");
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, status);
+            ps.setString(2, orderId);
+            ps.executeUpdate();
+            System.out.println("update status success!");
         } catch (Exception e) {
         }
     }
 
     public List<Order> getAllOrder(String status, String sort) {
-        String query = "select * from Orders as o where 0 = 0\n";
+        String query = "select o.*, a.fullName as employeeName, a.accountId as employeeId,  b.fullName as customerName, b.accountId as customerId\n"
+                + "from Orders o\n"
+                + "left join Accounts a\n"
+                + "on o.employeeId = a.accountId \n"
+                + "left join Accounts b\n"
+                + "on o.customerId = b.accountId where 0 = 0\n";
         String temp = "";
         if (!status.equals("-1")) {
             if (status != null || status.trim().length() > 0) {
@@ -126,9 +240,17 @@ public class OrderDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                Accounts customer = new Accounts();
+                customer.setAccountId(rs.getInt("customerId"));
+                customer.setFullName(rs.getString("customerName"));
+
+                Accounts employee = new Accounts();
+                employee.setAccountId(rs.getInt("employeeId"));
+                employee.setFullName(rs.getString("employeeName"));
+
                 Order o = new Order(rs.getInt("orderId"),
-                        daoA.getAccountById(rs.getInt("customerId")),
-                        daoA.getAccountById(rs.getInt("employeeId")),
+                        customer,
+                        employee,
                         rs.getInt("status"),
                         rs.getString("orderDate"),
                         rs.getString("acceptedDate"),
@@ -146,7 +268,7 @@ public class OrderDAO extends DBContext {
     public Order getOrderById(int orderId) {
         String query = "select * from Orders as o\n"
                 + "where o.orderId = ?";
-        AccountDAO daoA = new AccountDAO();
+        OrderDAO daoO = new OrderDAO();
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
@@ -154,8 +276,8 @@ public class OrderDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Order o = new Order(orderId,
-                        daoA.getAccountById(rs.getInt("customerId")),
-                        daoA.getAccountById(rs.getInt("employeeId")),
+                        daoO.getAccountById(rs.getInt("customerId")),
+                        daoO.getAccountById(rs.getInt("employeeId")),
                         rs.getInt("status"),
                         rs.getString("orderDate"),
                         rs.getString("acceptedDate"),

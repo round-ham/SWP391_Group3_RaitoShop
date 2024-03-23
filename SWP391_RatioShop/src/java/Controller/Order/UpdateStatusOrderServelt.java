@@ -35,7 +35,8 @@ public class UpdateStatusOrderServelt extends HttpServlet {
         String orderId = request.getParameter("orderId");
         OrderDAO daoO = new OrderDAO();
         daoO.updateStatusOrder(orderId, status);
-        response.sendRedirect("manage-orders");
+        String previousUrl = request.getParameter("previousUrl");
+        response.sendRedirect(previousUrl);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

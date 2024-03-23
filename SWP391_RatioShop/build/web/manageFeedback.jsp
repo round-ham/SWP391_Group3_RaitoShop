@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add Category</title>
+        <title>Manage Feedbacks</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -79,42 +79,40 @@
             <div class="form-container">
                 <div class="form-heading">
 
-                    <h3 style="color: white">Add New Category</h3>
+                    <h3 style="color: white">Manage Feedbacks</h3>
                 </div>
-                <form action="addcategory" method="post" class="form-horizontal" role="form">
-                    <h3 style="color: red; font-style: italic">${param.add==0?'Add Category failed!':''}</h3>
-                    <h3 style="color: #66ff33; font-style: italic">${param.add==1?'Add Category succesful!':''}</h3>
-<!--                    <div class="form-group">
-                        <label for="name">Category Name</label>
-                        <div>
-                            <input type="text" class="form-control" name="categoryName" id="cname" placeholder="Type category name in here.....">
-                        </div>
-                    </div>-->
-                    <div class="form-group">
-                        <label for="categoryDescription">Category Description</label>
-                        <div>
-                            <input type="text" name="categoryDescription" class="form-control" placeholder="Type category description here....">
-                        </div>
-                    </div>
-<!--                    <div class="form-group">
-                        <label for="createDate">Create Date</label>
-                        <div>
-                            <input type="date" class="form-control" name="createDate" id="crdate">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastUpdate">Last Update</label>
-                        <div>
-                            <input type="date" class="form-control" name="lastUpdate" id="lupdate">
-                        </div>
-                    </div>-->
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </div>
-                    <div class="form-group">
-                            <a href="manage-category" class="btn btn-primary">Cancel</a>
-                    </div>                  
-                </form>
+                <div class="col-lg-12 text-center text-lg-right mb-3">
+                    
+                </div>
+                <table class="table table-bordered text-center mb-0 list">
+                    <thead class="bg-secondary text-white list">
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Feedback Description</th>
+                            <th>Rating</th>
+                            <th>Created Date</th>
+                            <th>Product's Feedback</th>
+                            <th>Action</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle " >
+                        <c:forEach items="${listF}" var="o">
+                            <tr class="item">
+                                <td class="align-middle"> ${o.customer.fullName}</td>
+                                <td class="align-middle">${o.feedbackDescription}</td>
+                                
+                                <td class="align-middle">
+                                    ${o.rating}
+                                </td>
+                                    <td class="align-middle">${o.createdDate}</td>
+                                <td class="align-middle">${o.product.productName}</td>
+                                
+                                <td class="align-middle"><a href="feedback-manage?feedbackId=${o.feedbackId}&status=-1" ><button class="btn btn-sm btn-primary"><i class="fa fa-remove"></i></button></a></td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
         <footer style="margin-top: 25%;background: black; padding-top: 30px">

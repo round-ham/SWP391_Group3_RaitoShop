@@ -63,6 +63,10 @@
         <servlet-name>ManageCategoryServlet</servlet-name>
         <servlet-class>Controller.ManageCategoryServlet</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>ManageAccountServlet</servlet-name>
+        <servlet-class>Controller.ManageAccountServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>AddCategoryServlet</servlet-name>
         <servlet-class>Controller.AddCategoryServlet</servlet-class>
@@ -158,6 +162,10 @@
     <servlet-mapping>
         <servlet-name>OrderManageServlet</servlet-name>
         <url-pattern>/manage-orders</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>ManageAccountServlet</servlet-name>
+        <url-pattern>/manage-account</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

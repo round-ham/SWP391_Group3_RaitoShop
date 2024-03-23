@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Edit Category</title>
+        <title>My Order Detail</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -26,7 +26,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-top: 30px;
+                height: 100vh;
             }
 
             .form-container {
@@ -71,7 +71,7 @@
         </style>
     </head>
     <body>
-        <header>
+        <header style=" background: white">
             <%@include file="header.jsp" %>
         </header>
         <div class="container-co">
@@ -79,44 +79,41 @@
             <div class="form-container">
                 <div class="form-heading">
 
-                    <h3 style="color: white">Edit Category</h3>
+                    <h3 style="color: white">Order Detail </h3>
                 </div>
-                <form action="update-category" method="post" class="form-horizontal" role="form">
-                    <h3 style="color: red; font-style: italic">${param.add==0?'Add Category failed!':''}</h3>
-                    <h3 style="color: #66ff33; font-style: italic">${param.add==1?'Add Category succesful!':''}</h3>
-                    <input type="hidden" name="categoryId" value="${c.categoryId}">
-
-<!--                    <div class="form-group">
-                        <label for="name">Category Name</label>
-                        <div>
-                            <input type="text" class="form-control" name="categoryName" id="cname" placeholder="Type category name in here....."value="${c.categoryName}">
-                        </div>
-                    </div>-->
-                    <div class="form-group">
-                        <label for="categoryDescription">Category Description</label>
-                        <div>
-                            <input type="text" name="categoryDescription" class="form-control" placeholder="Type category description here...."value ="${c.categoryDescription}">
-                        </div>
-                    </div>
-<!--                    <div class="form-group">
-                        <label for="createDate">Create Date</label>
-                        <div>
-                            <input type="date" class="form-control" name="createDate" id="crdate">
-                        </div>
-                    </div>-->
-<!--                    <div class="form-group">
-                        <label for="lastUpdate">Last Update</label>
-                        <div>
-                            <input type="date" class="form-control" name="lastUpdate" id="lupdate"value="${c.lastUpdate}">
-                        </div>
-                    </div>-->
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                    <div class="form-group">
-                            <a href="manage-category" class="btn btn-primary">Cancel</a>
-                    </div>
-                </form>
+                
+                <table class="table table-bordered text-center mb-0 list">
+                    <thead class="bg-secondary text-white list">
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Color</th>
+                            <th>Image</th>
+                            <th>Size</th>
+                            <th>Feedback</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle " >
+                        <c:forEach items="${listO}" var="o">
+                            <tr class="item">
+                                <td class="align-middle"> ${o.product.product.productName}</td>
+                                <td class="align-middle">${o.quantity}</td>
+                                <td class="align-middle">${o.product.color.color}</td>
+                                <td class="align-middle">
+                                    <img src="${o.product.productImage}" alt="" style="width: 50px;">
+                                </td>
+                                <td class="align-middle">${o.product.size.size}</td>
+                                
+                                <td class="align-middle"><a href="feedback?productId=${o.product.product.productId}" >
+                                        <button class="btn btn-sm btn-primary"
+                                                <c:if test="${o.order.status ne 5}">disabled="" style="background-color: gray"</c:if> ><i class="fa fa-edit"></i></button></a></td>
+                                <td class="align-middle"><a href="update-feedback?productId=${o.product.product.productId}" >
+                                        <button class="btn btn-sm btn-primary"   
+                                                <c:if test="${o.order.status ne 5}">disabled="" style="background-color: gray"</c:if> ><i class="fa fa-edit"></i></button></a></td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
         <footer style="margin-top: 25%;background: black; padding-top: 30px">

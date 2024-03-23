@@ -59,10 +59,43 @@ public class ManageCategoryServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+   @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       String action = request.getParameter("action");
+        if (action.equals("add")) {
+            try {
+                CategoryDAO bDAO = new CategoryDAO();
+                String categoryName = request.getParameter("categoryName");
+                String categoryDescription = request.getParameter("categoryDescription");
+                String createDate = request.getParameter("createDate");
+                String lastUpdate = request.getParameter("lastUpdate");
+                bDAO.insertCategory(categoryName, categoryDescription, createDate, lastUpdate);
+                response.sendRedirect(request.getContextPath() + "/manage-category?success");
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } if (action.equals("update")) {
+            doPut(request, response);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        try {
+            CategoryDAO bDAO = new CategoryDAO();
+            String categoryName = request.getParameter("categoryName");
+            String categoryDescription = request.getParameter("categoryDescription");
+            String lastUpdate = request.getParameter("lastUpdate");
+            bDAO.updateCategory(categoryId, categoryName, categoryDescription, lastUpdate);
+            response.sendRedirect(request.getContextPath() + "/manage-category?success");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**

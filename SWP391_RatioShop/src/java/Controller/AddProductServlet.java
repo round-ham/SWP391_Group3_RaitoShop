@@ -73,7 +73,7 @@ public class AddProductServlet extends HttpServlet {
             int cateId = Integer.parseInt(request.getParameter("cate"));
             int brId= Integer.parseInt(request.getParameter("br"));
             pDAO.insertNewProduct(cateId, brId, productName, description, unitPrice, imgGeneral, status);
-            response.sendRedirect("addproduct?add=1");
+            response.sendRedirect("manage-products");
         } catch (Exception e) {
             response.sendRedirect("addproduct?add=0");
         }

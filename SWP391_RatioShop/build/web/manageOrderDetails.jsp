@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add Brand</title>
+        <title>Manage Order Detail</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -26,7 +26,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-top: 30px;
+                height: 100vh;
             }
 
             .form-container {
@@ -71,7 +71,7 @@
         </style>
     </head>
     <body>
-        <header>
+        <header style=" background: white">
             <%@include file="header.jsp" %>
         </header>
         <div class="container-co">
@@ -79,61 +79,40 @@
             <div class="form-container">
                 <div class="form-heading">
 
-                    <h3 style="color: white">Add New Brand</h3>
+                    <h3 style="color: white"> Manage Order Detail </h3>
                 </div>
-                <form action="addbrand" method="post" class="form-horizontal" role="form">
-                    <h3 style="color: red; font-style: italic">${param.add==0?'Add brand failed!':''}</h3>
-                    <h3 style="color: #66ff33; font-style: italic">${param.add==1?'Add brand succesful!':''}</h3>
-                    <div class="form-group">
-                        <label for="name">Brand Name</label>
-                    <div>
-                        <input type="text" class="form-control" name="brandName" id="brname" placeholder="Type brand name in here.....">
-                        <span id="errorMessage" style="color: red;"></span>
-                    </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="brandDescription">Brand Description</label>
-                        <div>
-                            <textarea name="brandDescription"  style="min-height: 120px" class="form-control" placeholder="Type brand description here...."></textarea>
-                        </div>
-                    </div>
-<!--                    <div class="form-group">
-                        <label for="createDate">Create Date</label>
-                        <div>
-                            <input type="date" class="form-control" name="createDate" id="crdate">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastUpdate">Last Update</label>
-                        <div>
-                            <input type="date" class="form-control" name="lastUpdate" id="lupdate">
-                        </div>
-                    </div>-->
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </div>
-                    <div class="form-group">
-                            <a href="manage-brand" class="btn btn-primary">Cancel</a>
-                    </div>  
-                </form>
+                
+                <table class="table table-bordered text-center mb-0 list">
+                    <thead class="bg-secondary text-white list">
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Color</th>
+                            <th>Image</th>
+                            <th>Size</th>
+                       
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle " >
+                        <c:forEach items="${listO}" var="o">
+                            <tr class="item">
+                                <td class="align-middle"> ${o.product.product.productName}</td>
+                                <td class="align-middle">${o.quantity}</td>
+                                <td class="align-middle">${o.product.color.color}</td>
+                                <td class="align-middle">
+                                    <img src="${o.product.productImage}" alt="" style="width: 50px;">
+                                </td>
+                                <td class="align-middle">${o.product.size.size}</td>
+                                
+                         
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
         <footer style="margin-top: 25%;background: black; padding-top: 30px">
             <%@include file="footer.jsp" %>
         </footer>
-       <script>
-        document.getElementById('brname').addEventListener('blur', function() {
-        var input = document.getElementById('brname').value;
-        var errorMessage = document.getElementById('errorMessage');
-        
-        if (input.trim() === '') {
-            errorMessage.textContent = 'Please enter a brand name.';   
-        }
-        for
-        else {
-            errorMessage.textContent = '';
-        }
-    });
-    </script>
     </body>
 </html>
