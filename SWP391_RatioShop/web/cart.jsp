@@ -1,4 +1,4 @@
-<%-- 
+a<%-- 
     Document   : cart
     Created on : Nov 1, 2023, 7:51:15 AM
     Author     : Admin
@@ -71,10 +71,10 @@
         <link rel="stylesheet" href="css/style.css" type="text/css">
     </head>
     <body>
-                  <%@include file="header.jsp" %>
-              <div class="container">
+        <%@include file="header.jsp" %>
+        <div class="container">
             <div class="row">
-                
+
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
                         <c:if test="${sessionScope.account eq null}">
@@ -116,50 +116,7 @@
                         </div>
 
                         <div class="row justify-content-around">
-                            <div class="col-md-3">
-                                <div class="card border-0">
-                                    <div class="card-header pb-0">
-                                        <h2 class="card-title space ">Checkout</h2>
-                                        <p class="card-text text-muted mt-4  space">SHIPPING DETAILS</p>
-                                        <hr class="my-0">
-                                        <div class="form-group">
-                                            <label for="NAME" class="small text-muted mb-1">Address</label>
-                                            <input type="text" class="form-control form-control-sm" name="address" id="address" aria-describedby="helpId" required placeholder="eg. 26 Son la chao ae nhe">
-                                            <div id="err" style="display: none; color: red">You must fill address first</div>
 
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-
-
-                                        <div class="row mt-4">
-                                            <div class="col"><p class="text-muted mb-2">PAYMENT DETAILS</p><hr class="mt-0"></div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="NAME" class="small text-muted mb-1">NAME ON CARD</label>
-                                            <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="NGUYEN VAN A">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="NAME" class="small text-muted mb-1">CARD NUMBER</label>
-                                            <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="4534 5555 5555 5555">
-                                        </div>
-                                        <div class="row no-gutters">
-                                            <div class="col-sm-6 pr-sm-2">
-                                                <div class="form-group">
-                                                    <label for="NAME" class="small text-muted mb-1">VALID THROUGH</label>
-                                                    <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="06/21">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label for="NAME" class="small text-muted mb-1">CVC CODE</label>
-                                                    <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="183">
-                                                </div>
-                                            </div>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
                             <div class="col-md-7">
                                 <div class="card border-0 ">
                                     <div class="card-header card-2" style="margin-bottom: 10px">
@@ -191,7 +148,14 @@
                                                         </div>
                                                     </div>
                                                     <div class=" pl-0 flex-sm-col col-auto  my-auto"> 
-                                                        <input style="width: 30px; padding: 0;" type="text" name="quantity" value="${item.quantity}" oninput="change(${item.product.product.productId},${item.product.size.sizeId},${item.product.color.colorId}, this.value)">
+                                                        <button class="btn btn-sm btn-primary btn-minus" onclick="change(${item.product.product.productId},${item.product.size.sizeId},${item.product.color.colorId}, -1)">
+                                                            <i class="fa fa-minus"></i>
+                                                        </button>
+                                                        <input style="width: 30px; padding: 0;" disabled="" type="text" min="1" max="${item.product.quantity}"  name="quantity" value="${item.quantity}">
+
+                                                        <button class="btn btn-sm btn-primary btn-plus" onclick="change(${item.product.product.productId},${item.product.size.sizeId},${item.product.color.colorId}, 1)">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
                                                     </div>
                                                     <div class=" pl-0 flex-sm-col col-auto  my-auto"> 
                                                         <h6>${item.product.color.color} ${item.product.size.size}</h6>
@@ -216,7 +180,9 @@
                                             </div>
                                         </div>
                                         <div class="row mb-5 mt-4 ">
-                                            <div class="col-md-7 col-lg-6 mx-auto"><button onclick="checkOut()" style="padding: 10px; font-size: 1rem" type="button" class="btn btn-block btn-outline-primary btn-lg">SUBMIT PAYMENT</button></div>
+                                            <button type="submit" class="purchase-button">
+                                                <a href="payment?total=${Math.round(total)}">Pay by VnPay</a>
+                                            </button>
 
                                         </div>
 

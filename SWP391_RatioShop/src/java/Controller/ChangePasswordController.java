@@ -55,7 +55,7 @@ public class ChangePasswordController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("views/profile.jsp").forward(request, response);
+        request.getRequestDispatcher("views/profile.jsp#changepassword").forward(request, response);
     }
 
     /**
@@ -84,7 +84,7 @@ public class ChangePasswordController extends HttpServlet {
             request.setAttribute("ms2", "Your old password is incorrect. Please check again.");
             Accounts acc = accDao.getAccountByEmail(email);
             request.setAttribute("a", acc);
-            request.getRequestDispatcher("views/profile.jsp").forward(request, response);
+            request.getRequestDispatcher("views/profile.jsp#changepassword").forward(request, response);
             return;
         }
 
@@ -94,7 +94,7 @@ public class ChangePasswordController extends HttpServlet {
             request.setAttribute("ms1", "New password cannot be the same as the old password. Please choose a different password.");
             Accounts acc = accDao.getAccountByEmail(email);
             request.setAttribute("a", acc);
-            request.getRequestDispatcher("views/profile.jsp").forward(request, response);
+            request.getRequestDispatcher("views/profile.jsp#changepassword").forward(request, response);
             return;
         }
 
@@ -104,19 +104,19 @@ public class ChangePasswordController extends HttpServlet {
             request.setAttribute("ms3", "Confirmed password does not match the new password. Please try again.");
             Accounts acc = accDao.getAccountByEmail(email);
             request.setAttribute("a", acc);
-            request.getRequestDispatcher("views/profile.jsp").forward(request, response);
+            request.getRequestDispatcher("views/profile.jsp#changepassword").forward(request, response);
             return;
         }
-        String hashNewPassword = PasswordHash.hashPassword(con_newPassword);
+        String hashNewPassword = new PasswordHash().hashPassword(con_newPassword);
         // Thực hiện thay đổi mật khẩu
-        boolean passwordChanged = accDao.changePassword(email, hashPassword, con_newPassword);
+        boolean passwordChanged = accDao.changePassword(email, hashPassword, hashNewPassword);
 
         if (passwordChanged) {
             // Thay đổi mật khẩu thành công, chuyển hướng đến trang profile.jsp
             request.setAttribute("sc", "Change password success.");
             Accounts acc = accDao.getAccountByEmail(email);
             request.setAttribute("a", acc);
-            request.getRequestDispatcher("views/profile.jsp").forward(request, response);
+            request.getRequestDispatcher("views/profile.jsp#changepassword").forward(request, response);
         
         } else {
             // Thay đổi mật khẩu thất bại, quay lại trang changePassword.jsp
@@ -124,7 +124,7 @@ public class ChangePasswordController extends HttpServlet {
             request.setAttribute("ms2", "Your old password is incorrect. Please check again.");
             Accounts acc = accDao.getAccountByEmail(email);
             request.setAttribute("a", acc);
-            request.getRequestDispatcher("views/profile.jsp").forward(request, response);
+            request.getRequestDispatcher("views/profile.jsp#changepassword").forward(request, response);
         }
         } else {
             this.doGet(request, response);

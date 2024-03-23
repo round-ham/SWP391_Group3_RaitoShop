@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import Model.Blog;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -59,13 +60,22 @@ public class BlogDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+    
+    // Đặt giá trị "phanductung03@gmail.com" vào session với key là "email"
+            session.setAttribute("email", "phanductung03@gmail.com");
         BlogDAO blogDAO = new BlogDAO();
     String idString = request.getParameter("id");
     int id = Integer.parseInt(idString);
     
-    Blog blog = blogDAO.getBlogByID(id);
+    Blog blog = blogDAO.getBlogDetailByID(id);
 
-    List<Blog> blogDataList = blogDAO.getTwoNearestBlog(id);
+    List<Blog.BlogData> blogDataList = blogDAO.getTwoDifferentTitlesAndIds(id);
+    
+       if (blogDataList.size() == 2) {
+        request.setAttribute("blogData1", blogDataList.get(0));
+        request.setAttribute("blogData2", blogDataList.get(1));
+    }
 
     
     request.setAttribute("b", blog);

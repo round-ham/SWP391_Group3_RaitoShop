@@ -96,8 +96,8 @@ public class ChangeProfileController extends HttpServlet {
                 request.setAttribute("checkPhone", "Your phone is invalid (0xxxxxxxxx)");
                 System.out.println("check phone");
             }
-            request.setAttribute("accounts", acc);
-            request.getRequestDispatcher("/views/profile.jsp").forward(request, response);
+            request.setAttribute("a", acc);
+            request.getRequestDispatcher("views/profile.jsp").forward(request, response);
         }
     }
 

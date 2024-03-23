@@ -13,6 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import Model.Blog;
 import dal.BlogDAO;
+import java.util.Collections;
+import static java.util.Collections.list;
+import java.util.Comparator;
 
 /**
  *
@@ -31,10 +34,48 @@ public class BlogController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BlogDAO b = new BlogDAO();
-        List<Blog> list = b.getListBlog();
-        request.setAttribute("list", list);
-       request.getRequestDispatcher("views/blog.jsp").forward(request, response);
+                BlogDAO dao = new BlogDAO();
+        List<Blog> list = dao.getListBlog();
+         String sortOrder = request.getParameter("order");
+        if (sortOrder == null) {
+            // Nếu không có giá trị, mặc định sắp xếp từ mới đến cũ
+            sortOrder = "NTO";
+        }
+        if (sortOrder.equals("OTN")) {
+            // Sort the list from Old To New
+            Collections.sort(list, Comparator.comparing(Blog::getLastUpdate));
+        } else {
+            // Sort the list from New To Old (default)
+            Collections.sort(list, Comparator.comparing(Blog::getLastUpdate).reversed());
+        }
+
+        // Gửi yêu cầu lấy danh sách blog với thứ tự sắp xếp đã chọn
+
+        // Lấy các tham số trang từ request
+        int itemsPerPage = 6;
+        int currentPage = 1;
+        String pageParam = request.getParameter("page");
+        if (pageParam != null) {
+            currentPage = Integer.parseInt(pageParam);
+        }
+
+        // Tính toán chỉ số bắt đầu và kết thúc của danh sách trên trang hiện tại
+        int startIndex = (currentPage - 1) * itemsPerPage;
+        int endIndex = Math.min(startIndex + itemsPerPage, list.size());
+
+        // Tạo danh sách blog cho trang hiện tại dựa trên chỉ số bắt đầu và kết thúc
+        List<Blog> currentPageBlogs = list.subList(startIndex, endIndex);
+
+        // Tính tổng số trang dựa trên tổng số blog và số blog mỗi trang
+        int totalPages = (int) Math.ceil((double) list.size() / itemsPerPage);
+
+        // Đặt các thuộc tính vào request để chuyển đến JSP
+        request.setAttribute("list", currentPageBlogs);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("totalPages", totalPages);
+
+        // Chuyển hướng request và response đến trang BlogList.jsp
+        request.getRequestDispatcher("views/blog.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
