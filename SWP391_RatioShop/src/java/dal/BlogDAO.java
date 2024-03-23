@@ -73,7 +73,7 @@ public class BlogDAO extends DBContext {
                 b.setBlogImage(rs.getString("blogImage"));
                 b.setCreateDate(rs.getDate("createDate"));
                 b.setLastUpdate(rs.getDate("lastUpdate"));
-                b.setEmployeeID(rs.getInt("employeeId"));
+                b.setEmployeeId(rs.getInt("employeeId"));
             }
         } catch (SQLException e) {
             System.out.println("getBlogByID:" + e.getMessage());

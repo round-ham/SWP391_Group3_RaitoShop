@@ -150,7 +150,7 @@ public class AuthorizationFilter implements Filter {
             if (isAuthorized) {
                 chain.doFilter(request, response);
             } else {
-                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login?returnUrl=" + httpRequest.getRequestURI());
             }
         } catch (ServletException | IOException t) {
             // If an exception is thrown somewhere down the filter chain,
