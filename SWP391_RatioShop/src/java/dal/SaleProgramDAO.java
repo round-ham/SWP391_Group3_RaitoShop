@@ -28,8 +28,8 @@ public class SaleProgramDAO {
             // Set parameters for the prepared statement
             ps.setString(1, saleProgram.getTitle());
             ps.setDate(2, new java.sql.Date(saleProgram.getStartDate().getTime()));
-            ps.setString(3, saleProgram.getEndDate());
-
+           if(saleProgram.getEndDate()!=null) ps.setDate(3,  new java.sql.Date(saleProgram.getEndDate().getTime()));
+           else ps.setNull(3, java.sql.Types.INTEGER);
             // Execute the query
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -49,8 +49,10 @@ public class SaleProgramDAO {
             // Set parameters for the prepared statement
             ps.setString(1, saleProgram.getTitle());
             ps.setDate(2, new java.sql.Date(saleProgram.getStartDate().getTime()));
-            ps.setString(3, saleProgram.getEndDate());
-            ps.setInt(4, saleProgram.getSalePrgmId());
+            if(saleProgram.getEndDate()!=null) ps.setDate(3,  new java.sql.Date(saleProgram.getEndDate().getTime()));
+           else ps.setNull(3, java.sql.Types.INTEGER);
+         
+  ps.setInt(4, saleProgram.getSalePrgmId());
 
             // Execute the query
             ps.executeUpdate();
@@ -95,7 +97,7 @@ public class SaleProgramDAO {
                 saleProgram.setSalePrgmId(rs.getInt("salePrgmId"));
                 saleProgram.setTitle(rs.getString("title"));
                 saleProgram.setStartDate(rs.getDate("startDate"));
-                saleProgram.setEndDate(rs.getString("endDate"));
+                saleProgram.setEndDate(rs.getDate("endDate"));
                 salePrograms.add(saleProgram);
             }
         } catch (SQLException e) {
@@ -122,7 +124,7 @@ public class SaleProgramDAO {
                 saleProgram.setSalePrgmId(rs.getInt("salePrgmId"));
                 saleProgram.setTitle(rs.getString("title"));
                 saleProgram.setStartDate(rs.getDate("startDate"));
-                saleProgram.setEndDate(rs.getString("endDate"));
+                saleProgram.setEndDate(rs.getDate("endDate"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
