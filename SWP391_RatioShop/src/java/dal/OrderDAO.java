@@ -13,6 +13,7 @@ import Model.ProductDetail;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -416,5 +417,112 @@ public class OrderDAO extends DBContext {
             }
 
         }
+    }
+    
+    public List<Order> getAvailableShippingOrder() {
+        String query = "select * from Orders WHERE status = 2 AND shipperId is null";
+        List<Order> list = new ArrayList<>();
+        AccountDAO daoA = new AccountDAO();
+        OrderDAO daoO = new OrderDAO();
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Order o = new Order(rs.getInt("orderId"),
+                        daoA.getAccountById(rs.getInt("customerId")),
+                        daoA.getAccountById(rs.getInt("employeeId")),
+                        rs.getInt("status"),
+                        rs.getString("orderDate"),
+                        rs.getString("acceptedDate"),
+                        rs.getString("shippedDate"),
+                        rs.getString("address"),
+                        rs.getDouble("totalMoney"),
+                        rs.getString("note"));
+                o.setOrderDetails(daoO.getOrderDetailByOrder(o.getId()));
+                list.add(o);
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    public List<Order> getOrdersByShipping(int shipperId) {
+        String query = "select * from Orders WHERE  shipperId ="+shipperId;
+        List<Order> list = new ArrayList<>();
+        AccountDAO daoA = new AccountDAO();
+        OrderDAO daoO = new OrderDAO();
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Order o = new Order(rs.getInt("orderId"),
+                        daoA.getAccountById(rs.getInt("customerId")),
+                        daoA.getAccountById(rs.getInt("employeeId")),
+                        rs.getInt("status"),
+                        rs.getString("orderDate"),
+                        rs.getString("acceptedDate"),
+                        rs.getString("shippedDate"),
+                        rs.getString("address"),
+                        rs.getDouble("totalMoney"),
+                        rs.getString("note"));
+                 o.setOrderDetails(daoO.getOrderDetailByOrder(o.getId()));
+                list.add(o);
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    public void SetShipping(int orderId, int shipperId) {
+        String sql = "update  Orders set Orders.shipperId = ? , Orders.[status] = 3\n"
+                + "where Orders.orderId = ?";
+
+        try {
+            PreparedStatement st = connection.prepareCall(sql);
+            st.setInt(1, shipperId);
+            st.setInt(2, orderId);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+
+    }
+     public void SetShippingStatusAndNote(int orderId,int status,String note) {
+        String sql = "update  Orders set Orders.[note]=? , Orders.[status] = ?\n"
+                + "where Orders.orderId = ?";
+
+        try {
+            PreparedStatement st = connection.prepareCall(sql);
+            st.setString(1, note);
+            st.setInt(2, status);
+            st.setInt(3, orderId);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+
+    }
+public void setShippingDate(int orderId) {
+        String sql = "update  Orders set  Orders.[shippedDate] = ?\n"
+                + "where Orders.orderId = ?";
+            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        try {
+            PreparedStatement st = connection.prepareCall(sql);
+            st.setDate(1, date);
+            st.setInt(2, orderId);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+
+    }
+    public void RemoveShipping(int orderId) {
+        String sql = "update  Orders set Orders.shipperId = ? , Orders.[status] = 2\n"
+                + "where Orders.orderId = ?";
+
+        try {
+            PreparedStatement st = connection.prepareCall(sql);
+            
+            st.setNull(1, java.sql.Types.INTEGER);
+            st.setInt(2, orderId);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+
     }
 }
