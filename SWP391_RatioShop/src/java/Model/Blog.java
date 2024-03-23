@@ -4,51 +4,100 @@
  */
 package Model;
 
+
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.Connection;
+import java.sql.Date;
+
+import dal.DBContext;
 
 /**
  *
- * @author 84338
+ * @author Duc Hung Computer
  */
-public class Blog {
-    private int blogId;
+public class Blog extends DBContext {
+
+    private int blogID;
     private String title;
     private String blogContent;
     private String blogImage;
     private Date createDate;
     private Date lastUpdate;
-    private int employeeId;
-
-    public Blog() {
-    }
+    private int employeeID;
+    private Accounts accounts;
+    private String employeeFullName;
     
-    public Blog(int blogId, String title){
+    public String getEmployeeFullName() {
+        return employeeFullName;
+    }
+
+    public void setEmployeeFullName(String employeeFullName) {
+        this.employeeFullName = employeeFullName;
+    }
+
+    // Các phương thức getter và setter cho các trường dữ liệu khác
+
+    public void setAccounts(Accounts a) {
+        this.accounts = a;
+    }
+
+    public Accounts getAccounts() {
+        return accounts;
+    }
+
+    
+    public class BlogData {
+        private int blogId;
+        private String title;
+
+        public BlogData(int blogId, String title) {
+            this.blogId = blogId;
+            this.title = title;
         }
 
-    public Blog(int blogId, String title, String blogContent, String blogImage, Date createDate, Date lastUpdate, int employeeId) {
-        this.blogId = blogId;
+        // Các phương thức getter và setter nếu cần
+
+        public int getBlogId() {
+            return blogId;
+        }
+
+        public void setBlogId(int blogId) {
+            this.blogId = blogId;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+    }
+
+    public Blog() {
+        connect();
+    }
+
+    public Blog(int blogID, String title, String blogContent, String blogImage, Date createDate, Date lastUpdate, int employeeID) {
+        this.blogID = blogID;
         this.title = title;
         this.blogContent = blogContent;
         this.blogImage = blogImage;
         this.createDate = createDate;
         this.lastUpdate = lastUpdate;
-        this.employeeId = employeeId;
+        this.employeeID = employeeID;
+        connect();
     }
 
-    public int getBlogId() {
-        return blogId;
+
+
+    public int getBlogID() {
+        return blogID;
     }
 
-    public void setBlogId(int blogId) {
-        this.blogId = blogId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBlogID(int blogID) {
+        this.blogID = blogID;
     }
 
     public String getBlogContent() {
@@ -83,15 +132,31 @@ public class Blog {
         this.lastUpdate = lastUpdate;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public int getEmployeeID() {
+        return employeeID;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployeeID(int employeeID) {
+        this.employeeID = employeeID;
     }
 
-    
-    
-    
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    Connection cnn; // ket noi database
+
+    private void connect() {
+        cnn = super.connection;
+        if (cnn != null) {
+            System.out.println("Connect success");
+        } else {
+            System.out.println("Connect fail");
+        }
+    }
+
 }
