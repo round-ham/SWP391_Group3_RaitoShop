@@ -89,6 +89,16 @@ class RouterAuthorization {
                     add(RoleName.SELLER);
                 }
             }));
+               add(new RouterConfig("/shiplist", new ArrayList<String>() {
+                {
+                    add(RoleName.SHIPPER);
+                }
+            }));
+                add(new RouterConfig("/myship", new ArrayList<String>() {
+                {
+                    add(RoleName.SHIPPER);
+                }
+            }));
             
                
         }
