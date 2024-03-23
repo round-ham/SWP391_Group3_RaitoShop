@@ -21,12 +21,13 @@
                             <li><a href="product?sort=categoryId0-2">Good Prices</a></li>                          
                         </ul>
                     </li>
+                    
                     <li>
-                        <a href="./blog.html">Blog</a>
+                        <a href="blog">Blog</a>
                         <!-- Marketing Staff Role -->
                     <c:if test="${sessionScope.account != null && sessionScope.account.getRoleName() == 'marketing staff'}">
                         <ul class="dropdown">
-                            <li><a href="manage-blog">Manage Blog</a></li>
+                            <li><a href="manageblog">Manage Blog</a></li>
                             <li><a href="manage-feedback">Manage Feedback</a></li>
                         </ul>
                     </c:if>
@@ -55,7 +56,7 @@
                     </c:if>
                     <!-- Shipper -->
                     <c:if test="${sessionScope.account != null && sessionScope.account.getRoleName() == 'shipper'}">
-                      <li>
+                        <li>
                             <a href="#">Delivery Management</a>
                             <ul class="dropdown">
                                 <li><a href="shiplist">Delivery List</a></li>
@@ -72,7 +73,7 @@
                     <a href="./login" style="color: black"><img style="width: 35px" src="pic/acc.png" alt=""> Login</a>
                 </c:if>
                 <c:if test="${sessionScope.account ne null}">
-                    <a href="#profile" class="mr-0" style="color: black">
+                    <a href="profile" class="mr-0" style="color: black">
                         <img style="width: 35px" src="pic/acc.png" alt="">
                         Hello ${sessionScope.account.getFullName()}
                     </a>
@@ -81,7 +82,7 @@
                         Logout
                     </a>
                 </c:if>
-                <a href="${sessionScope.account eq null ? 'login' : 'cart'}" class="ml-3">
+                <a href="${sessionScope.account eq null ? 'login' : 'cart.jsp'}" class="ml-3">
                     <img src="img/icon/cart.png" alt="">
                     <span id="numberCart">${sessionScope.listCartProduct.size()}
                     </span>
