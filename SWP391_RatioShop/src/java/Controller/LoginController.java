@@ -62,9 +62,10 @@ public class LoginController extends HttpServlet {
 
         Accounts account = new AccountDAO().getAccountByEmail(email);
         boolean checkLogin = account != null && account.getPassword().equals(new PasswordHash().hashPassword(password));
+        boolean checkStatus = account != null && account.getStatus() == 1;
 
         // Accounts valid login if email and password are not empty and checkLogin return true
-        return email != null && !email.isEmpty() && password != null && !password.isEmpty() && checkLogin;
+        return email != null && !email.isEmpty() && password != null && !password.isEmpty() && checkLogin && checkStatus;
     }
 
     private void updateLastLogin(String email) {
