@@ -83,7 +83,7 @@ a<%--
                             <c:if test="${sessionScope.account ne null}">
                             <a href="./logout" style="color: black"><img style="width: 35px" src="pic/acc.png" alt=""> Logout</a>
                             </c:if>
-                        <a href="${sessionScope.account eq null ? 'login' : 'cart.jsp'}"><img src="img/icon/cart.png" alt=""> <span id="numberCart">${numberOfCart}</span></a>
+                        <a href="${sessionScope.account eq null ? 'login' : 'cart'}"><img src="img/icon/cart.png" alt=""> <span id="numberCart">${numberOfCart}</span></a>
                         <div class="price">Cart</div>
                     </div>
                 </div>
