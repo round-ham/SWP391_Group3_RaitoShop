@@ -92,6 +92,10 @@
         <servlet-name>OrderManageServlet</servlet-name>
         <servlet-class>Controller.Order.OrderManageServlet</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>Controller.ChangePasswordController</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>ProfileController</servlet-name>
         <servlet-class>Controller.ProfileController</servlet-class>
@@ -116,18 +120,18 @@
         <servlet-name>ManageBlogController</servlet-name>
         <servlet-class>Controller.ManageBlogController</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>UpdateBlogController</servlet-name>
-        <servlet-class>Controller.UpdateBlogController</servlet-class>
+     <servlet>
+        <servlet-name>FeedbackManage</servlet-name>
+        <servlet-class>Controller.feedback.FeedbackManage</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>AddBlogController</servlet-name>
-        <servlet-class>Controller.AddBlogController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeleteBlogController</servlet-name>
-        <servlet-class>Controller.DeleteBlogController</servlet-class>
-    </servlet>
+    <servlet-mapping>
+        <servlet-name>FeedbackManage</servlet-name>
+        <url-pattern>/manage-feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageBlogController</servlet-name>
+        <url-pattern>/manageblog</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/addproduct</url-pattern>
@@ -139,6 +143,10 @@
     <servlet-mapping>
         <servlet-name>CartControl</servlet-name>
         <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogDetailController</servlet-name>
+        <url-pattern>/blogdetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddProductDetailsServlet</servlet-name>
@@ -204,6 +212,11 @@
         <servlet-name>UpdateCategoryServlet</servlet-name>
         <url-pattern>/update-category</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>BlogController</servlet-name>
+        <url-pattern>/blog</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderManageServlet</servlet-name>
         <url-pattern>/manage-orders</url-pattern>
@@ -220,7 +233,7 @@
         <servlet-name>MyShippingController</servlet-name>
         <url-pattern>/myship</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
+
         <servlet-name>ManageBlogController</servlet-name>
         <url-pattern>/manageblog</url-pattern>
     </servlet-mapping>
@@ -241,7 +254,6 @@
         <url-pattern>/changepass</url-pattern>
     </servlet-mapping>
    
- 
     <session-config>
         <session-timeout>
             30
