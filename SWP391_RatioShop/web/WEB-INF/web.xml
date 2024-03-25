@@ -83,6 +83,10 @@
         <servlet-name>OrderManageServlet</servlet-name>
         <servlet-class>Controller.Order.OrderManageServlet</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>Controller.ChangePasswordController</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>ProfileController</servlet-name>
         <servlet-class>Controller.ProfileController</servlet-class>
@@ -195,10 +199,7 @@
         <servlet-name>UpdateCategoryServlet</servlet-name>
         <url-pattern>/update-category</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>BlogController</servlet-name>
-        <servlet-class>Controller.BlogController</servlet-class>
-    </servlet>
+
     <servlet-mapping>
         <servlet-name>BlogController</servlet-name>
         <url-pattern>/blog</url-pattern>
@@ -219,6 +220,27 @@
         <servlet-name>MyShippingController</servlet-name>
         <url-pattern>/myship</url-pattern>
     </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>ManageBlogController</servlet-name>
+        <url-pattern>/manageblog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateBlogController</servlet-name>
+        <url-pattern>/update-blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBlogController</servlet-name>
+        <url-pattern>/add-blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBlogController</servlet-name>
+        <url-pattern>/delete-blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/changepass</url-pattern>
+    </servlet-mapping>
+   
     <session-config>
         <session-timeout>
             30
