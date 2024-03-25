@@ -82,7 +82,7 @@
                         Logout
                     </a>
                 </c:if>
-                <a href="${sessionScope.account eq null ? 'login' : 'cart.jsp'}" class="ml-3">
+                <a href="${sessionScope.account eq null ? 'login' : 'cart'}" class="ml-3">
                     <img src="img/icon/cart.png" alt="">
                     <span id="numberCart">${sessionScope.listCartProduct.size()}
                     </span>
