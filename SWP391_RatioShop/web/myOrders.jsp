@@ -93,8 +93,7 @@
                         <option value="2"> Accepted</option>
                         <option value="3"> Delivering</option>
                         <option value="4"> Delivered</option>
-                        <option value="5"> Unable to deliver</option>
-                        <option value="6"> Success  </option>
+                        <option value="5"> Success  </option>
                         <option value="0"> Declined</option>
                     </select>
                 </div>
@@ -141,8 +140,8 @@
                                     <c:if test="${o.status eq 3}">Delivering</c:if>
                                     <c:if test="${o.status eq 4}">Delivered</c:if>
 
-                                    <c:if test="${o.status eq 6}">Success</c:if>
-                                    <c:if test="${o.status eq 5}">Unable to deliver</c:if>
+                                    <c:if test="${o.status eq 5}">Success</c:if>
+        
 
                                     <c:if test="${o.status eq 0}">Declined</c:if>
                                     </td>

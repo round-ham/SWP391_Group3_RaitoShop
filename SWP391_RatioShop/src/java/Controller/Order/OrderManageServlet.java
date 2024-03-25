@@ -30,7 +30,7 @@ public class OrderManageServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         OrderDAO daoO = new OrderDAO();
-        request.setAttribute("listO", daoO.getAllOrder());
+        request.setAttribute("listO", daoO.getAllOrder("1", "2"));
         request.getRequestDispatcher("manageOrders.jsp").forward(request, response);
     } 
 

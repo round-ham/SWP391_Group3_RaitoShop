@@ -45,17 +45,18 @@ public class FilterMyOrder extends HttpServlet {
         for (Order o : listO) {
             switch (o.getStatus()) {
                 case 1:
-                    status = "Wait for approving";
+                    status = "Pending";
                     break;
                 case 2:
-                    status = "Preparing";
+                    status = "Accepted";
                     break;
                 case 3:
                     status = "Delivering";
                     break;
                 case 4:
-                    status = "Successful Delivered";
+                    status = "Delivered";
                     break;
+
                 case 5:
                     status = "Success";
                     break;
@@ -86,22 +87,28 @@ public class FilterMyOrder extends HttpServlet {
                     + "                                <td class=\"align-middle\">" + o.getShippedDate() + "</td>\n"
                     + "                                <td class=\"align-middle\">" + o.getAddress() + "</td>\n"
                     + "                                <td class=\"align-middle\">" + df.format(o.getTotalMoney()) + "VND</td>\n";
-            if (o.getStatus() != 5) {
-                data += "                                <td class=\"align-middle\"><a href=\"update-status-order?orderId=" + o.getId() + "&status=" + o.getStatus() + "\" ><button class=\"btn btn-sm btn-primary\"";
+            if (o.getStatus() == 4) {
+                data += " <td class=\"align-middle\"><a href=\"update-status-order?orderId" + o.getId() + "&status=5&previousUrl=my-order\" >\n"
+                        + "                                            <button class=\"btn btn-sm btn-primary\"\n"
+                        + "\n"
+                        + "                                                    style=\"background-color: green\"\n"
+                        + "                                                    >\n"
+                        + "                                                <i class=\"fa fa-check\"></i>\n"
+                        + "                                            </button></a></td>";
 
-                if (o.getStatus() != 4) {
-                    data += "disabled=\"\" style=\"background-color: greenyellow\"";
-                } else {
-                    data += " style=\"background-color: green\"";
-                }
-                data += "><i class=\"fa fa-check\"></i></button></a></td>\n"
-                        + "                                <td class=\"align-middle\"><a href=\"update-status-order?orderId=" + o.getId() + "&status=0\" ><button class=\"btn btn-sm btn-primary\"";
-                if (o.getStatus() > 2) {
-                    data += "disabled = \"\"";
-                }
-                data += " style=\"background-color: red\"><i class=\"fa fa-remove\"></i></button></a></td>\n";
+            } else {
+                data += "<td></td>";
             }
-            data += "<td class=\"align-middle\"><a href=\"my-order-detail?orderId="+o.getId()+"\" >\n"
+            if (o.getStatus() == 1) {
+                data += "<td class=\"align-middle\"><a href=\"update-status-order?orderId=" + o.getId() + "&status=0&previousUrl=my-order\" >\n"
+                        + "                                            <button class=\"btn btn-sm btn-primary\" style=\"background-color: red\"\n"
+                        + "                                                    ><i class=\"fa fa-remove\"></i>\n"
+                        + "                                            </button></a>\n"
+                        + "                                    </td>";
+            } else {
+                data += "<td></td>";
+            }
+            data += "<td class=\"align-middle\"><a href=\"my-order-detail?orderId=" + o.getId() + "\" >\n"
                     + "                                            \n"
                     + "                                                    View detail\n"
                     + "                                                </a></td>                            </tr>";

@@ -1,4 +1,4 @@
-a<%-- 
+<%-- 
     Document   : cart
     Created on : Nov 1, 2023, 7:51:15 AM
     Author     : Admin
@@ -75,18 +75,7 @@ a<%--
         <div class="container">
             <div class="row">
 
-                <div class="col-lg-3 col-md-3">
-                    <div class="header__nav__option">
-                        <c:if test="${sessionScope.account eq null}">
-                            <a href="./login" style="color: black"><img style="width: 35px" src="pic/acc.png" alt=""> Login</a>
-                            </c:if>
-                            <c:if test="${sessionScope.account ne null}">
-                            <a href="./logout" style="color: black"><img style="width: 35px" src="pic/acc.png" alt=""> Logout</a>
-                            </c:if>
-                        <a href="${sessionScope.account eq null ? 'login' : 'cart.jsp'}"><img src="img/icon/cart.png" alt=""> <span id="numberCart">${numberOfCart}</span></a>
-                        <div class="price">Cart</div>
-                    </div>
-                </div>
+                
             </div>
             <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
@@ -181,7 +170,7 @@ a<%--
                                         </div>
                                         <div class="row mb-5 mt-4 ">
                                             <button type="submit" class="purchase-button">
-                                                <a href="payment?total=${Math.round(total)}">Pay by VnPay</a>
+                                                <a href="payment?total=${Math.round(total)}">Payment</a>
                                             </button>
 
                                         </div>

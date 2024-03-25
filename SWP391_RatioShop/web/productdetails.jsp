@@ -62,6 +62,19 @@
                 font-size: 14px;
             }
 
+            .card {
+                max-width: 100%; /* Ensure card doesn't exceed container width */
+                max-height: 100%
+            }
+            
+            .product-imgs {
+                max-height: 900px
+            }
+           
+            .img-main {
+                max-height: 600px
+            }
+
         </style>
         <style>
             /* CSS Styles */
@@ -123,12 +136,12 @@
             <div class="container" >
                 <div class="row">
                     <div class = "card-wrapper">
-                        <div class = "card">
+                        <div class = "card" style=>
                             <!-- card left -->
                             <div class = "product-imgs">
                                 <div class = "img-display">
                                     <div class = "img-showcase">
-                                        <img  src = "${p.productImage}" alt = "shoe image">
+                                        <img class ="img-main" src = "${p.productImage}" alt = "shoe image">
                                         <c:forEach items="${listI}" var="im">
                                             <img src = "${im.value}" alt = "shoe image">
                                         </c:forEach>
@@ -210,7 +223,7 @@
 
                                 </div>
 
-                            
+
                             </div>
                         </div>
                     </div>

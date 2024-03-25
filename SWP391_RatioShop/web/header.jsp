@@ -28,10 +28,11 @@
                     <c:if test="${sessionScope.account != null && sessionScope.account.getRoleName() == 'marketing staff'}">
                         <ul class="dropdown">
                             <li><a href="manageblog">Manage Blog</a></li>
-                            <li><a href="manage-feedback">Manage Feedback</a></li>
+                   
                         </ul>
+                        <li><a href="feedback-manage">Manage Feedback</a>  </li>
                     </c:if>
-                    </li>
+                  
                     <!-- SELLER -->
                     <c:if test="${sessionScope.account != null && sessionScope.account.getRoleName() == 'seller'}">
                         <li>
@@ -82,7 +83,7 @@
                         Logout
                     </a>
                 </c:if>
-                <a href="${sessionScope.account eq null ? 'login' : 'cart.jsp'}" class="ml-3">
+                <a href="${sessionScope.account eq null ? 'login' : 'cart'}" class="ml-3">
                     <img src="img/icon/cart.png" alt="">
                     <span id="numberCart">${sessionScope.listCartProduct.size()}
                     </span>

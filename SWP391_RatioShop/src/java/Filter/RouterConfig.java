@@ -99,6 +99,22 @@ class RouterAuthorization {
                     add(RoleName.SHIPPER);
                 }
             }));
+                   add(new RouterConfig("/manageblog", new ArrayList<String>() {
+                {
+                    add(RoleName.MARKETING);
+                }
+            }));
+             add(new RouterConfig("/feedback-manage", new ArrayList<String>() {
+                {
+                    add(RoleName.MARKETING);
+                }
+            }));
+               add(new RouterConfig("/manage-account", new ArrayList<String>() {
+                {
+                    add(RoleName.ADMIN);
+                }
+            }));
+            
             
                
         }

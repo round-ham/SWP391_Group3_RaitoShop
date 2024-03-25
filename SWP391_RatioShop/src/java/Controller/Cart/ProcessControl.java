@@ -108,7 +108,6 @@ public class ProcessControl extends HttpServlet {
                 double price = p.getProduct().getUnitPrice();
                 Item t = new Item(p, num, price);
                 System.out.println(num);
-                cart.removeItem(pId, sizeId, colorId);
                 cart.addItem(t);
             }
         } catch (Exception e) {

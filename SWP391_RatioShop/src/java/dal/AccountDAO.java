@@ -370,4 +370,25 @@ public class AccountDAO {
         }
         return false;
     }
+        public int getUserIdByEmail(String email) {
+    try {
+        String query = "SELECT accountId FROM Accounts WHERE email = ?";
+        conn = new DBContext().getConnection();
+        ps = conn.prepareStatement(query);
+        ps.setString(1, email);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt("accountId"); // Đảm bảo rằng cột accountId được trả về từ cơ sở dữ liệu
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        closeResources();
+    }
+    return -1; // Trả về -1 nếu không tìm thấy accountId hoặc có lỗi xảy ra
+}
+    public static void main(String[] args) {
+        System.out.println("dal.AccountDAO.main()");
+    }
 }

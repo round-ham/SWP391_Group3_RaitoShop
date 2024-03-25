@@ -15,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        HttpSession session = request.getSession();
 
         // Validate login credentials (you may want to implement stronger validation logic)
         if (isValidLogin(email, password)) {
@@ -43,7 +45,11 @@ public class LoginController extends HttpServlet {
             request.getSession().setAttribute("listCartProduct", listCartProduct);
             Accounts account = new AccountDAO().getAccountByEmail(email);
             request.getSession().setAttribute("account", account);
-            request.getSession().setAttribute("loggedInAccountId", account.getAccountId());
+            int userId = new AccountDAO().getUserIdByEmail(email);
+
+            // Lưu userId vào session
+            request.getSession().setAttribute("userId", userId);
+            session.setAttribute("email", email);
             updateLastLogin(email);
             String returnUrl = request.getParameter("returnUrl");
             if (returnUrl != null) {
@@ -63,7 +69,7 @@ public class LoginController extends HttpServlet {
         Accounts account = new AccountDAO().getAccountByEmail(email);
         boolean checkLogin = account != null && account.getPassword().equals(new PasswordHash().hashPassword(password));
 
-        // Accounts valid login if email and password are not empty and checkLogin return true
+        // For simplicity, let's assume a valid login if email and password are not empty
         return email != null && !email.isEmpty() && password != null && !password.isEmpty() && checkLogin;
     }
 

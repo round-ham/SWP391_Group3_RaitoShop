@@ -23,12 +23,13 @@
                 padding: 0;
             }
 
-            .container-co {
+         .container-co {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
+                height: 50vh;
             }
+
 
             .form-container {
                 background-color: #fff;
@@ -93,8 +94,7 @@
                         <option value="2"> Accepted</option>
                         <option value="3"> Delivering</option>
                         <option value="4"> Delivered</option>
-                        <option value="5"> Unable to deliver</option>
-                        <option value="6"> Success  </option>
+                        <option value="5"> Success  </option>
                         <option value="0"> Declined</option>
                     </select>
                 </div>
@@ -125,7 +125,6 @@
                             <th>Address</th>
                             <th>Total Money</th>
                             <th colspan="2">Action</th>
-                            <th>View Detail</th>
 
 
                         </tr>
@@ -142,8 +141,7 @@
                                     <c:if test="${o.status eq 2}">Accepted</c:if>
                                     <c:if test="${o.status eq 3}">Delivering</c:if>
                                     <c:if test="${o.status eq 4}">Delivered</c:if>
-                                    <c:if test="${o.status eq 5}">Unable to deliver</c:if>
-                                    <c:if test="${o.status eq 6}">Success</c:if>
+                                    <c:if test="${o.status eq 5}">Success</c:if>
 
                                     <c:if test="${o.status eq 0}">Declined</c:if>
                                     </td>
@@ -161,8 +159,7 @@
                                             </c:if>
                                             <c:if test="${o.status >= 1 || o.status == 0 }">
 
-                                    <td></td>
-                                    <td></td>
+                                 
                                 </c:if>
                                 <td class="align-middle"><a href="mange-order-details?orderId=${o.id}" >
 

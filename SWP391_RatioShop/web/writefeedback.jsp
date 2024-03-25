@@ -22,11 +22,12 @@
                 padding: 0;
             }
 
-            .container-co {
+          
+         .container-co {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
+                height: 50vh;
             }
 
             .form-container {

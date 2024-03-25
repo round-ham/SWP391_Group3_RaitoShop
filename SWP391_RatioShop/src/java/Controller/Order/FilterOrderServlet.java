@@ -54,10 +54,8 @@ public class FilterOrderServlet extends HttpServlet {
                 case 4:
                     status = "Delivered";
                     break;
+             
                 case 5:
-                        status = "Unable to deliver";
-                    break;
-                case 6:
                     status = "Success";
                     break;
                 default:
@@ -87,11 +85,14 @@ public class FilterOrderServlet extends HttpServlet {
                     + "                                <td class=\"align-middle\">" + o.getShippedDate() + "</td>\n"
                     + "                                <td class=\"align-middle\">" + o.getAddress() + "</td>\n"
                     + "                                <td class=\"align-middle\">" + df.format(o.getTotalMoney()) + "VND</td>\n";
-            if (o.getStatus() < 4 && o.getStatus() != 0) {
+            if (o.getStatus() < 4 && o.getStatus() != 0 && o.getStatus() != 2) {
                 data += "                                <td class=\"align-middle\"><a href=\"update-status-order?orderId=" + o.getId() + "&status=" + o.getStatus() + "\" ><button class=\"btn btn-sm btn-primary\" style=\"background-color: green\"><i class=\"fa fa-check\"></i></button></a></td>\n"
                         + "                                <td class=\"align-middle\"><a href=\"update-status-order?orderId=" + o.getId() + "&status=0\" ><button class=\"btn btn-sm btn-primary\" style=\"background-color: red\"><i class=\"fa fa-remove\"></i></button></a></td>\n";
             }
-            data += "                            </tr>";
+            data += "    <td class=\"align-middle\"><a href=\"mange-order-details?orderId=${o.id}\" >\n" +
+"\n" +
+"                                        View detail\n" +
+"                                    </a></td>                          </tr>";
             out.print(data);
         }
     }

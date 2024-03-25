@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
         <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
         <link rel="stylesheet" href="css/style.css" type="text/css">
-        <style>
+       <style>
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 background-color: #f3f3f3;
@@ -26,7 +26,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
+                height: 60vh;
             }
 
             .form-container {
@@ -34,8 +34,7 @@
                 border-radius: 10px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                 padding: 30px;
-                width: 90%;
-                margin-top: 450%;
+                width: 70%;
             }
 
             .form-heading {
@@ -70,6 +69,8 @@
                 background-color: #0056b3;
             }
         </style>
+    </head>
+    <body>
     </head>
     <body>
         <header style="margin-bottom: 22%; background: white">
