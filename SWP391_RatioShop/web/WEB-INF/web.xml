@@ -99,6 +99,22 @@
         <servlet-name>MyShippingController</servlet-name>
         <servlet-class>Controller.MyShippingController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageBlogController</servlet-name>
+        <servlet-class>Controller.ManageBlogController</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>FeedbackManage</servlet-name>
+        <servlet-class>Controller.feedback.FeedbackManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FeedbackManage</servlet-name>
+        <url-pattern>/manage-feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageBlogController</servlet-name>
+        <url-pattern>/manageblog</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/addproduct</url-pattern>
