@@ -13,11 +13,11 @@
     </filter-mapping>
       <servlet>
         <servlet-name>BlogController</servlet-name>
-        <servlet-class>controller.BlogController</servlet-class>
+        <servlet-class>Controller.BlogController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BlogDetailController</servlet-name>
-        <servlet-class>controller.BlogDetailController</servlet-class>
+        <servlet-class>Controller.BlogDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddProductServlet</servlet-name>
@@ -110,6 +110,10 @@
     <servlet-mapping>
         <servlet-name>CartControl</servlet-name>
         <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogDetailController</servlet-name>
+        <url-pattern>/blogdetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddProductDetailsServlet</servlet-name>
