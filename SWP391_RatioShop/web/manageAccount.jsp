@@ -150,9 +150,8 @@
                                 <th>Last Login</th>
                                 <th>Create Date</th>
                                 <th>Role</th>
-
-                                <!--                                <th>Status</th>-->
                                 <th></th>
+
                             </tr>
                         </thead>
                         <tbody class="align-middle">
@@ -212,13 +211,13 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
-                                    <td class="align-middle">
+<!--                                    <td class="align-middle">
                                         <form action="manage-account" method="post">
                                             <input type="hidden" name="action" value="delete">
                                             <input type="hidden" name="accountId" value="${o.accountId}">
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this account?')">Delete</button>
                                         </form>
-                                    </td>
+                                    </td>-->
                                 </tr>
                                 </c:if>
 
