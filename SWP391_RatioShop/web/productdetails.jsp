@@ -62,6 +62,11 @@
                 font-size: 14px;
             }
 
+            .card {
+                max-width: 100%; /* Ensure card doesn't exceed container width */
+                max-height: 100%
+            }
+
         </style>
         <style>
             /* CSS Styles */
@@ -123,7 +128,7 @@
             <div class="container" >
                 <div class="row">
                     <div class = "card-wrapper">
-                        <div class = "card">
+                        <div class = "card" style=>
                             <!-- card left -->
                             <div class = "product-imgs">
                                 <div class = "img-display">
@@ -210,7 +215,7 @@
 
                                 </div>
 
-                            
+
                             </div>
                         </div>
                     </div>
