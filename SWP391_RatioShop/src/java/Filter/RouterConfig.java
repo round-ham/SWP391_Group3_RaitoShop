@@ -89,6 +89,11 @@ class RouterAuthorization {
                     add(RoleName.SELLER);
                 }
             }));
+                          add(new RouterConfig("/manage-products-detail?pid=?", new ArrayList<String>() {
+                {
+                    add(RoleName.SELLER);
+                }
+            }));
                add(new RouterConfig("/shiplist", new ArrayList<String>() {
                 {
                     add(RoleName.SHIPPER);
