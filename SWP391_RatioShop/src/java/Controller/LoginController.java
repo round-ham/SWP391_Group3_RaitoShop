@@ -39,7 +39,7 @@ public class LoginController extends HttpServlet {
         HttpSession session = request.getSession();
 
         // Validate login credentials (you may want to implement stronger validation logic)
-        if (isValidLogin(email, password)) {
+        if (isValidLogin(email, password, request)) {
             List<Product> listCartProduct = new ArrayList<>();
             // If login is successful, update lastLogin and redirect to a home page
             request.getSession().setAttribute("listCartProduct", listCartProduct);
@@ -58,21 +58,28 @@ public class LoginController extends HttpServlet {
             } else {
                 response.sendRedirect("homepage");
             }
-        } else {
+          } else {
             // If login fails, set an error message and forward back to the login page
-            request.setAttribute("err", "Invalid email or password");
+            request.getAttribute("err");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 
-    private boolean isValidLogin(String email, String password) {
+    private boolean isValidLogin(String email, String password, HttpServletRequest request) {
 
-        Accounts account = new AccountDAO().getAccountByEmail(email);
-        boolean checkLogin = account != null && account.getPassword().equals(new PasswordHash().hashPassword(password));
-        boolean checkStatus = account != null && account.getStatus() == 1;
+        AccountDAO accountDAO = new AccountDAO();
+        Accounts account = accountDAO.getAccountByEmail(email);
+        boolean validLogin = account != null && account.getPassword().equals(new PasswordHash().hashPassword(password));
+        boolean isBanned = account != null && account.getStatus() == 0;
+        if (validLogin && !isBanned) {
+            return true;
+        } else if (isBanned) {
+            request.setAttribute("err", "Your account has been banned. Please contact support for assistance.");
+        } else {
+            request.setAttribute("err", "Invalid email or password");
+        }
 
-        // Accounts valid login if email and password are not empty and checkLogin return true
-        return email != null && !email.isEmpty() && password != null && !password.isEmpty() && checkLogin && checkStatus;
+        return false;
     }
 
     private void updateLastLogin(String email) {
