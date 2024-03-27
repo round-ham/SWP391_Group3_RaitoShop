@@ -12,7 +12,7 @@
         <style>
             .error-message {
     color: red;
-    font-size: 0.875rem; /* Tu? ch?nh kích th??c phù h?p */
+    font-size: 0.875rem; /* Tu? ch?nh kÃ­ch th??c phÃ¹ h?p */
 }
             body{
                 margin-top:20px;
@@ -89,8 +89,6 @@
                 
                 <a class="nav-link active ms-0" href="profile" target="__blank">Profile</a>
                 <a class="nav-link" id="changePasswordLink" href="#"  onclick="loadChangePassword()" >Change Password</a>
-    <a class="nav-link" id="my-order" href="my-order"  >My Order</a>
-
             </nav>
             <hr class="mt-0 mb-4">
             <div class="row" id="profileContent">
@@ -158,6 +156,7 @@
                                 <span class="error-message">${ms2}</span>
                                 <span class="error-message">${ms3}</span>
                                 <span class="error-message">${sc}</span>
+                                <span class="error-message">${error}</span>
                                 <input class="form-control" name="password" id="currentPassword" type="password" placeholder="Enter current password">
                             </div>
                             <!-- Form Group (new password)-->
@@ -178,13 +177,13 @@
         </div>
         <script>
             function loadChangePassword() {
-                // Lo?i b? l?p active t? t?t c? các liên k?t
+                // Lo?i b? l?p active t? t?t c? cÃ¡c liÃªn k?t
                 var navLinks = document.getElementsByClassName("nav-link");
                 for (var i = 0; i < navLinks.length; i++) {
                     navLinks[i].classList.remove("active");
                 }
 
-                // Thêm l?p active cho liên k?t "Change Password"
+                // ThÃªm l?p active cho liÃªn k?t "Change Password"
                 document.getElementById("changePasswordLink").classList.add("active");
 
                 // ?n ph?n profileContent
@@ -195,24 +194,24 @@
             }
 
             window.onload = function () {
-                // ?n ph?n changepasswordContent khi trang ???c t?i l?n ??u tiên
+                // ?n ph?n changepasswordContent khi trang ???c t?i l?n ??u tiÃªn
                 document.getElementById("changepasswordContent").style.display = "none";
 
-                // Ki?m tra n?u URL có ch?a chu?i "/changepass" (t?c là b?n ?ang trên trang changepass)
+                // Ki?m tra n?u URL cÃ³ ch?a chu?i "/changepass" (t?c lÃ  b?n ?ang trÃªn trang changepass)
                 if (window.location.href.indexOf("/changepass") !== -1) {
-                    // G?i hàm loadChangePassword() t? ??ng ?? hi?n th? n?i dung c?a trang changepassword
+                    // G?i hÃ m loadChangePassword() t? ??ng ?? hi?n th? n?i dung c?a trang changepassword
                     loadChangePassword();
                 }
 
-                // B?t s? ki?n click vào liên k?t "Profile"
+                // B?t s? ki?n click vÃ o liÃªn k?t "Profile"
                 document.getElementById("profileLink").addEventListener("click", function () {
-                    // Lo?i b? l?p active t? t?t c? các liên k?t
+                    // Lo?i b? l?p active t? t?t c? cÃ¡c liÃªn k?t
                     var navLinks = document.getElementsByClassName("nav-link");
                     for (var i = 0; i < navLinks.length; i++) {
                         navLinks[i].classList.remove("active");
                     }
 
-                    // Thêm l?p active cho liên k?t "Profile"
+                    // ThÃªm l?p active cho liÃªn k?t "Profile"
                     document.getElementById("profileLink").classList.add("active");
 
                     // Hi?n ph?n profileContent
@@ -226,9 +225,9 @@
 
         <!--<script>
             window.onload = function() {
-                // Ki?m tra n?u URL có ch?a chu?i "/changepass" (t?c là b?n ?ang trên trang changepass)
+                // Ki?m tra n?u URL cÃ³ ch?a chu?i "/changepass" (t?c lÃ  b?n ?ang trÃªn trang changepass)
                 if (window.location.href.indexOf("/changepass") !== -1) {
-                    // G?i hàm loadChangePassword() t? ??ng ?? hi?n th? n?i dung c?a trang changepassword
+                    // G?i hÃ m loadChangePassword() t? ??ng ?? hi?n th? n?i dung c?a trang changepassword
                     loadChangePassword();
                 }
             };
