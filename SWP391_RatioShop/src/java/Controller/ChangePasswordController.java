@@ -74,7 +74,8 @@ public class ChangePasswordController extends HttpServlet {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
         String password = (String) request.getParameter("password");
-        String hashPassword = (new PasswordHash().hashPassword(password));
+        String hashPassword;
+            hashPassword = (PasswordHash.hashPassword(password));
             System.out.println(hashPassword);
         String newPassword = (String) request.getParameter("newPassword");
         String con_newPassword = (String)request.getParameter("con_newPassword");
