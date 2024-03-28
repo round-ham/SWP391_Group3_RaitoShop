@@ -21,18 +21,18 @@
                             <li><a href="product?sort=categoryId0-2">Good Prices</a></li>                          
                         </ul>
                     </li>
-                    
+
                     <li>
                         <a href="blog">Blog</a>
                         <!-- Marketing Staff Role -->
                     <c:if test="${sessionScope.account != null && sessionScope.account.getRoleName() == 'marketing staff'}">
                         <ul class="dropdown">
                             <li><a href="manageblog">Manage Blog</a></li>
-                   
+
                         </ul>
                         <li><a href="feedback-manage">Manage Feedback</a>  </li>
                     </c:if>
-                  
+
                     <!-- SELLER -->
                     <c:if test="${sessionScope.account != null && sessionScope.account.getRoleName() == 'seller'}">
                         <li>
@@ -52,6 +52,15 @@
                             <a href="#">Admin Management</a>
                             <ul class="dropdown">
                                 <li><a href="manage-account">Manage Account</a></li>
+                                <li><a href="manage-products">Manage Product</a></li>
+                                <li><a href="manage-category">Manage Category</a></li>
+                                <li><a href="manage-brand">Manage Brand</a></li>
+                                <li><a href="salePrograms">Manage Sale Program</a></li>
+                                <li><a href="manage-orders">Manage Order</a></li>
+                                <li><a href="manageblog">Manage Blog</a></li>
+                                <li><a href="feedback-manage">Manage Feedback</a>  </li>
+
+
                             </ul>
                         </li>
                     </c:if>
