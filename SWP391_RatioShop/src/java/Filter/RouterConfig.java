@@ -59,69 +59,81 @@ class RouterAuthorization {
 
     public static List<RouterConfig> routerConfigs = new ArrayList<RouterConfig>() {
         {
-               add(new RouterConfig("/manage-account", new ArrayList<String>() {
+            add(new RouterConfig("/manage-account", new ArrayList<String>() {
                 {
                     add(RoleName.ADMIN);
                 }
             }));
             add(new RouterConfig("/manage-brand", new ArrayList<String>() {
                 {
+                    add(RoleName.ADMIN);
+
                     add(RoleName.SELLER);
                 }
             }));
-               add(new RouterConfig("/manage-products", new ArrayList<String>() {
+            add(new RouterConfig("/manage-products", new ArrayList<String>() {
                 {
+                    add(RoleName.ADMIN);
+
                     add(RoleName.SELLER);
                 }
             }));
-                 add(new RouterConfig("/manage-category", new ArrayList<String>() {
+            add(new RouterConfig("/manage-category", new ArrayList<String>() {
                 {
+                    add(RoleName.ADMIN);
+
                     add(RoleName.SELLER);
                 }
             }));
             add(new RouterConfig("/manage-orders", new ArrayList<String>() {
                 {
+                    add(RoleName.ADMIN);
+
                     add(RoleName.SELLER);
                 }
             }));
-             add(new RouterConfig("/sales", new ArrayList<String>() {
+            add(new RouterConfig("/sales", new ArrayList<String>() {
+                {
+                    add(RoleName.ADMIN);
+
+                    add(RoleName.SELLER);
+                }
+            }));
+            add(new RouterConfig("/manage-products-detail?pid=?", new ArrayList<String>() {
                 {
                     add(RoleName.SELLER);
                 }
             }));
-                          add(new RouterConfig("/manage-products-detail?pid=?", new ArrayList<String>() {
-                {
-                    add(RoleName.SELLER);
-                }
-            }));
-               add(new RouterConfig("/shiplist", new ArrayList<String>() {
+            add(new RouterConfig("/shiplist", new ArrayList<String>() {
                 {
                     add(RoleName.SHIPPER);
                 }
             }));
-                add(new RouterConfig("/myship", new ArrayList<String>() {
+            add(new RouterConfig("/myship", new ArrayList<String>() {
                 {
                     add(RoleName.SHIPPER);
                 }
             }));
-                   add(new RouterConfig("/manageblog", new ArrayList<String>() {
+            add(new RouterConfig("/manageblog", new ArrayList<String>() {
                 {
+                    add(RoleName.ADMIN);
+
                     add(RoleName.MARKETING);
                 }
             }));
-             add(new RouterConfig("/feedback-manage", new ArrayList<String>() {
+            add(new RouterConfig("/feedback-manage", new ArrayList<String>() {
                 {
+                    add(RoleName.ADMIN);
+
                     add(RoleName.MARKETING);
                 }
             }));
-               add(new RouterConfig("/manage-account", new ArrayList<String>() {
+            add(new RouterConfig("/manage-account", new ArrayList<String>() {
                 {
                     add(RoleName.ADMIN);
                 }
             }));
-            
-            
-               
+
         }
     };
 }
