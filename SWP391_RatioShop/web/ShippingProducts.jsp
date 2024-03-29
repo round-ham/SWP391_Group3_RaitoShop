@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <meta charset="UTF-8">
+        <meta charset="UTF-8">
         <meta name="description" content="Male_Fashion Template">
         <meta name="keywords" content="Male_Fashion, unica, creative, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,11 +18,11 @@
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
               rel="stylesheet">
-  <!-- Bootstrap CSS -->
+        <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <!-- DataTables CSS -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-  
+
         <!-- Css Styles -->
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -34,7 +34,7 @@
         <link rel="stylesheet" href="css/style.css" type="text/css">
     </head>
     <body>
-       <header class="header" style= "box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+        <header class="header" style= "box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
             <%@include file="header.jsp" %>
         </header>
 
@@ -54,8 +54,8 @@
             <h2>DELIVERY LIST</h2>
 
             <a href="/RatioShop/myship"><input type="button" value="MY DELIVERIES" class="btn btn-primary mb-3 mt-5" ></a>
-              
-         
+
+
 
             <table id="saleProgramsTable" class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -66,6 +66,7 @@
                         <th>Address</th>
                         <th>Total money</th>
                         <th>Action</th>
+                        <th>Order Details</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,12 +80,16 @@
                             <td>
                                 <form id="shop" action="shiplist" method="POST">
                                     <input type="hidden" value="${order.id}" name = "id">
-                               
-                                <input value="Ship this" type="submit"   class="btn btn-secondary btn-sm" ">
-                                    
-                               
-                                     </form>
+
+                                    <input value="Ship this" type="submit"   class="btn btn-secondary btn-sm" ">
+
+
+                                </form>
                             </td>
+                            <td class="align-middle"><a href="mange-order-details?orderId=${order.id}" >
+
+                                    View details
+                                </a></td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -94,9 +99,9 @@
         <footer class="footer">
             <%@include file="footer.jsp" %>
         </footer>
-       
 
-          <!-- jQuery -->
+
+        <!-- jQuery -->
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- Bootstrap JS -->

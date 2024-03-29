@@ -66,6 +66,7 @@
                         <th>Note</th>
                         <th>Action</th>
                         <th>Action</th>
+                        <th>Order Details</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -132,6 +133,10 @@
                             </div>
                         </div>
                     </td>
+                    <td class="align-middle"><a href="mange-order-details?orderId=${order.id}" >
+
+                                        View details
+                                    </a></td>
 
                     </tr>
                 </c:forEach>
