@@ -89,6 +89,7 @@
                 
                 <a class="nav-link active ms-0" href="profile" target="__blank">Profile</a>
                 <a class="nav-link" id="changePasswordLink" href="#"  onclick="loadChangePassword()" >Change Password</a>
+                <a class="nav-link" id="my-order" href="my-order?accountId=${order.customerId}"  >My Order</a>
             </nav>
             <hr class="mt-0 mb-4">
             <div class="row" id="profileContent">
